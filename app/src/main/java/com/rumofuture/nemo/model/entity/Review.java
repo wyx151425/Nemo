@@ -12,6 +12,10 @@ public class Review extends BmobObject {
     private User reviewer;
     private String content;
 
+    public Review() {
+
+    }
+
     public Review(Book book, User reviewer) {
         this.book = book;
         this.reviewer = reviewer;

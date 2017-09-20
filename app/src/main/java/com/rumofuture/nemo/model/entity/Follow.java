@@ -11,6 +11,10 @@ public class Follow extends BmobObject {
     private User author;
     private User follower;
 
+    public Follow() {
+
+    }
+
     public Follow(User author, User follower) {
         this.author = author;
         this.follower = follower;

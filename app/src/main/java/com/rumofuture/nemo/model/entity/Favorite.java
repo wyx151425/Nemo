@@ -11,6 +11,10 @@ public class Favorite extends BmobObject {
     private Book book;
     private User favor;
 
+    public Favorite() {
+        
+    }
+
     public Favorite(Book book, User favor) {
         this.book = book;
         this.favor = favor;
