@@ -24,7 +24,7 @@ public class NemoBookStylePickerFragment extends DialogFragment {
     public String mStyle;
     public View mPreviousFocusedView;
 
-    public String[] mStyleArray = {"古典", "热血", "科幻", "推理", "爆笑", "萌系", "唯美", "悬疑"};
+    public String[] mStyleArray = {"古典", "热血", "唯美", "清新", "推理", "爆笑", "悬疑", "萌系"};
 
     public NemoBookStylePickerFragment() {
 

@@ -20,30 +20,33 @@ import java.util.List;
  * Created by WangZhenqi on 2017/4/13.
  */
 
-public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbumListAdapter.ItemViewHolder> {
+public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbumListAdapter.AlbumViewHolder> {
 
     private List<Album> mAlbumList;
     private Context mContext;
 
     public NemoMainAlbumListAdapter() {
         mAlbumList = new ArrayList<>();
-        mAlbumList.add(new Album(R.drawable.classicism, "古典", "Classical Style"));
-        mAlbumList.add(new Album(R.drawable.purefresh, "清新", "Pure & Fresh Style"));
+        mAlbumList.add(new Album(R.drawable.classical, "古典", "Classical Style"));
         mAlbumList.add(new Album(R.drawable.burningblood, "热血", "Burning Blood Style"));
-        mAlbumList.add(new Album(R.drawable.artistic, "文艺", "Artistic Style"));
-        mAlbumList.add(new Album(R.drawable.lovely, "宠萌", "Lovely Style"));
-        mAlbumList.add(new Album(R.drawable.humor, "幽默", "Humor Style"));
+        mAlbumList.add(new Album(R.drawable.aesthetic, "唯美", "Aesthetic Style"));
+        mAlbumList.add(new Album(R.drawable.purefresh, "清新", "Pure & Fresh Style"));
+        mAlbumList.add(new Album(R.drawable.inference, "推理", "Inference Style"));
+        mAlbumList.add(new Album(R.drawable.hilarious, "爆笑", "Hilarious Style"));
+        mAlbumList.add(new Album(R.drawable.cliffhang, "悬疑", "Cliffhang Style"));
+        mAlbumList.add(new Album(R.drawable.lovely, "萌系", "Lovely Style"));
+
     }
 
 
     @Override
-    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (mContext == null) {
+    public AlbumViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (null == mContext) {
             mContext = parent.getContext();
         }
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_nemo_main_album_list, parent, false);
-        final ItemViewHolder holder = new ItemViewHolder(view);
+        final AlbumViewHolder holder = new AlbumViewHolder(view);
         holder.mAlbumGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +61,7 @@ public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbum
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(AlbumViewHolder holder, int position) {
         holder.mAlbumCoverView.setImageResource(mAlbumList.get(position).getImageId());
         holder.mAlbumStyleView.setText(mAlbumList.get(position).getStyle());
         holder.mAlbumNoteView.setText(mAlbumList.get(position).getNote());
@@ -69,14 +72,14 @@ public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbum
         return mAlbumList.size();
     }
 
-    static class ItemViewHolder extends RecyclerView.ViewHolder {
+    static class AlbumViewHolder extends RecyclerView.ViewHolder {
 
         ImageView mAlbumCoverView;
         TextView mAlbumNoteView;
         TextView mAlbumStyleView;
         Button mAlbumGoButton;
 
-        ItemViewHolder(View itemView) {
+        AlbumViewHolder(View itemView) {
             super(itemView);
 
             mAlbumCoverView = (ImageView) itemView.findViewById(R.id.album_cover_view);
