@@ -12,7 +12,7 @@ public class Favorite extends BmobObject {
     private User favor;
 
     public Favorite() {
-        
+
     }
 
     public Favorite(Book book, User favor) {
