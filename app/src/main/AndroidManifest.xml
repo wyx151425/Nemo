@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.rumofuture.nemo">
+
+    <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- 推送所需的权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <application
+        android:name=".app.NemoApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.activity.NemoMainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activity.MyBookCreateActivity"
+            android:label="@string/title_activity_my_book_create"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyBookPageListActivity"
+            android:label="@string/title_activity_my_book_page_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyBookListActivity"
+            android:label="@string/title_activity_my_book_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoLogInActivity"
+            android:label="@string/title_activity_nemo_log_in"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyBlogActivity"
+            android:label="@string/title_activity_my_blog"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyInfoEditActivity"
+            android:label="@string/title_activity_my_info_edit"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoAuthorBlogActivity"
+            android:label="@string/title_activity_nemo_author_blog"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MySettingListActivity"
+            android:label="@string/title_activity_my_setting_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoBookPageListActivity"
+            android:label="@string/title_activity_nemo_book_page_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoBookInfoActivity"
+            android:label="@string/title_activity_nemo_book_info"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoBookReviewEditActivity"
+            android:label="@string/title_activity_nemo_review_edit"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyFollowAuthorListActivity"
+            android:label="@string/title_activity_my_follow_author_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyFavoriteBookListActivity"
+            android:label="@string/title_activity_my_favorite_book_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoSignUpActivity"
+            android:label="@string/title_activity_nemo_sign_up"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyPasswordUpdateActivity"
+            android:label="@string/title_activity_my_password_update"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoPasswordUpdateActivity"
+            android:label="@string/title_activity_nemo_password_update"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyProfileEditActivity"
+            android:label="@string/title_activity_my_profile_edit"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoAlbumBookListActivity"
+            android:label="@string/title_activity_nemo_album_book_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyFollowerListActivity"
+            android:label="@string/title_activity_my_follower_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyEmailBindActivity"
+            android:label="@string/title_activity_nemo_email_bind"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoAccountSecurityActivity"
+            android:label="@string/title_activity_nemo_account_security"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoBookSearchActivity"
+            android:label="@string/title_activity_nemo_book_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.NemoAuthorSearchActivity"
+            android:label="@string/title_activity_nemo_author_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".view.activity.MyBookInfoActivity"
+            android:label="@string/title_activity_nemo_author_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- *******以下添加推送所需要的服务和广播******* -->
+
+
+        <!-- *****属于的Bmob服务***** -->
+        <service
+            android:name="cn.bmob.push.lib.service.PushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":bmobpush">
+            <intent-filter>
+                <action android:name="cn.bmob.push.lib.service.PushService"/>
+            </intent-filter>
+        </service>
+
+        <!-- 用于进程保活 -->
+        <service
+            android:name="cn.bmob.push.lib.service.PushNotifyService"
+            android:process=":bmobpush">
+        </service>
+
+        <!-- *****属于Bmob的消息接收器***** -->
+        <receiver android:name="cn.bmob.push.PushReceiver">
+            <intent-filter>
+
+                <!-- 系统启动完成后会调用 -->
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <!-- 解锁完成后会调用 -->
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <!-- 监听网络连通性 -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- *****属于Nemo的消息接收器***** -->
+        <receiver android:name=".app.receiver.NemoMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.bmob.push.action.MESSAGE"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Bmob接收心跳和唤醒的广播的接收器，要和PushService运行在同个进程 -->
+        <receiver
+            android:name="cn.bmob.push.PushNotifyReceiver"
+            android:process=":bmobpush">
+            <intent-filter>
+
+                <!-- 接收心跳广播的action -->
+                <action android:name="cn.bmob.push.action.HEARTBEAT"/>
+                <!-- 接收唤醒广播的action -->
+                <action android:name="cn.bmob.push.action.NOTIFY"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
