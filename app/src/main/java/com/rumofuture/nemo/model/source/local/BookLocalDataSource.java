@@ -3,6 +3,7 @@ package com.rumofuture.nemo.model.source.local;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.BookDataSource;
@@ -65,7 +66,12 @@ public class BookLocalDataSource implements BookDataSource {
     }
 
     @Override
-    public void getBookTotal(User author, TotalGetCallback callback) {
+    public void getAuthorBookTotal(User author, TotalGetCallback callback) {
+
+    }
+
+    @Override
+    public void getAlbumBookTotal(Album album, TotalGetCallback callback) {
 
     }
 

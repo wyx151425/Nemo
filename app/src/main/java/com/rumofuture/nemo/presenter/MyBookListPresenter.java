@@ -46,7 +46,7 @@ public class MyBookListPresenter implements MyBookListContract.Presenter, UserDa
         mBookRepository.getBookListByAuthor(
                 BmobUser.getCurrentUser(User.class), pageCode, true, this
         );
-        mBookRepository.getBookTotal(
+        mBookRepository.getAuthorBookTotal(
                 BmobUser.getCurrentUser(User.class), this
         );
     }

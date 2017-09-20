@@ -3,6 +3,7 @@ package com.rumofuture.nemo.model.source;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
 
@@ -73,8 +74,13 @@ public class BookRepository implements BookDataSource {
     }
 
     @Override
-    public void getBookTotal(User author, TotalGetCallback callback) {
-        mBookRemoteDataSource.getBookTotal(author, callback);
+    public void getAuthorBookTotal(User author, TotalGetCallback callback) {
+        mBookRemoteDataSource.getAuthorBookTotal(author, callback);
+    }
+
+    @Override
+    public void getAlbumBookTotal(Album album, TotalGetCallback callback) {
+        mBookRemoteDataSource.getAlbumBookTotal(album, callback);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.rumofuture.nemo.model.source;
 
 import android.support.annotation.Nullable;
 
+import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
 
@@ -34,7 +35,8 @@ public interface BookDataSource {
     // 获取用户收藏的漫画册
     void getFavoriteBookList(User favor, int pageCode, BookDataSource.BookListGetCallback callback);
 
-    void getBookTotal(User author, TotalGetCallback callback);
+    void getAuthorBookTotal(User author, TotalGetCallback callback);
+    void getAlbumBookTotal(Album album, TotalGetCallback callback);
     void getFavoriteBookTotal(User favor, TotalGetCallback callback);
 
     void searchBook(String keyword, BookListGetCallback callback);

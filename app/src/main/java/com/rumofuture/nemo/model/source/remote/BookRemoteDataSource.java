@@ -2,6 +2,7 @@ package com.rumofuture.nemo.model.source.remote;
 
 import android.support.annotation.Nullable;
 
+import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Favorite;
 import com.rumofuture.nemo.model.entity.User;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobSmsState;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.FindListener;
@@ -212,9 +214,25 @@ public class BookRemoteDataSource implements BookDataSource {
     }
 
     @Override
-    public void getBookTotal(User author, final TotalGetCallback callback) {
+    public void getAuthorBookTotal(User author, final TotalGetCallback callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.AUTHOR, author);
+        query.count(Book.class, new CountListener() {
+            @Override
+            public void done(Integer total, BmobException e) {
+                if (null == e) {
+                    callback.onTotalGetSuccess(total);
+                } else {
+                    callback.onTotalGetFailed(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getAlbumBookTotal(Album album, final TotalGetCallback callback) {
+        BmobQuery<Book> query = new BmobQuery<>();
+        query.addWhereEqualTo(BookSchema.Table.Cols.STYLE, album.getStyle());
         query.count(Book.class, new CountListener() {
             @Override
             public void done(Integer total, BmobException e) {
