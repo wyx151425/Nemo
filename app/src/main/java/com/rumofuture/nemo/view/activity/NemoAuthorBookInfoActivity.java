@@ -8,18 +8,23 @@ import android.view.MenuItem;
 
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
+import com.rumofuture.nemo.app.manager.DataSourceManager;
+import com.rumofuture.nemo.app.manager.NemoActivityManager;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.presenter.NemoBookInfoPresenter;
-import com.rumofuture.nemo.app.manager.NemoActivityManager;
-import com.rumofuture.nemo.app.manager.DataSourceManager;
+import com.rumofuture.nemo.view.fragment.NemoAuthorBookInfoFragment;
 import com.rumofuture.nemo.view.fragment.NemoBookInfoFragment;
 
-public class NemoBookInfoActivity extends NemoActivity {
+/**
+ * Created by WangZhenqi on 2017/9/20.
+ */
 
-    private static final String EXTRA_BOOK = "com.rumofuture.nemo.view.activity.NemoBookInfoActivity.BookObject";
+public class NemoAuthorBookInfoActivity extends NemoActivity {
+
+    private static final String EXTRA_BOOK = "com.rumofuture.nemo.view.activity.NemoAuthorBookInfoActivity.BookObject";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nemo_book_info);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -33,19 +38,19 @@ public class NemoBookInfoActivity extends NemoActivity {
             getSupportActionBar().setTitle(book.getName());
         }
 
-        NemoBookInfoFragment fragment =
-                (NemoBookInfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (fragment == null) {
-            fragment = NemoBookInfoFragment.newInstance(book);
+        NemoAuthorBookInfoFragment fragment =
+                (NemoAuthorBookInfoFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (null == fragment) {
+            fragment = NemoAuthorBookInfoFragment.newInstance(book);
             NemoActivityManager.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
         }
 
         NemoBookInfoPresenter presenter = new NemoBookInfoPresenter(
                 fragment,
-                DataSourceManager.provideUserRepository(NemoBookInfoActivity.this),
-                DataSourceManager.provideBookRepository(NemoBookInfoActivity.this),
-                DataSourceManager.provideReviewRepository(NemoBookInfoActivity.this),
-                DataSourceManager.provideFavoriteRepository(NemoBookInfoActivity.this)
+                DataSourceManager.provideUserRepository(NemoAuthorBookInfoActivity.this),
+                DataSourceManager.provideBookRepository(NemoAuthorBookInfoActivity.this),
+                DataSourceManager.provideReviewRepository(NemoAuthorBookInfoActivity.this),
+                DataSourceManager.provideFavoriteRepository(NemoAuthorBookInfoActivity.this)
         );
         fragment.setPresenter(presenter);
     }
@@ -61,7 +66,7 @@ public class NemoBookInfoActivity extends NemoActivity {
 
     public static void actionStart(Context context, Book book) {
         Intent intent = new Intent();
-        intent.setClass(context, NemoBookInfoActivity.class);
+        intent.setClass(context, NemoAuthorBookInfoActivity.class);
         intent.putExtra(EXTRA_BOOK, book);
         context.startActivity(intent);
     }

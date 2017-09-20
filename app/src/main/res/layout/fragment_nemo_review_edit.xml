@@ -13,7 +13,7 @@
         android:layout_marginEnd="@dimen/activity_horizontal_middle_margin"
         android:layout_marginStart="@dimen/activity_horizontal_middle_margin"
         android:layout_marginTop="@dimen/activity_vertical_middle_margin"
-        android:background="@drawable/shape_profile_card_view">
+        android:background="@drawable/shape_text_view_review">
 
         <EditText
             android:id="@+id/review_content_view"

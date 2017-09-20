@@ -99,6 +99,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
+            android:name=".view.activity.NemoAuthorBookInfoActivity"
+            android:label="@string/title_activity_nemo_book_info"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name=".view.activity.NemoBookReviewEditActivity"
             android:label="@string/title_activity_nemo_review_edit"
             android:screenOrientation="portrait"
