@@ -13,7 +13,12 @@ public class Album extends BmobObject {
     private String style;  // 专辑的风格
     private String note;  // 专辑的注释
 
+    private Integer number;
     private Integer bookTotal;  // 专辑漫画册总数
+
+    public Album() {
+
+    }
 
     public Album(Integer imageId, String style, String note) {
         this.imageId = imageId;
@@ -43,6 +48,14 @@ public class Album extends BmobObject {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public Integer getBookTotal() {

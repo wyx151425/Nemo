@@ -17,6 +17,7 @@ public class AlbumSchema {
             public static final String IMAGE_ID = "imageId";
             public static final String STYLE = "style";
             public static final String NOTE = "note";
+            public static final String NUMBER = "number";
             public static final String BOOK_TOTAL = "bookTotal";
         }
     }

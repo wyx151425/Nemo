@@ -35,4 +35,9 @@ public class AlbumLocalDataSource implements AlbumDataSource {
     public void getAlbumByStyle(String style, AlbumGetCallback callback) {
 
     }
+
+    @Override
+    public void getAlbumList(AlbumListGetCallback callback) {
+
+    }
 }

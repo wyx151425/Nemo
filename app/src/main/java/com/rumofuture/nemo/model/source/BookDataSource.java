@@ -35,7 +35,7 @@ public interface BookDataSource {
     // 获取用户收藏的漫画册
     void getFavoriteBookList(User favor, int pageCode, BookDataSource.BookListGetCallback callback);
 
-    void getAuthorBookTotal(User author, TotalGetCallback callback);
+    void getAuthorBookTotal(User author, boolean self, TotalGetCallback callback);
     void getAlbumBookTotal(Album album, TotalGetCallback callback);
     void getFavoriteBookTotal(User favor, TotalGetCallback callback);
 

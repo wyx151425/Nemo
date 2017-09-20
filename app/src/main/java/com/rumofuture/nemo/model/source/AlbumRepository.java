@@ -41,4 +41,9 @@ public class AlbumRepository implements AlbumDataSource {
     public void getAlbumByStyle(String style, AlbumGetCallback callback) {
         mAlbumRemoteDataSource.getAlbumByStyle(style, callback);
     }
+
+    @Override
+    public void getAlbumList(AlbumListGetCallback callback) {
+        mAlbumRemoteDataSource.getAlbumList(callback);
+    }
 }

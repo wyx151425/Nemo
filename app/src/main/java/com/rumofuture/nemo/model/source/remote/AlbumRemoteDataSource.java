@@ -24,6 +24,7 @@ public class AlbumRemoteDataSource implements AlbumDataSource {
     }
 
     private AlbumRemoteDataSource() {
+
     }
 
     @Override
@@ -51,6 +52,23 @@ public class AlbumRemoteDataSource implements AlbumDataSource {
                     callback.onAlbumGetSuccess(albumList.get(0));
                 } else {
                     callback.onAlbumGetFailed(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getAlbumList(final AlbumListGetCallback callback) {
+        BmobQuery<Album> query = new BmobQuery<>();
+        query.setLimit(PAGE_LIMIT);
+        query.order(AlbumSchema.Table.Cols.NUMBER);
+        query.findObjects(new FindListener<Album>() {
+            @Override
+            public void done(List<Album> albumList, BmobException e) {
+                if (null == e) {
+                    callback.onAlbumListGetSuccess(albumList);
+                } else {
+                    callback.onAlbumListGetFailed(e);
                 }
             }
         });

@@ -74,8 +74,8 @@ public class BookRepository implements BookDataSource {
     }
 
     @Override
-    public void getAuthorBookTotal(User author, TotalGetCallback callback) {
-        mBookRemoteDataSource.getAuthorBookTotal(author, callback);
+    public void getAuthorBookTotal(User author, boolean self, TotalGetCallback callback) {
+        mBookRemoteDataSource.getAuthorBookTotal(author, self, callback);
     }
 
     @Override

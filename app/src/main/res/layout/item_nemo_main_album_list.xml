@@ -86,7 +86,7 @@
             android:contentDescription="@string/prompt_album_book"/>
 
         <TextView
-            android:id="@+id/author_book_total_view"
+            android:id="@+id/album_book_total_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_light_margin"

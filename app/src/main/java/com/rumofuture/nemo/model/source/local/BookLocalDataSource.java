@@ -66,7 +66,7 @@ public class BookLocalDataSource implements BookDataSource {
     }
 
     @Override
-    public void getAuthorBookTotal(User author, TotalGetCallback callback) {
+    public void getAuthorBookTotal(User author, boolean self, TotalGetCallback callback) {
 
     }
 

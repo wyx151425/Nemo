@@ -16,6 +16,7 @@ import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
 import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.model.entity.User;
+import com.rumofuture.nemo.presenter.NemoMainAlbumPresenter;
 import com.rumofuture.nemo.presenter.NemoMainDiscoverPresenter;
 import com.rumofuture.nemo.presenter.NemoMainPresenter;
 import com.rumofuture.nemo.view.fragment.NemoMainAlbumFragment;
@@ -171,6 +172,11 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
             case NAVIGATION_ALBUM_INDEX:
                 if (null == mAlbumFragment) {
                     mAlbumFragment = NemoMainAlbumFragment.newInstance();
+                    NemoMainAlbumPresenter presenter = new NemoMainAlbumPresenter(
+                            mAlbumFragment,
+                            DataSourceManager.provideAlbumRepository(NemoMainActivity.this)
+                    );
+                    mAlbumFragment.setPresenter(presenter);
                     transaction.add(R.id.fragment_container, mAlbumFragment);
                 } else {
                     transaction.show(mAlbumFragment);

@@ -2,6 +2,7 @@ package com.rumofuture.nemo.app.contract;
 
 import com.rumofuture.nemo.app.NemoPresenter;
 import com.rumofuture.nemo.app.NemoView;
+import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 
 import java.util.List;

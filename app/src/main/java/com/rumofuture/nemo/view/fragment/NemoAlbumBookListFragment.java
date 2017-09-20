@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.app.contract.NemoAlbumBookListContract;
+import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.view.adapter.NemoAlbumBookListAdapter;
@@ -24,11 +25,11 @@ import cn.bmob.v3.exception.BmobException;
 
 public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBookListContract.View {
 
-    private static final String ARG_STYLE = "com.rumofuture.nemo.view.fragment.NemoAlbumBookListFragment.style";
+    private static final String ARG_ALBUM = "com.rumofuture.nemo.view.fragment.NemoAlbumBookListFragment.album";
 
     private NemoAlbumBookListContract.Presenter mPresenter;
 
-    private String mStyle;
+    private Album mAlbum;
     private List<Book> mBookList;
     private NemoAlbumBookListAdapter mBookListAdapter;
 
@@ -40,10 +41,10 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
 
     }
 
-    public static NemoAlbumBookListFragment newInstance(String style) {
+    public static NemoAlbumBookListFragment newInstance(Album album) {
         Bundle args = new Bundle();
         NemoAlbumBookListFragment fragment = new NemoAlbumBookListFragment();
-        args.putSerializable(ARG_STYLE, style);
+        args.putSerializable(ARG_ALBUM, album);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,14 +53,14 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (null != getArguments()) {
-            mStyle = (String) getArguments().getSerializable(ARG_STYLE);
+            mAlbum = (Album) getArguments().getSerializable(ARG_ALBUM);
         }
         mBookList = new ArrayList<>();
         mBookListAdapter = new NemoAlbumBookListAdapter(mBookList);
         mScrollListener = new OnListScrollListener(BookDataSource.PAGE_LIMIT) {
             @Override
             public void onLoadMore(int pageCode) {
-                mPresenter.getAlbumBookList(mStyle, pageCode);
+                mPresenter.getAlbumBookList(mAlbum.getStyle(), pageCode);
             }
         };
     }
@@ -75,7 +76,7 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
             @Override
             public void onRefresh() {
                 mScrollListener.init();
-                mPresenter.getAlbumBookList(mStyle, 0);
+                mPresenter.getAlbumBookList(mAlbum.getStyle(), 0);
             }
         });
 
@@ -95,7 +96,7 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
         super.onStart();
         mSwipeRefreshLayout.setRefreshing(true);
         mScrollListener.init();
-        mPresenter.getAlbumBookList(mStyle, 0);
+        mPresenter.getAlbumBookList(mAlbum.getStyle(), 0);
     }
 
     @Override

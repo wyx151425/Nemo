@@ -214,9 +214,13 @@ public class BookRemoteDataSource implements BookDataSource {
     }
 
     @Override
-    public void getAuthorBookTotal(User author, final TotalGetCallback callback) {
+    public void getAuthorBookTotal(User author, boolean self, final TotalGetCallback callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.AUTHOR, author);
+        if (!self) {
+            query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
+            query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+        }
         query.count(Book.class, new CountListener() {
             @Override
             public void done(Integer total, BmobException e) {
@@ -233,6 +237,8 @@ public class BookRemoteDataSource implements BookDataSource {
     public void getAlbumBookTotal(Album album, final TotalGetCallback callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.STYLE, album.getStyle());
+        query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
+        query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
         query.count(Book.class, new CountListener() {
             @Override
             public void done(Integer total, BmobException e) {

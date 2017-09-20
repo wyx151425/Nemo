@@ -23,9 +23,11 @@ import java.util.List;
 public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbumListAdapter.AlbumViewHolder> {
 
     private List<Album> mAlbumList;
+    private List<Album> mServerAlbumList;
     private Context mContext;
 
-    public NemoMainAlbumListAdapter() {
+    public NemoMainAlbumListAdapter(List<Album> serverAlbumList) {
+        mServerAlbumList = serverAlbumList;
         mAlbumList = new ArrayList<>();
         mAlbumList.add(new Album(R.drawable.classical, "古典", "Classical Style"));
         mAlbumList.add(new Album(R.drawable.burningblood, "热血", "Burning Blood Style"));
@@ -35,9 +37,7 @@ public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbum
         mAlbumList.add(new Album(R.drawable.hilarious, "爆笑", "Hilarious Style"));
         mAlbumList.add(new Album(R.drawable.cliffhang, "悬疑", "Cliffhang Style"));
         mAlbumList.add(new Album(R.drawable.lovely, "萌系", "Lovely Style"));
-
     }
-
 
     @Override
     public AlbumViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,11 +50,7 @@ public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbum
         holder.mAlbumGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NemoAlbumBookListActivity.actionStart(
-                        mContext,
-                        mAlbumList.get(holder.getAdapterPosition()).getStyle(),
-                        mAlbumList.get(holder.getAdapterPosition()).getImageId()
-                );
+                NemoAlbumBookListActivity.actionStart(mContext, mAlbumList.get(holder.getAdapterPosition()));
             }
         });
         return holder;
@@ -65,6 +61,7 @@ public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbum
         holder.mAlbumCoverView.setImageResource(mAlbumList.get(position).getImageId());
         holder.mAlbumStyleView.setText(mAlbumList.get(position).getStyle());
         holder.mAlbumNoteView.setText(mAlbumList.get(position).getNote());
+        holder.mAlbumBookTotalView.setText(String.valueOf(mServerAlbumList.get(position).getBookTotal()));
     }
 
     @Override
@@ -77,6 +74,7 @@ public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbum
         ImageView mAlbumCoverView;
         TextView mAlbumNoteView;
         TextView mAlbumStyleView;
+        TextView mAlbumBookTotalView;
         Button mAlbumGoButton;
 
         AlbumViewHolder(View itemView) {
@@ -85,6 +83,7 @@ public class NemoMainAlbumListAdapter extends RecyclerView.Adapter<NemoMainAlbum
             mAlbumCoverView = (ImageView) itemView.findViewById(R.id.album_cover_view);
             mAlbumStyleView = (TextView) itemView.findViewById(R.id.album_style_view);
             mAlbumNoteView = (TextView) itemView.findViewById(R.id.album_note_view);
+            mAlbumBookTotalView = (TextView) itemView.findViewById(R.id.album_book_total_view);
             mAlbumGoButton = (Button) itemView.findViewById(R.id.album_go_button);
         }
     }
