@@ -194,7 +194,8 @@ public class BookRemoteDataSource implements BookDataSource {
     public void getFavoriteBookList(User favor, int pageCode, final BookListGetCallback callback) {
         BmobQuery<Favorite> query = new BmobQuery<>();
         query.addWhereEqualTo(FavoriteSchema.Table.Cols.FAVOR, favor);
-        query.include(FavoriteSchema.Table.Cols.BOOK);
+        query.include(FavoriteSchema.Table.Cols.BOOK + "."
+                + BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageCode * PAGE_LIMIT);
         query.findObjects(new FindListener<Favorite>() {
