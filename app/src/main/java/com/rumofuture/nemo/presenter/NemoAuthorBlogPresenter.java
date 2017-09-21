@@ -1,19 +1,27 @@
 package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.rumofuture.nemo.app.contract.NemoAuthorBlogContract;
 import com.rumofuture.nemo.model.entity.Book;
+import com.rumofuture.nemo.model.entity.Device;
 import com.rumofuture.nemo.model.entity.Follow;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.schema.UserSchema;
 import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.model.source.FollowDataSource;
 import com.rumofuture.nemo.model.source.UserDataSource;
+import com.rumofuture.nemo.view.fragment.NemoAuthorBlogFragment;
 
 import java.util.List;
 
+import cn.bmob.v3.BmobInstallation;
+import cn.bmob.v3.BmobPushManager;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.PushListener;
 
 /**
  * Created by WangZhenqi on 2017/4/18.
@@ -100,6 +108,19 @@ public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter
         User follower = follow.getFollower();
         follower.increment(UserSchema.Table.Cols.FOLLOW_TOTAL);
         mUserRepository.updateUserInfo(follower, this);
+
+        BmobPushManager pushManager = new BmobPushManager();
+        BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
+        query.addWhereEqualTo("installationId", "C8CDE03327B6A0485A153C838ADD17A5");
+        pushManager.setQuery(query);
+        pushManager.pushMessage("", new PushListener() {
+            @Override
+            public void done(BmobException e) {
+                if (null == e) {
+                    Toast.makeText(((NemoAuthorBlogFragment) mView).getActivity(), "推送成功", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
