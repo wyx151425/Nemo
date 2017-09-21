@@ -54,6 +54,7 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
      */
     @Override
     public void chooseImage() {
+        start();
         // 获取选择到的图片
         mImageChooseManager.chooseImage();
     }
