@@ -19,6 +19,7 @@ import java.util.List;
 import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobPushManager;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.PushListener;
@@ -136,7 +137,7 @@ public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter
             mView.showUserUnfollowSuccess(follow);
         }
 
-        User follower = follow.getFollower();
+        User follower = BmobUser.getCurrentUser(User.class);
         follower.increment(UserSchema.Table.Cols.FOLLOW_TOTAL, -1);
         mUserRepository.updateUserInfo(follower, this);
     }
