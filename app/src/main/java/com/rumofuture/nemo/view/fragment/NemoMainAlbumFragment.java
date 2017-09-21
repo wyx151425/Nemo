@@ -41,7 +41,7 @@ public class NemoMainAlbumFragment extends Fragment implements NemoMainAlbumCont
         mAlbumList = new ArrayList<>();
         for (int index = 0; index < AlbumDataSource.PAGE_LIMIT; index++) {
             Album album = new Album();
-            album.setNumber(0);
+            album.setBookTotal(0);
             mAlbumList.add(album);
         }
         mAlbumListAdapter = new NemoMainAlbumListAdapter(mAlbumList);
