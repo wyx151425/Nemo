@@ -195,7 +195,7 @@
 
         <!-- *******以下添加推送所需要的服务和广播******* -->
 
-        <!-- *****属于的Bmob服务***** -->
+        <!-- *****属于Bmob的服务***** -->
         <service
             android:name="cn.bmob.push.lib.service.PushService"
             android:exported="true"

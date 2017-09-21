@@ -15,7 +15,6 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.datatype.BmobSmsState;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.FindListener;
@@ -195,10 +194,10 @@ public class BookRemoteDataSource implements BookDataSource {
     public void getFavoriteBookList(User favor, int pageCode, final BookListGetCallback callback) {
         BmobQuery<Favorite> query = new BmobQuery<>();
         query.addWhereEqualTo(FavoriteSchema.Table.Cols.FAVOR, favor);
-        query.include(FavoriteSchema.Table.Cols.BOOK + "."
-                + BookSchema.Table.Cols.AUTHOR);
+        query.include(FavoriteSchema.Table.Cols.BOOK + "." + BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageCode * PAGE_LIMIT);
+        query.order(FavoriteSchema.Table.Cols.CREATE_TIME);
         query.findObjects(new FindListener<Favorite>() {
             @Override
             public void done(List<Favorite> favoriteList, BmobException e) {

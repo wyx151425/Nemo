@@ -182,6 +182,7 @@ public class UserRemoteDataSource implements UserDataSource {
         query.include(FollowSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageCode * PAGE_LIMIT);
+        query.order(FollowSchema.Table.Cols.CREATE_TIME);
         query.findObjects(new FindListener<Follow>() {
             @Override
             public void done(List<Follow> followList, BmobException e) {
@@ -205,6 +206,7 @@ public class UserRemoteDataSource implements UserDataSource {
         query.include(FollowSchema.Table.Cols.FOLLOWER);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageCode * PAGE_LIMIT);
+        query.order(FollowSchema.Table.Cols.CREATE_TIME);
         query.findObjects(new FindListener<Follow>() {
             @Override
             public void done(List<Follow> followList, BmobException e) {

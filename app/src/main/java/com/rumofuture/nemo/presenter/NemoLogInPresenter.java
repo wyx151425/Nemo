@@ -3,11 +3,18 @@ package com.rumofuture.nemo.presenter;
 import android.text.TextUtils;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.model.entity.Device;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
 import com.rumofuture.nemo.app.contract.NemoLogInContract;
 
+import java.util.List;
+
+import cn.bmob.v3.BmobInstallationManager;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import rx.functions.Action1;
 
 /**
  * Created by WangZhenqi on 2017/4/16.
@@ -30,11 +37,9 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
 
     @Override
     public void logIn(String mobilePhoneNumber, String password) {
-
         mView.showMobilePhoneNumberError(null);
         mView.showPasswordError(null);
 
-        // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             if (mView.isActive()) {
                 mView.showMobilePhoneNumberError(R.string.prompt_invalid_user_password);
@@ -42,7 +47,6 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
             return;
         }
 
-        // Check for a valid email address.
         if (TextUtils.isEmpty(mobilePhoneNumber)) {
             if (mView.isActive()) {
                 mView.showMobilePhoneNumberError(R.string.prompt_field_required);
@@ -64,6 +68,24 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
         }
     }
 
+    private void updateDeviceUser(final User user) {
+        BmobQuery<Device> query = new BmobQuery<>();
+        final String id = BmobInstallationManager.getInstallationId();
+        query.addWhereEqualTo("installationId", id);
+        query.findObjects(new FindListener<Device>() {
+            @Override
+            public void done(List<Device> deviceList, BmobException e) {
+                if (null == e) {
+                    if (deviceList.size() > 0) {
+                        Device device = deviceList.get(0);
+                        device.setUser(user);
+                        device.update();
+                    }
+                }
+            }
+        });
+    }
+
     private boolean isMobilePhoneNumberValid(String mobilePhoneNumber) {
         return mobilePhoneNumber.length() == 11;
     }
@@ -74,6 +96,7 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
 
     @Override
     public void onUserLogInSuccess(User user) {
+        updateDeviceUser(user);
         if (mView.isActive()) {
             mView.showProgressBar(false);
             mView.showLogInSuccess(user);
