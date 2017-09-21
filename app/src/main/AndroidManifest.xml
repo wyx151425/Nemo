@@ -15,9 +15,9 @@
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-    <!-- 推送所需的权限 -->
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!--&lt;!&ndash; 推送所需的权限 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>-->
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
 
     <application
         android:name=".app.NemoApplication"
@@ -189,58 +189,58 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <!-- *******以下添加推送所需要的服务和广播******* -->
+        <!--&lt;!&ndash; *******以下添加推送所需要的服务和广播******* &ndash;&gt;-->
 
 
-        <!-- *****属于的Bmob服务***** -->
-        <service
-            android:name="cn.bmob.push.lib.service.PushService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":bmobpush">
-            <intent-filter>
-                <action android:name="cn.bmob.push.lib.service.PushService"/>
-            </intent-filter>
-        </service>
+        <!--&lt;!&ndash; *****属于的Bmob服务***** &ndash;&gt;-->
+        <!--<service-->
+            <!--android:name="cn.bmob.push.lib.service.PushService"-->
+            <!--android:exported="true"-->
+            <!--android:label="PushService"-->
+            <!--android:process=":bmobpush">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="cn.bmob.push.lib.service.PushService"/>-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
-        <!-- 用于进程保活 -->
-        <service
-            android:name="cn.bmob.push.lib.service.PushNotifyService"
-            android:process=":bmobpush">
-        </service>
+        <!--&lt;!&ndash; 用于进程保活 &ndash;&gt;-->
+        <!--<service-->
+            <!--android:name="cn.bmob.push.lib.service.PushNotifyService"-->
+            <!--android:process=":bmobpush">-->
+        <!--</service>-->
 
-        <!-- *****属于Bmob的消息接收器***** -->
-        <receiver android:name="cn.bmob.push.PushReceiver">
-            <intent-filter>
+        <!--&lt;!&ndash; *****属于Bmob的消息接收器***** &ndash;&gt;-->
+        <!--<receiver android:name="cn.bmob.push.PushReceiver">-->
+            <!--<intent-filter>-->
 
-                <!-- 系统启动完成后会调用 -->
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <!-- 解锁完成后会调用 -->
-                <action android:name="android.intent.action.USER_PRESENT"/>
-                <!-- 监听网络连通性 -->
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
+                <!--&lt;!&ndash; 系统启动完成后会调用 &ndash;&gt;-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED"/>-->
+                <!--&lt;!&ndash; 解锁完成后会调用 &ndash;&gt;-->
+                <!--<action android:name="android.intent.action.USER_PRESENT"/>-->
+                <!--&lt;!&ndash; 监听网络连通性 &ndash;&gt;-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <!-- *****属于Nemo的消息接收器***** -->
-        <receiver android:name=".app.receiver.NemoMessageReceiver">
-            <intent-filter>
-                <action android:name="cn.bmob.push.action.MESSAGE"/>
-            </intent-filter>
-        </receiver>
+        <!--&lt;!&ndash; *****属于Nemo的消息接收器***** &ndash;&gt;-->
+        <!--<receiver android:name=".app.receiver.NemoMessageReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="cn.bmob.push.action.MESSAGE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <!-- Bmob接收心跳和唤醒的广播的接收器，要和PushService运行在同个进程 -->
-        <receiver
-            android:name="cn.bmob.push.PushNotifyReceiver"
-            android:process=":bmobpush">
-            <intent-filter>
+        <!--&lt;!&ndash; Bmob接收心跳和唤醒的广播的接收器，要和PushService运行在同个进程 &ndash;&gt;-->
+        <!--<receiver-->
+            <!--android:name="cn.bmob.push.PushNotifyReceiver"-->
+            <!--android:process=":bmobpush">-->
+            <!--<intent-filter>-->
 
-                <!-- 接收心跳广播的action -->
-                <action android:name="cn.bmob.push.action.HEARTBEAT"/>
-                <!-- 接收唤醒广播的action -->
-                <action android:name="cn.bmob.push.action.NOTIFY"/>
-            </intent-filter>
-        </receiver>
+                <!--&lt;!&ndash; 接收心跳广播的action &ndash;&gt;-->
+                <!--<action android:name="cn.bmob.push.action.HEARTBEAT"/>-->
+                <!--&lt;!&ndash; 接收唤醒广播的action &ndash;&gt;-->
+                <!--<action android:name="cn.bmob.push.action.NOTIFY"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

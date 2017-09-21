@@ -36,7 +36,7 @@ import cn.bmob.v3.BmobUser;
 
 public class NemoMainActivity extends NemoActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final String EXTRA_LOG_OUT = "com.rumofuture.nemo.view.activity.NemoMainActivity.logOut";
+    private static final String EXTRA_LOG = "com.rumofuture.nemo.view.activity.NemoMainActivity.log";
 
     private NemoMainFragment mMainFragment;
     private NemoMainAlbumFragment mAlbumFragment;
@@ -68,8 +68,8 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
     @Override
     protected void onStart() {
         super.onStart();
-        boolean isLogIn = getIntent().getBooleanExtra(EXTRA_LOG_OUT, false);
-        if (isLogIn) {
+        boolean isLog = getIntent().getBooleanExtra(EXTRA_LOG, false);
+        if (isLog) {
             navigationIndex = 3;
             mBottomNavigationView.setSelectedItemId(R.id.navigation_me);
             showFragment(navigationIndex);
@@ -78,11 +78,11 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        showFragment(navigationIndex);
-    }
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        showFragment(navigationIndex);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -147,7 +147,7 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
     public static void actionStart(Context context, boolean isLogOut) {
         Intent intent = new Intent();
         intent.setClass(context, NemoMainActivity.class);
-        intent.putExtra(EXTRA_LOG_OUT, isLogOut);
+        intent.putExtra(EXTRA_LOG, isLogOut);
         context.startActivity(intent);
     }
 
