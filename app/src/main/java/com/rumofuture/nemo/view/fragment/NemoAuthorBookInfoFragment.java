@@ -42,15 +42,15 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
 
     private NemoBookInfoContract.Presenter mPresenter;
 
-    private Book mBook;
-    private Favorite mFavorite;
     private boolean isOnline = false;
     private boolean isFavorite = false;
 
-    private FloatingActionButton mFab;
-
+    private Book mBook;
+    private Favorite mFavorite;
     private List<Review> mReviewList;
     private NemoAuthorBookInfoAdapter mBookInfoAdapter;
+
+    private FloatingActionButton mFab;
     private OnListScrollListener mScrollListener;
 
     public NemoAuthorBookInfoFragment() {

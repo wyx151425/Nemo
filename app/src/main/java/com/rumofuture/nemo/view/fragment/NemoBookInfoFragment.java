@@ -33,22 +33,22 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * 漫画册详细信息展示界面
  * 主要功能：漫画册收藏，取消漫画册收藏
- * <p>
+ *
  * 主要逻辑：
- * <p>
+ *
  * 1.目标漫画册获取  时机：界面创建
  * 根据arguments获取传递的目标漫画册，检查此应用当前是否有用户登录，如果有用户登录，则根据目标漫画册和当前用户创建一个Collect对象，等待程序进行操作；
- * <p>
+ *
  * 2.漫画册收藏关系获取  时机：试图绘制
  * 在当前用户不是此漫画册作者的情况下，根据漫画册和用户查询数据库中的收藏关系，查询过程中按钮不能被点击。
  * 如果查找到一条记录，则说明此用户收藏过此漫画册，将收藏按钮设置为已收藏样式，如果未找到记录，则按钮样式不改变。
- * <p>
+ *
  * 3.漫画册收藏  时机：随时
  * 用户点击可以被点击的收藏按钮，待用的Collect对象将被传到服务器进行保存操作，保存成功后，由模型层封装保存好的Collect对象，
  * 传回展示层，展示层将收藏成功的消息发送回当前界面，同时展示层更新目标漫画册的收藏者数目和当前用户的收藏漫画册数目，
  * 将更新后的Book对象和User对象提交到服务器进行更新，更新成功后将新的Book对象传回当前界面，
  * 当前界面更新目标漫画册的收藏者数目信息。
- * <p>
+ *
  * 4.取消漫画册收藏  时机：随时
  */
 public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContract.View {
@@ -59,15 +59,15 @@ public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContra
 
     private NemoBookInfoContract.Presenter mPresenter;
 
-    private Book mBook;
-    private Favorite mFavorite;
     private boolean isOnline = false;
     private boolean isFavorite = false;
 
-    private FloatingActionButton mFab;
-
+    private Book mBook;
+    private Favorite mFavorite;
     private List<Review> mReviewList;
     private NemoBookInfoAdapter mReviewListAdapter;
+
+    private FloatingActionButton mFab;
     private OnListScrollListener mScrollListener;
 
     public NemoBookInfoFragment() {
@@ -82,11 +82,6 @@ public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContra
         return fragment;
     }
 
-    /**
-     * 负责Activity传递的Book的获取
-     * 负责
-     * @param savedInstanceState
-     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
