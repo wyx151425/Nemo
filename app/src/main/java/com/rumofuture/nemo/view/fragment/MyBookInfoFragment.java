@@ -16,7 +16,7 @@ import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.model.source.ReviewDataSource;
-import com.rumofuture.nemo.view.adapter.MyBookReviewListAdapter;
+import com.rumofuture.nemo.view.adapter.MyBookInfoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class MyBookInfoFragment extends Fragment implements MyBookReviewListCont
 
     private Book mBook;
     private List<Review> mReviewList;
-    private MyBookReviewListAdapter mReviewListAdapter;
+    private MyBookInfoAdapter mReviewListAdapter;
     private OnListScrollListener mScrollListener;
 
     public MyBookInfoFragment() {
@@ -57,7 +57,7 @@ public class MyBookInfoFragment extends Fragment implements MyBookReviewListCont
             mBook = (Book) getArguments().getSerializable(ARG_BOOK);
         }
         mReviewList = new ArrayList<>();
-        mReviewListAdapter = new MyBookReviewListAdapter(this, mBook, mReviewList);
+        mReviewListAdapter = new MyBookInfoAdapter(this, mBook, mReviewList);
         mScrollListener = new OnListScrollListener(ReviewDataSource.PAGE_LIMIT) {
             @Override
             public void onLoadMore(int pageCode) {

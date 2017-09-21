@@ -23,7 +23,6 @@ import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.ReviewDataSource;
 import com.rumofuture.nemo.view.activity.NemoBookReviewEditActivity;
 import com.rumofuture.nemo.view.adapter.NemoAuthorBookInfoAdapter;
-import com.rumofuture.nemo.view.adapter.NemoBookReviewListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,21 +31,21 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
 /**
- * Created by Administrator on 2017/9/20.
+ * Created by WangZhenqi on 2017/9/20.
  */
 
 public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfoContract.View {
 
-    private static final String ARG_PARAM = "com.rumofuture.nemo.view.fragment.NemoBookInfoFragment.book";
+    private static final String ARG_BOOK = "com.rumofuture.nemo.view.fragment.NemoBookInfoFragment.book";
 
     private static final int REQUEST_REVIEW = 501;
 
     private NemoBookInfoContract.Presenter mPresenter;
 
-    private Book mTargetBook;
+    private Book mBook;
     private Favorite mFavorite;
     private boolean isOnline = false;
-    private boolean isCollected = false;
+    private boolean isFavorite = false;
 
     private FloatingActionButton mFab;
 
@@ -61,7 +60,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
     public static NemoAuthorBookInfoFragment newInstance(Book book) {
         Bundle args = new Bundle();
         NemoAuthorBookInfoFragment fragment = new NemoAuthorBookInfoFragment();
-        args.putSerializable(ARG_PARAM, book);
+        args.putSerializable(ARG_BOOK, book);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,25 +70,25 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
         super.onCreate(savedInstanceState);
         // 获取Activity启动此Fragment时传递的Book对象
         if (null != getArguments()) {
-            mTargetBook = (Book) getArguments().getSerializable(ARG_PARAM);
+            mBook = (Book) getArguments().getSerializable(ARG_BOOK);
         }
 
         if (null != BmobUser.getCurrentUser(User.class)) {
             // 如果此应用有用户登录，则将登录标识置为true
             // 并封装待用的Collect对象为漫画册为当前目标漫画册和收藏者为当前用户
             isOnline = true;
-            mFavorite = new Favorite(mTargetBook, BmobUser.getCurrentUser(User.class));
+            mFavorite = new Favorite(mBook, BmobUser.getCurrentUser(User.class));
         } else {
-            // 如果此应用有用户登录，则将登录标识置为false
+            // 如果此应用没有用户登录，则将登录标识置为false
             isOnline = false;
         }
 
         mReviewList = new ArrayList<>();
-        mBookInfoAdapter = new NemoAuthorBookInfoAdapter(this, mTargetBook, mReviewList);
+        mBookInfoAdapter = new NemoAuthorBookInfoAdapter(this, mBook, mReviewList);
         mScrollListener = new OnListScrollListener(ReviewDataSource.PAGE_LIMIT) {
             @Override
             public void onLoadMore(int pageCode) {
-                mPresenter.getBookReviewList(mTargetBook, pageCode);
+                mPresenter.getBookReviewList(mBook, pageCode);
             }
         };
     }
@@ -106,12 +105,13 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
          * 如果当前应用没有用户登录，则提示用户登录才能收藏此漫画册；
          */
         mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        mFab.setClickable(false);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mFab.setClickable(false);
                 if (isOnline) {
-                    if (isCollected) {
+                    if (isFavorite) {
                         mPresenter.removeBookFromMyFavorite(mFavorite);
                     } else {
                         mPresenter.favoriteBook(mFavorite);
@@ -130,7 +130,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
         mScrollListener.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(mScrollListener);
 
-        if (isOnline && mTargetBook.getAuthor().getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId())) {
+        if (isOnline && mBook.getAuthor().getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId())) {
             // 如果当前应用有用户在线，并且此漫画的作者为当前登录用户
             // 则将mFab置为已收藏状态，并设置此mFab不可点击
             mFab.setImageResource(R.mipmap.ic_star_orange_fab);
@@ -139,9 +139,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
             // 如果当前应用有用户在线，并且此漫画的作者不是当前登录用户，则查询此用户是否收藏过此漫画册
             mPresenter.getFavoriteRelation(mFavorite);
         }
-
-        mPresenter.getBookReviewList(mTargetBook, 0);
-
+        mPresenter.getBookReviewList(mBook, 0);
         return view;
     }
 
@@ -152,8 +150,8 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
 
     @Override
     public void showBookFavoriteSuccess(Favorite favorite) {
-        mFavorite = favorite;
-        isCollected = true;
+        mFavorite.setObjectId(favorite.getObjectId());
+        isFavorite = true;
         mFab.setImageResource(R.mipmap.ic_star_orange_fab);
         Toast.makeText(getActivity(), "收藏成功", Toast.LENGTH_LONG).show();
         mFab.setClickable(true);
@@ -161,7 +159,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
 
     @Override
     public void showBookFavoriteFailed(BmobException e) {
-        isCollected = false;
+        isFavorite = false;
         Toast.makeText(getActivity(), "收藏失败", Toast.LENGTH_LONG).show();
         mFab.setClickable(true);
     }
@@ -169,7 +167,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
     @Override
     public void showFavoriteRemoveSuccess() {
         mFavorite.setObjectId(null);
-        isCollected = false;
+        isFavorite = false;
         mFab.setImageResource(R.mipmap.ic_star_silver_fab);
         Toast.makeText(getActivity(), "取消收藏", Toast.LENGTH_LONG).show();
         mFab.setClickable(true);
@@ -184,7 +182,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
     @Override
     public void showFavoriteGetSuccess(Favorite favorite) {
         mFavorite.setObjectId(favorite.getObjectId());
-        isCollected = true;
+        isFavorite = true;
         mFab.setImageResource(R.mipmap.ic_star_orange_fab);
         mFab.setClickable(true);
     }
@@ -196,8 +194,8 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
 
     // 更新漫画册收藏者数目信息
     @Override
-    public void showBookUpdateSuccess(Book book) {
-        mTargetBook = book;
+    public void showBookFavorTotalUpdateSuccess(Book book) {
+        mBook = book;
     }
 
     @Override
@@ -219,7 +217,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
     }
 
     public void actionEditReview() {
-        NemoBookReviewEditActivity.actionStart(this, mTargetBook, REQUEST_REVIEW);
+        NemoBookReviewEditActivity.actionStart(this, mBook, REQUEST_REVIEW);
     }
 
     @Override

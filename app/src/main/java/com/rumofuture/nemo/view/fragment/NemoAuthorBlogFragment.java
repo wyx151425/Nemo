@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,21 +32,19 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
 
     private NemoAuthorBlogContract.Presenter mPresenter;
 
-    private User mTargetAuthor;
-
-    private Follow mFollow;
-
     private boolean isOnline = false;
     private boolean isFollow = false;
 
+    private User mAuthor;
+    private Follow mFollow;
     private List<Book> mBookList;
     private NemoAuthorBlogListAdapter mBookListAdapter;
 
     private FloatingActionButton mFab;
-
     private OnListScrollListener mScrollListener;
 
     public NemoAuthorBlogFragment() {
+
     }
 
     public static NemoAuthorBlogFragment newInstance(User author) {
@@ -64,22 +59,22 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (null != getArguments()) {
-            mTargetAuthor = (User) getArguments().getSerializable(ARG_AUTHOR);
+            mAuthor = (User) getArguments().getSerializable(ARG_AUTHOR);
         }
 
         if (null != BmobUser.getCurrentUser(User.class)) {
-            mFollow = new Follow(mTargetAuthor, BmobUser.getCurrentUser(User.class));
+            mFollow = new Follow(mAuthor, BmobUser.getCurrentUser(User.class));
             isOnline = true;
         } else {
             isOnline = false;
         }
 
         mBookList = new ArrayList<>();
-        mBookListAdapter = new NemoAuthorBlogListAdapter(mTargetAuthor, mBookList);
+        mBookListAdapter = new NemoAuthorBlogListAdapter(mAuthor, mBookList);
         mScrollListener = new OnListScrollListener(BookDataSource.PAGE_LIMIT) {
             @Override
             public void onLoadMore(int pageCode) {
-                mPresenter.getAuthorBookList(mTargetAuthor, pageCode);
+                mPresenter.getAuthorBookList(mAuthor, pageCode);
             }
         };
     }
@@ -90,6 +85,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
         View view = inflater.inflate(R.layout.fragment_nemo_author_blog, container, false);
 
         mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        mFab.setClickable(false);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +110,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
         mScrollListener.setLayoutManager(layoutManager);
         bookListView.addOnScrollListener(mScrollListener);
 
-        if (isOnline && mTargetAuthor.getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId())) {
+        if (isOnline && mAuthor.getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId())) {
             mFab.setImageResource(R.mipmap.ic_favorite_red_fab);
             mFab.setClickable(false);
         } else if (isOnline) {
@@ -127,7 +123,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.getAuthorBookList(mTargetAuthor, 0);
+        mPresenter.getAuthorBookList(mAuthor, 0);
     }
 
     @Override
@@ -168,17 +164,17 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
 
     @Override
     public void showUserFollowSuccess(Follow follow) {
-        mFollow = follow;
+        mFollow.setObjectId(follow.getObjectId());
         isFollow = true;
         mFab.setImageResource(R.mipmap.ic_favorite_red_fab);
-        mFab.setClickable(true);
         Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_LONG).show();
+        mFab.setClickable(true);
     }
 
     @Override
     public void showUserFollowFailed(BmobException e) {
-        mFab.setClickable(true);
         Toast.makeText(getActivity(), "关注失败", Toast.LENGTH_LONG).show();
+        mFab.setClickable(true);
     }
 
     @Override
@@ -187,14 +183,14 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
         mFollow = follow;
         isFollow = false;
         mFab.setImageResource(R.mipmap.ic_favorite_silver_fab);
-        mFab.setClickable(true);
         Toast.makeText(getActivity(), "取消关注", Toast.LENGTH_LONG).show();
+        mFab.setClickable(true);
     }
 
     @Override
     public void showUserUnfollowFailed(BmobException e) {
-        mFab.setClickable(true);
         Toast.makeText(getActivity(), "取消关注失败", Toast.LENGTH_LONG).show();
+        mFab.setClickable(true);
     }
 
     @Override

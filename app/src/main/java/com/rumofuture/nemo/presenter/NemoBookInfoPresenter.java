@@ -141,7 +141,7 @@ public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter, Us
     @Override
     public void onBookUpdateSuccess(Book book) {
         if (mView.isActive()) {
-            mView.showBookUpdateSuccess(book);
+            mView.showBookFavorTotalUpdateSuccess(book);
         }
     }
 

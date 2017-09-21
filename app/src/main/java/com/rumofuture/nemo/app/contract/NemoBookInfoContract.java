@@ -26,7 +26,7 @@ public interface NemoBookInfoContract {
         void showFavoriteGetSuccess(Favorite favorite);
         void showFavoriteGetFailed(BmobException e);
 
-        void showBookUpdateSuccess(Book book);
+        void showBookFavorTotalUpdateSuccess(Book book);
 
         void showReviewListGetSuccess(List<Review> reviewList);
         void showReviewListGetFailed(BmobException e);
