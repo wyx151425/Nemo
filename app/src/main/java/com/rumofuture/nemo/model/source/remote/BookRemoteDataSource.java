@@ -176,6 +176,7 @@ public class BookRemoteDataSource implements BookDataSource {
         query.addWhereEqualTo(BookSchema.Table.Cols.STYLE, style);
         query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
         query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+        query.include(BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageCode * PAGE_LIMIT);
         query.findObjects(new FindListener<Book>() {
