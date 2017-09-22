@@ -8,10 +8,10 @@ import android.view.MenuItem;
 
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
+import com.rumofuture.nemo.app.manager.DataSourceManager;
+import com.rumofuture.nemo.app.manager.NemoActivityManager;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.presenter.NemoBookInfoPresenter;
-import com.rumofuture.nemo.app.manager.NemoActivityManager;
-import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.view.fragment.NemoBookInfoFragment;
 
 public class NemoBookInfoActivity extends NemoActivity {

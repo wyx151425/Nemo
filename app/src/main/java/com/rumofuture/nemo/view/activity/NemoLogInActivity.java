@@ -8,8 +8,8 @@ import android.view.MenuItem;
 
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
-import com.rumofuture.nemo.presenter.NemoLogInPresenter;
 import com.rumofuture.nemo.app.manager.DataSourceManager;
+import com.rumofuture.nemo.presenter.NemoLogInPresenter;
 import com.rumofuture.nemo.view.fragment.NemoLogInFragment;
 
 public class NemoLogInActivity extends NemoActivity {

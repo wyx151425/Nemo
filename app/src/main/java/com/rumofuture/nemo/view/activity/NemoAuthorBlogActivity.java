@@ -17,10 +17,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
+import com.rumofuture.nemo.app.manager.DataSourceManager;
+import com.rumofuture.nemo.app.manager.NemoActivityManager;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.presenter.NemoAuthorBlogPresenter;
-import com.rumofuture.nemo.app.manager.NemoActivityManager;
-import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.view.fragment.NemoAuthorBlogFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;

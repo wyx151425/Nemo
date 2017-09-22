@@ -13,7 +13,6 @@ import com.rumofuture.nemo.app.manager.NemoActivityManager;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.presenter.NemoBookInfoPresenter;
 import com.rumofuture.nemo.view.fragment.NemoAuthorBookInfoFragment;
-import com.rumofuture.nemo.view.fragment.NemoBookInfoFragment;
 
 /**
  * Created by WangZhenqi on 2017/9/20.
