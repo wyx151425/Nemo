@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.contract.NemoBookInfoContract;
 import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Favorite;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.model.entity.User;
-import com.rumofuture.nemo.app.contract.NemoBookInfoContract;
 import com.rumofuture.nemo.model.source.ReviewDataSource;
 import com.rumofuture.nemo.view.activity.NemoBookReviewEditActivity;
 import com.rumofuture.nemo.view.adapter.NemoBookInfoAdapter;
@@ -157,8 +157,18 @@ public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContra
             mPresenter.getFavoriteRelation(mFavorite);
         }
 
+        mScrollListener.init();
         mPresenter.getBookReviewList(mBook, 0);
+
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mReviewList.clear();
+        isOnline = false;
+        isFavorite = false;
     }
 
     @Override

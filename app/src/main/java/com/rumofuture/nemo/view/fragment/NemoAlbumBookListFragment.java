@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.app.contract.NemoAlbumBookListContract;
+import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
@@ -33,9 +33,8 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
     private List<Book> mBookList;
     private NemoAlbumBookListAdapter mBookListAdapter;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
     private OnListScrollListener mScrollListener;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public NemoAlbumBookListFragment() {
 
@@ -94,8 +93,8 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
     @Override
     public void onStart() {
         super.onStart();
-        mSwipeRefreshLayout.setRefreshing(true);
         mScrollListener.init();
+        mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.getAlbumBookList(mAlbum.getStyle(), 0);
     }
 
@@ -110,6 +109,7 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
             mBookList.clear();
             mSwipeRefreshLayout.setRefreshing(false);
         }
+
         for (Book book : bookList) {
             mBookList.add(book);
         }

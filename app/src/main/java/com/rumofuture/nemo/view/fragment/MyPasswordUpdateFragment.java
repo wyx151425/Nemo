@@ -1,6 +1,5 @@
 package com.rumofuture.nemo.view.fragment;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -16,15 +15,12 @@ import com.rumofuture.nemo.app.contract.MyPasswordUpdateContract;
 
 import cn.bmob.v3.exception.BmobException;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyPasswordUpdateFragment extends Fragment implements MyPasswordUpdateContract.View {
 
     private MyPasswordUpdateContract.Presenter mPresenter;
 
     public MyPasswordUpdateFragment() {
-        // Required empty public constructor
+
     }
 
     public static MyPasswordUpdateFragment newInstance() {
@@ -34,7 +30,7 @@ public class MyPasswordUpdateFragment extends Fragment implements MyPasswordUpda
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_my_password_update, container, false);
 
         final EditText oldPasswordView = (EditText) view.findViewById(R.id.old_password_view);

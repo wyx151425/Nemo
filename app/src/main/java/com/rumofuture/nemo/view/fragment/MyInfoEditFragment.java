@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.app.contract.MyInfoUpdateContract;
+import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.view.activity.MyProfileEditActivity;
 
 import cn.bmob.v3.BmobUser;

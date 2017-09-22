@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.app.contract.MyFavoriteBookListContract;
+import com.rumofuture.nemo.app.widget.OnListScrollListener;
+import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.view.adapter.MyFavoriteBookListAdapter;
 
@@ -25,13 +26,11 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
 
     private MyFavoriteBookListContract.Presenter mPresenter;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
     private List<Book> mBookList;
     private MyFavoriteBookListAdapter mBookListAdapter;
 
-    private int mPageCode = 0;
-    private boolean mQueryable = true;
+    private OnListScrollListener mScrollListener;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public MyFavoriteBookListFragment() {
 
@@ -44,9 +43,14 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mBookList = new ArrayList<>();
         mBookListAdapter = new MyFavoriteBookListAdapter(mBookList);
+        mScrollListener = new OnListScrollListener(BookDataSource.PAGE_LIMIT) {
+            @Override
+            public void onLoadMore(int pageCode) {
+                mPresenter.getMyFavoriteBookList(pageCode);
+            }
+        };
     }
 
     @Override
@@ -59,16 +63,17 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPageCode = 0;
-                mQueryable = true;
-                mPresenter.getMyFavoriteBookList(mPageCode);
+                mPresenter.getMyFavoriteBookList(0);
             }
         });
 
-        RecyclerView myCollectedBookListView = (RecyclerView) view.findViewById(R.id.my_collected_book_list_view);
+        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        myCollectedBookListView.setLayoutManager(layoutManager);
-        myCollectedBookListView.setAdapter(mBookListAdapter);
+        bookListView.setLayoutManager(layoutManager);
+        bookListView.setAdapter(mBookListAdapter);
+
+        mScrollListener.setLayoutManager(layoutManager);
+        bookListView.addOnScrollListener(mScrollListener);
 
         return view;
     }
@@ -77,10 +82,9 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
     public void onStart() {
         super.onStart();
         // 重新赋值一遍，避免界面销毁时数据仍保存
-        mPageCode = 0;
-        mQueryable = true;
-        mPresenter.getMyFavoriteBookList(mPageCode);
+        mScrollListener.init();
         mSwipeRefreshLayout.setRefreshing(true);
+        mPresenter.getMyFavoriteBookList(0);
     }
 
     @Override
@@ -91,25 +95,14 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
     @Override
     public void showMyFavoriteBookListGetSuccess(List<Book> bookList) {
         if (mSwipeRefreshLayout.isRefreshing()) {
+            mBookList.clear();
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        if (BookDataSource.PAGE_LIMIT > bookList.size()) {
-            mQueryable = false;
+        for (Book book : bookList) {
+            mBookList.add(book);
         }
-
-        if (0 == bookList.size()) {
-            mBookList.clear();
-            mBookListAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), "暂无收藏", Toast.LENGTH_LONG).show();
-        } else {
-            mBookList.clear();
-            for (Book book : bookList) {
-                mBookList.add(book);
-            }
-            mBookListAdapter.notifyDataSetChanged();
-            mPageCode++;
-        }
+        mBookListAdapter.notifyDataSetChanged();
     }
 
     @Override

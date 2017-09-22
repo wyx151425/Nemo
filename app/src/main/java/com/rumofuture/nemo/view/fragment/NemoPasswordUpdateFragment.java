@@ -1,6 +1,5 @@
 package com.rumofuture.nemo.view.fragment;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -17,9 +16,6 @@ import com.rumofuture.nemo.app.contract.NemoPasswordUpdateContract;
 
 import cn.bmob.v3.exception.BmobException;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NemoPasswordUpdateFragment extends Fragment implements NemoPasswordUpdateContract.View {
 
     private NemoPasswordUpdateContract.Presenter mPresenter;
@@ -33,7 +29,7 @@ public class NemoPasswordUpdateFragment extends Fragment implements NemoPassword
     private NemoProgressBarFragment mProgressBar;
 
     public NemoPasswordUpdateFragment() {
-        // Required empty public constructor
+
     }
 
     public static NemoPasswordUpdateFragment newInstance() {
@@ -44,7 +40,7 @@ public class NemoPasswordUpdateFragment extends Fragment implements NemoPassword
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mProgressBar = NemoProgressBarFragment.newInstance(getString(R.string.prompt_updating));
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_nemo_password_update, container, false);
 
         mMobilePhoneNumberView = (EditText) view.findViewById(R.id.user_mobile_phone_number_view);

@@ -139,8 +139,19 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
             // 如果当前应用有用户在线，并且此漫画的作者不是当前登录用户，则查询此用户是否收藏过此漫画册
             mPresenter.getFavoriteRelation(mFavorite);
         }
+
+        mScrollListener.init();
         mPresenter.getBookReviewList(mBook, 0);
+
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mReviewList.clear();
+        isOnline = false;
+        isFavorite = false;
     }
 
     @Override

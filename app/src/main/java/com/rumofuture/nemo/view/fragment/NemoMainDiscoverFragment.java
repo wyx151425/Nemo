@@ -14,10 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.contract.NemoMainDiscoverContract;
 import com.rumofuture.nemo.app.widget.OnMainScrollListener;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
-import com.rumofuture.nemo.app.contract.NemoMainDiscoverContract;
 import com.rumofuture.nemo.view.adapter.NemoMainAuthorListAdapter;
 
 import java.util.ArrayList;

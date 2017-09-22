@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.app.contract.MyFollowerListContract;
+import com.rumofuture.nemo.app.widget.OnListScrollListener;
+import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
 import com.rumofuture.nemo.view.adapter.MyFollowerListAdapter;
 
@@ -29,10 +30,8 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
     private List<User> mFollowerList;
     private MyFollowerListAdapter mFollowerListAdapter;
 
+    private OnListScrollListener mScrollListener;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private int mPageCode = 0;
-    private boolean mQueryable = true;
 
     public MyFollowerListFragment() {
 
@@ -47,6 +46,12 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
         super.onCreate(savedInstanceState);
         mFollowerList = new ArrayList<>();
         mFollowerListAdapter = new MyFollowerListAdapter(mFollowerList);
+        mScrollListener = new OnListScrollListener(UserDataSource.PAGE_LIMIT) {
+            @Override
+            public void onLoadMore(int pageCode) {
+                mPresenter.getMyFollowerList(pageCode);
+            }
+        };
     }
 
     @Override
@@ -59,16 +64,17 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPageCode = 0;
-                mQueryable = true;
-                mPresenter.getMyFollowerList(mPageCode);
+                mPresenter.getMyFollowerList(0);
             }
         });
 
-        RecyclerView mFollowerListView = (RecyclerView) view.findViewById(R.id.follower_list_view);
+        RecyclerView followerListView = (RecyclerView) view.findViewById(R.id.follower_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mFollowerListView.setLayoutManager(layoutManager);
-        mFollowerListView.setAdapter(mFollowerListAdapter);
+        followerListView.setLayoutManager(layoutManager);
+        followerListView.setAdapter(mFollowerListAdapter);
+
+        mScrollListener.setLayoutManager(layoutManager);
+        followerListView.addOnScrollListener(mScrollListener);
 
         return view;
     }
@@ -76,10 +82,9 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
     @Override
     public void onStart() {
         super.onStart();
-        mPageCode = 0;
-        mQueryable = true;
-        mPresenter.getMyFollowerList(mPageCode);
+        mScrollListener.init();
         mSwipeRefreshLayout.setRefreshing(true);
+        mPresenter.getMyFollowerList(0);
     }
 
     @Override
@@ -90,25 +95,14 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
     @Override
     public void showMyFollowerListGetSuccess(List<User> followerList) {
         if (mSwipeRefreshLayout.isRefreshing()) {
+            mFollowerList.clear();
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        if (followerList.size() < UserDataSource.PAGE_LIMIT) {
-            mQueryable = false;
+        for (User follower : followerList) {
+            mFollowerList.add(follower);
         }
-
-        if (0 == followerList.size()) {
-            mFollowerList.clear();
-            mFollowerListAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), "暂无粉丝", Toast.LENGTH_LONG).show();
-        } else {
-            mFollowerList.clear();
-            for (User follower : followerList) {
-                mFollowerList.add(follower);
-            }
-            mFollowerListAdapter.notifyDataSetChanged();
-            mPageCode++;
-        }
+        mFollowerListAdapter.notifyDataSetChanged();
     }
 
     @Override

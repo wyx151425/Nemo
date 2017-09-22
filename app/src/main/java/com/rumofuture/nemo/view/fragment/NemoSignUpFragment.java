@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.app.contract.NemoSignUpContract;
+import com.rumofuture.nemo.model.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.contract.NemoPageListContract;
+import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Page;
 import com.rumofuture.nemo.model.source.PageDataSource;
@@ -28,15 +29,12 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
 
     private NemoPageListContract.Presenter mPresenter;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
     private Book mBook;
-
     private List<Page> mPageList;
     private NemoBookPageListAdapter mPageListAdapter;
 
-    private int mPageCode = 0;
-    private boolean mQueryable = true;
+    private OnListScrollListener mScrollListener;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public NemoBookPageListFragment() {
 
@@ -53,9 +51,17 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (null != getArguments()) {
             mBook = (Book) getArguments().getSerializable(ARG_BOOK);
         }
+        mPageList = new ArrayList<>();
+        mPageListAdapter = new NemoBookPageListAdapter(mPageList);
+        mScrollListener = new OnListScrollListener(PageDataSource.PAGE_LIMIT) {
+            @Override
+            public void onLoadMore(int pageCode) {
+                mPresenter.getBookPageList(mBook, pageCode);
+            }
+        };
     }
 
     @Override
@@ -68,19 +74,17 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPageCode = 0;
-                mQueryable = true;
-                mPresenter.getBookPageList(mBook, mPageCode);
+                mPresenter.getBookPageList(mBook, 0);
             }
         });
 
         RecyclerView pageListView = (RecyclerView) view.findViewById(R.id.page_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         pageListView.setLayoutManager(layoutManager);
-
-        mPageList = new ArrayList<>();
-        mPageListAdapter = new NemoBookPageListAdapter(mPageList);
         pageListView.setAdapter(mPageListAdapter);
+
+        mScrollListener.setLayoutManager(layoutManager);
+        pageListView.addOnScrollListener(mScrollListener);
 
         return view;
     }
@@ -88,9 +92,8 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
     @Override
     public void onStart() {
         super.onStart();
-        mPageCode = 0;
-        mQueryable = true;
-        mPresenter.getBookPageList(mBook, mPageCode);
+        mScrollListener.init();
+        mPresenter.getBookPageList(mBook, 0);
         mSwipeRefreshLayout.setRefreshing(true);
     }
 
@@ -102,25 +105,14 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
     @Override
     public void showPageListGetSuccess(List<Page> pageList) {
         if (mSwipeRefreshLayout.isRefreshing()) {
+            mPageList.clear();
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        if (pageList.size() < PageDataSource.PAGE_LIMIT) {
-            mQueryable = false;
+        for (Page page : pageList) {
+            mPageList.add(page);
         }
-
-        if (0 == pageList.size()) {
-            mPageList.clear();
-            mPageListAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), "暂无漫画", Toast.LENGTH_LONG).show();
-        } else {
-            mPageList.clear();
-            for (Page page : pageList) {
-                mPageList.add(page);
-            }
-            mPageListAdapter.notifyDataSetChanged();
-            mPageCode++;
-        }
+        mPageListAdapter.notifyDataSetChanged();
     }
 
     @Override

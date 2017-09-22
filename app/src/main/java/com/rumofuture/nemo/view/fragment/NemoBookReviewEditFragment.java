@@ -13,10 +13,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.contract.NemoReviewEditContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.model.entity.User;
-import com.rumofuture.nemo.app.contract.NemoReviewEditContract;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;

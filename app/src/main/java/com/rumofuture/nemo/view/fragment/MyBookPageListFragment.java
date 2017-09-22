@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.contract.MyBookPageListContract;
 import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Page;
 import com.rumofuture.nemo.model.source.PageDataSource;
-import com.rumofuture.nemo.app.contract.MyBookPageListContract;
 import com.rumofuture.nemo.view.adapter.MyBookPageListAdapter;
 
 import java.util.ArrayList;
@@ -65,10 +65,9 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
         mPage.setBook(mBook);
 
         mProgressBar = NemoProgressBarFragment.newInstance(getString(R.string.prompt_loading));
-        
+
         mPageList = new ArrayList<>();
         mPageListAdapter = new MyBookPageListAdapter(mPageList, this);
-
         mScrollListener = new OnListScrollListener(PageDataSource.PAGE_LIMIT) {
             @Override
             public void onLoadMore(int pageCode) {
@@ -168,6 +167,7 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
             mPageList.clear();
             mSwipeRefreshLayout.setRefreshing(false);
         }
+
         for (Page page : pageList) {
             mPageList.add(page);
         }

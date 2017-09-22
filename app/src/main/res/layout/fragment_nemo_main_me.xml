@@ -261,7 +261,7 @@
             android:background="@color/colorSilver"/>
 
         <TextView
-            android:id="@+id/my_favorite_book_list_view"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:drawablePadding="@dimen/activity_horizontal_margin"

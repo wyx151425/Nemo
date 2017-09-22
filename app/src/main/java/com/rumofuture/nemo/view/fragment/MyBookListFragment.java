@@ -15,10 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.contract.MyBookListContract;
 import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
-import com.rumofuture.nemo.app.contract.MyBookListContract;
 import com.rumofuture.nemo.view.activity.MyBookCreateActivity;
 import com.rumofuture.nemo.view.adapter.MyBookListAdapter;
 
@@ -31,14 +31,14 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
 
     private static final int REQUEST_BOOK = 710;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
     private MyBookListContract.Presenter mPresenter;
-
-    private NemoProgressBarFragment mProgressBar;
 
     private List<Book> mBookList;
     private MyBookListAdapter mBookListAdapter;
+
+    private NemoProgressBarFragment mProgressBar;
+    private OnListScrollListener mScrollListener;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public MyBookListFragment() {
 
@@ -49,6 +49,12 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
         super.onCreate(savedInstanceState);
         mBookList = new ArrayList<>();
         mBookListAdapter = new MyBookListAdapter(mBookList, this);
+        mScrollListener = new OnListScrollListener(BookDataSource.PAGE_LIMIT) {
+            @Override
+            public void onLoadMore(int pageCode) {
+                mPresenter.getMyBookList(pageCode);
+            }
+        };
     }
 
     public static MyBookListFragment newInstance() {
@@ -64,7 +70,6 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
                 MyBookCreateActivity.actionStart(getActivity(), REQUEST_BOOK);
             }
         });
-
 
         mProgressBar = NemoProgressBarFragment.newInstance(getResources().getString(R.string.prompt_deleting));
 
@@ -94,8 +99,8 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
     @Override
     public void onStart() {
         super.onStart();
-        mSwipeRefreshLayout.setRefreshing(true);
         mScrollListener.init();
+        mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.getMyBookList(0);
     }
 
@@ -119,6 +124,7 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
             mBookList.clear();
             mSwipeRefreshLayout.setRefreshing(false);
         }
+
         for (Book book : bookList) {
             mBookList.add(book);
         }
@@ -167,11 +173,4 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
     public void actionDeleteBook(Book book) {
         mPresenter.deleteBook(book);
     }
-
-    private OnListScrollListener mScrollListener = new OnListScrollListener(BookDataSource.PAGE_LIMIT) {
-        @Override
-        public void onLoadMore(int pageCode) {
-            mPresenter.getMyBookList(pageCode);
-        }
-    };
 }

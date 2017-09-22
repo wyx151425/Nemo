@@ -9,7 +9,7 @@
     tools:context="com.rumofuture.nemo.view.fragment.MyFollowAuthorListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_followed_user_list_view"
+        android:id="@+id/author_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

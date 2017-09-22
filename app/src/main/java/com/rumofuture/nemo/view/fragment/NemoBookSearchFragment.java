@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.app.contract.NemoBookSearchContract;
+import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.view.adapter.NemoBookSearchListAdapter;
 
 import java.util.ArrayList;

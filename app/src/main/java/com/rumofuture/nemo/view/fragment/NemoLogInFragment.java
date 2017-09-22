@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.app.contract.NemoLogInContract;
+import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.view.activity.NemoPasswordUpdateActivity;
 import com.rumofuture.nemo.view.activity.NemoSignUpActivity;
 

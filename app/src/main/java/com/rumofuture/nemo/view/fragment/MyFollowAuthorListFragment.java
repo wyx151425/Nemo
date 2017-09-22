@@ -1,6 +1,5 @@
 package com.rumofuture.nemo.view.fragment;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.contract.MyFollowAuthorListContract;
+import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
 import com.rumofuture.nemo.view.adapter.MyFollowAuthorListAdapter;
@@ -23,20 +23,15 @@ import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuthorListContract.View {
 
     private MyFollowAuthorListContract.Presenter mPresenter;
 
+    private OnListScrollListener mScrollListener;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<User> mAuthorList;
     private MyFollowAuthorListAdapter mAuthorListAdapter;
-
-    private int mPageCode = 0;
-    private boolean mQueryable = true;
 
     public MyFollowAuthorListFragment() {
     }
@@ -50,6 +45,12 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
         super.onCreate(savedInstanceState);
         mAuthorList = new ArrayList<>();
         mAuthorListAdapter = new MyFollowAuthorListAdapter(mAuthorList);
+        mScrollListener = new OnListScrollListener(UserDataSource.PAGE_LIMIT) {
+            @Override
+            public void onLoadMore(int pageCode) {
+                mPresenter.getMyFollowAuthorList(pageCode);
+            }
+        };
     }
 
     @Override
@@ -62,16 +63,17 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPageCode = 0;
-                mQueryable = true;
-                mPresenter.getMyFollowAuthorList(mPageCode);
+                mPresenter.getMyFollowAuthorList(0);
             }
         });
 
-        RecyclerView myFollowedUserListView = (RecyclerView) view.findViewById(R.id.my_followed_user_list_view);
+        RecyclerView authorListView = (RecyclerView) view.findViewById(R.id.author_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        myFollowedUserListView.setLayoutManager(layoutManager);
-        myFollowedUserListView.setAdapter(mAuthorListAdapter);
+        authorListView.setLayoutManager(layoutManager);
+        authorListView.setAdapter(mAuthorListAdapter);
+
+        mScrollListener.setLayoutManager(layoutManager);
+        authorListView.addOnScrollListener(mScrollListener);
 
         return view;
     }
@@ -79,10 +81,9 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
     @Override
     public void onStart() {
         super.onStart();
-        mPageCode = 0;
-        mQueryable = true;
-        mPresenter.getMyFollowAuthorList(mPageCode);
+        mScrollListener.init();
         mSwipeRefreshLayout.setRefreshing(true);
+        mPresenter.getMyFollowAuthorList(0);
     }
 
     @Override
@@ -93,25 +94,14 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
     @Override
     public void showFollowUserListGetSuccess(List<User> authorList) {
         if (mSwipeRefreshLayout.isRefreshing()) {
+            mAuthorList.clear();
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        if (UserDataSource.PAGE_LIMIT > authorList.size()) {
-            mQueryable = false;
+        for (User author : authorList) {
+            mAuthorList.add(author);
         }
-
-        if (0 == authorList.size()) {
-            mAuthorList.clear();
-            mAuthorListAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), "暂无关注", Toast.LENGTH_LONG).show();
-        } else {
-            mAuthorList.clear();
-            for (User author : authorList) {
-                mAuthorList.add(author);
-            }
-            mAuthorListAdapter.notifyDataSetChanged();
-            mPageCode++;
-        }
+        mAuthorListAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -78,9 +78,16 @@ public class MyBookInfoFragment extends Fragment implements MyBookReviewListCont
         mScrollListener.setLayoutManager(layoutManager);
         reviewListView.addOnScrollListener(mScrollListener);
 
+        mScrollListener.init();
         mPresenter.getBookReviewList(mBook, 0);
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mReviewList.clear();
     }
 
     @Override

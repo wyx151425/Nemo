@@ -1,6 +1,5 @@
 package com.rumofuture.nemo.view.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.app.contract.MyInfoUpdateContract;
+import com.rumofuture.nemo.model.entity.User;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
@@ -22,9 +21,6 @@ import cn.bmob.v3.exception.BmobException;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyProfileEditFragment extends Fragment implements MyInfoUpdateContract.View {
 
     private static final String ARG_PROFILE = "com.rumofuture.nemo.view.fragment.MyProfileEditFragment.profile";
@@ -40,7 +36,7 @@ public class MyProfileEditFragment extends Fragment implements MyInfoUpdateContr
     private String mProfile;
 
     public MyProfileEditFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -65,7 +61,7 @@ public class MyProfileEditFragment extends Fragment implements MyInfoUpdateContr
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mProgressBar = NemoProgressBarFragment.newInstance(getString(R.string.prompt_updating));
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_my_profile_edit, container, false);
         mProfileView = (EditText) view.findViewById(R.id.my_profile_view);
         mProfileView.setText(mProfile);

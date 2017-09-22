@@ -1,6 +1,5 @@
 package com.rumofuture.nemo.view.fragment;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,9 +14,6 @@ import com.rumofuture.nemo.app.contract.MyEmailBindContract;
 
 import cn.bmob.v3.exception.BmobException;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyEmailBindFragment extends Fragment implements MyEmailBindContract.View {
 
     private MyEmailBindContract.Presenter mPresenter;

@@ -82,7 +82,7 @@ public class NemoMainMeFragment extends Fragment {
             }
         });
 
-        TextView myFavoriteBookListView = (TextView) view.findViewById(R.id.my_favorite_book_list_view);
+        TextView myFavoriteBookListView = (TextView) view.findViewById(R.id.recycler_view);
         myFavoriteBookListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

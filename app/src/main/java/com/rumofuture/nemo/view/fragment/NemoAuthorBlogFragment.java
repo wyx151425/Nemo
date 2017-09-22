@@ -117,24 +117,16 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
             mPresenter.getFollowRelation(mFollow);
         }
 
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
+        mScrollListener.init();
         mPresenter.getAuthorBookList(mAuthor, 0);
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        mBookList.clear();
+        return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mBookList.clear();
         isOnline = false;
         isFollow = false;
     }

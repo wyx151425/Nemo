@@ -1,21 +1,16 @@
 package com.rumofuture.nemo.view.fragment;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.rumofuture.nemo.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NemoProgressBarFragment extends DialogFragment {
 
     private static final String ARG_PROMPT = "com.rumofuture.nemo.view.fragment.NemoProgressBarFragment.prompt";
@@ -23,7 +18,7 @@ public class NemoProgressBarFragment extends DialogFragment {
     private String mPrompt;
 
     public NemoProgressBarFragment() {
-        // Required empty public constructor
+
     }
 
     public static NemoProgressBarFragment newInstance(String prompt) {
