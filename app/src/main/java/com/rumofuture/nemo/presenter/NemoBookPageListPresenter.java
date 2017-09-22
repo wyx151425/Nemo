@@ -1,9 +1,9 @@
 package com.rumofuture.nemo.presenter;
 
+import com.rumofuture.nemo.app.contract.NemoPageListContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Page;
 import com.rumofuture.nemo.model.source.PageDataSource;
-import com.rumofuture.nemo.app.contract.NemoPageListContract;
 
 import java.util.List;
 

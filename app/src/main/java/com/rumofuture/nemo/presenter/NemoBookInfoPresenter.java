@@ -2,6 +2,7 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.contract.NemoBookInfoContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Favorite;
 import com.rumofuture.nemo.model.entity.Review;
@@ -12,7 +13,6 @@ import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.model.source.FavoriteDataSource;
 import com.rumofuture.nemo.model.source.ReviewDataSource;
 import com.rumofuture.nemo.model.source.UserDataSource;
-import com.rumofuture.nemo.app.contract.NemoBookInfoContract;
 
 import java.util.List;
 

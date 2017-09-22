@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import com.rumofuture.nemo.app.contract.NemoAuthorBlogContract;
 import com.rumofuture.nemo.model.entity.Book;
-import com.rumofuture.nemo.model.entity.Device;
 import com.rumofuture.nemo.model.entity.Follow;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.schema.UserSchema;
@@ -21,7 +20,6 @@ import cn.bmob.v3.BmobPushManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.PushListener;
 
 /**

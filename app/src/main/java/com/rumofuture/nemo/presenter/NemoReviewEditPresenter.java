@@ -1,8 +1,8 @@
 package com.rumofuture.nemo.presenter;
 
+import com.rumofuture.nemo.app.contract.NemoReviewEditContract;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.model.source.ReviewDataSource;
-import com.rumofuture.nemo.app.contract.NemoReviewEditContract;
 
 import cn.bmob.v3.exception.BmobException;
 

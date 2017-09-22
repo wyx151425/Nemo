@@ -3,12 +3,12 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.contract.MyBookListContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.schema.UserSchema;
 import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.model.source.UserDataSource;
-import com.rumofuture.nemo.app.contract.MyBookListContract;
 
 import java.util.List;
 

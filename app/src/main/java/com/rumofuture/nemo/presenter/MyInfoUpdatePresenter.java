@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.rumofuture.nemo.app.contract.MyInfoUpdateContract;
 import com.rumofuture.nemo.app.manager.ImageChooseManager;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
-import com.rumofuture.nemo.app.contract.MyInfoUpdateContract;
 import com.rumofuture.nemo.view.fragment.MyInfoEditFragment;
 import com.smile.filechoose.api.ChosenImage;
 

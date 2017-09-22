@@ -1,7 +1,5 @@
 package com.rumofuture.nemo.model.source.remote;
 
-import android.util.Log;
-
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.model.schema.ReviewSchema;

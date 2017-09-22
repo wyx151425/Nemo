@@ -9,7 +9,7 @@ import java.util.List;
 import cn.bmob.v3.exception.BmobException;
 
 /**
- * Created by Administrator on 2017/9/8.
+ * Created by WangZhenqi on 2017/9/8.
  */
 
 public interface MyFollowerListContract {

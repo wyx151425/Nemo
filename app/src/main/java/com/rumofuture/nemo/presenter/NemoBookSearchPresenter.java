@@ -2,9 +2,9 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.contract.NemoBookSearchContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
-import com.rumofuture.nemo.app.contract.NemoBookSearchContract;
 
 import java.util.List;
 

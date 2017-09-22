@@ -2,11 +2,11 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.contract.MyFavoriteBookListContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.model.source.UserDataSource;
-import com.rumofuture.nemo.app.contract.MyFavoriteBookListContract;
 
 import java.util.List;
 

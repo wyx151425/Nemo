@@ -3,10 +3,10 @@ package com.rumofuture.nemo.presenter;
 import android.text.TextUtils;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.contract.NemoLogInContract;
 import com.rumofuture.nemo.model.entity.Device;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
-import com.rumofuture.nemo.app.contract.NemoLogInContract;
 
 import java.util.List;
 
@@ -14,7 +14,6 @@ import cn.bmob.v3.BmobInstallationManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import rx.functions.Action1;
 
 /**
  * Created by WangZhenqi on 2017/4/16.
