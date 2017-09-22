@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Nemo</string>
     <string name="app_theme">您的专属漫画分享平台</string>
+    <string name="app_motto">儒墨少年&#160;&#160;匠心之作</string>
+    <string name="app_creator">作者&#160;&#160;王振琦</string>
+    <string name="app_explore_motto">海内知己&#160;&#160;天涯之邻</string>
+    <string name="app_copyright">Copyright © 2016-2017 Nemo</string>
     <string name="prompt_log_in_welcome">欢迎登录Nemo</string>
     <string name="prompt_sign_up_welcome">欢迎加入Nemo</string>
 
@@ -168,8 +172,4 @@
     <string name="prompt_my_collected">我的收藏</string>
     <string name="prompt_my_settings">我的设置</string>
     <string name="action_go_album">欣赏专辑</string>
-    <string name="app_motto">儒墨少年&#160;&#160;匠心之作</string>
-    <string name="app_creator">作者&#160;&#160;王振琦</string>
-    <string name="app_explore_motto">海内知己&#160;&#160;天涯之邻</string>
-    <string name="app_copyright">Copyright ©2016-2017 Nemo</string>
 </resources>
