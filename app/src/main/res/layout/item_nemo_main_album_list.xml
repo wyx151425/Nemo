@@ -2,10 +2,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_light_margin"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/colorSilver"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -29,7 +34,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
@@ -94,15 +99,6 @@
             android:textColor="@color/colorDarkGray"
             android:textSize="@dimen/nemo_text_middle_size"/>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/colorSilver"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_vertical_light_margin"/>
 
     <View
         android:layout_width="match_parent"
