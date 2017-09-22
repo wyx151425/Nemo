@@ -13,10 +13,8 @@ import com.bumptech.glide.Glide;
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
-import com.rumofuture.nemo.view.activity.NemoAuthorBlogActivity;
 import com.rumofuture.nemo.view.activity.NemoBookPageListActivity;
 import com.rumofuture.nemo.view.fragment.NemoAuthorBookInfoFragment;
-import com.rumofuture.nemo.view.fragment.NemoBookInfoFragment;
 
 import java.util.List;
 

@@ -14,7 +14,6 @@ import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.view.activity.NemoAuthorBookInfoActivity;
-import com.rumofuture.nemo.view.activity.NemoBookInfoActivity;
 
 import java.util.List;
 

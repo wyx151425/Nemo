@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.view.activity.MyBookInfoActivity;
-import com.rumofuture.nemo.view.activity.MyBookPageListActivity;
 import com.rumofuture.nemo.view.fragment.MyBookListFragment;
 
 import java.util.List;
