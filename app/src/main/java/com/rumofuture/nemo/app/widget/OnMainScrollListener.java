@@ -2,7 +2,6 @@ package com.rumofuture.nemo.app.widget;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.LayoutManager;
 
 /**
  * Created by WangZhenqi on 2017/9/15.

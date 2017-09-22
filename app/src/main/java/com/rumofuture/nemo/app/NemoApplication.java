@@ -2,19 +2,12 @@ package com.rumofuture.nemo.app;
 
 import android.support.multidex.MultiDexApplication;
 
-import com.rumofuture.nemo.model.entity.Device;
-import com.rumofuture.nemo.model.entity.User;
-
-import java.util.List;
-
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobInstallationManager;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.InstallationListener;
 import cn.bmob.v3.exception.BmobException;
-import rx.functions.Action1;
 
 /**
  * Created by WangZhenqi on 2016/12/24.

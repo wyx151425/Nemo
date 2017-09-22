@@ -7,12 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import com.google.gson.JsonObject;
 import com.rumofuture.nemo.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import cn.bmob.push.PushConstants;
 
