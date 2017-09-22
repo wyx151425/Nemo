@@ -57,7 +57,7 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_follower_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -68,7 +68,7 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
             }
         });
 
-        RecyclerView followerListView = (RecyclerView) view.findViewById(R.id.follower_list_view);
+        RecyclerView followerListView = (RecyclerView) view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         followerListView.setLayoutManager(layoutManager);
         followerListView.setAdapter(mFollowerListAdapter);

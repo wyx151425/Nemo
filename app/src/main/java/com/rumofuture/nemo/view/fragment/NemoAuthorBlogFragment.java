@@ -82,7 +82,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nemo_author_blog, container, false);
+        View view = inflater.inflate(R.layout.fragment_nemo_recycler_view, container, false);
 
         mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         mFab.setClickable(false);
@@ -102,7 +102,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
             }
         });
 
-        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.book_list_view);
+        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         bookListView.setLayoutManager(layoutManager);
         bookListView.setAdapter(mBookListAdapter);

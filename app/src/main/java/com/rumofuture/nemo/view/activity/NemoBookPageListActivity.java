@@ -18,14 +18,12 @@ public class NemoBookPageListActivity extends NemoActivity {
 
     private static final String EXTRA_BOOK_OBJECT = "com.rumofuture.nemo.view.activity.NemoBookPageListActivity.BookObject";
 
-    private Book mBook;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nemo_book_page_list);
+        setContentView(R.layout.activity_nemo_fragment);
 
-        mBook = (Book) getIntent().getSerializableExtra(EXTRA_BOOK_OBJECT);
+        Book book = (Book) getIntent().getSerializableExtra(EXTRA_BOOK_OBJECT);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -33,13 +31,13 @@ public class NemoBookPageListActivity extends NemoActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(mBook.getName());
+            getSupportActionBar().setTitle(book.getName());
         }
 
         NemoBookPageListFragment fragment = (NemoBookPageListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            fragment = NemoBookPageListFragment.newInstance(mBook);
+            fragment = NemoBookPageListFragment.newInstance(book);
             NemoActivityManager.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.fragment_container);
         }

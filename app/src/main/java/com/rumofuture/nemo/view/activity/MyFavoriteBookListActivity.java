@@ -18,7 +18,7 @@ public class MyFavoriteBookListActivity extends NemoActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_favorite_book_list);
+        setContentView(R.layout.activity_nemo_fragment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

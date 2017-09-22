@@ -34,7 +34,7 @@ public class NemoBookStylePickerFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_nemo_book_style_picker, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_nemo_list_view, null);
 
         final ListView bookStyleListView = (ListView) view.findViewById(R.id.album_list_view);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

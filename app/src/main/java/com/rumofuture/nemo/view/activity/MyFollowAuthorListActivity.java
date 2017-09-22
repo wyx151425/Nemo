@@ -18,7 +18,7 @@ public class MyFollowAuthorListActivity extends NemoActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_follow_author_list);
+        setContentView(R.layout.activity_nemo_fragment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

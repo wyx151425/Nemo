@@ -17,7 +17,7 @@ public class NemoLogInActivity extends NemoActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nemo_log_in);
+        setContentView(R.layout.activity_nemo_fragment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -16,7 +16,7 @@ public class NemoPasswordUpdateActivity extends NemoActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nemo_password_update);
+        setContentView(R.layout.activity_nemo_fragment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

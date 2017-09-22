@@ -37,7 +37,7 @@ public class MyBookPageListAdapter extends RecyclerView.Adapter<MyBookPageListAd
             mContext = parent.getContext();
         }
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_my_page_list, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_my_book_page_list, parent, false);
         final ItemViewHolder holder = new ItemViewHolder(view);
 
         holder.mPageImageView.setOnLongClickListener(new View.OnLongClickListener() {

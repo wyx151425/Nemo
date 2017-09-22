@@ -31,7 +31,7 @@ public class NemoBookPageListAdapter extends RecyclerView.Adapter<NemoBookPageLi
         if (mContext == null)
             mContext = parent.getContext();
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_my_page_list, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_my_book_page_list, parent, false);
         return new ItemViewHolder(view);
     }
 

@@ -67,7 +67,7 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nemo_album_book_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -79,7 +79,7 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
             }
         });
 
-        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.book_list_view);
+        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         bookListView.setLayoutManager(layoutManager);
         bookListView.setAdapter(mBookListAdapter);

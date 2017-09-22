@@ -56,7 +56,7 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_favorite_book_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);

@@ -79,7 +79,7 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_page_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -91,7 +91,7 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
             }
         });
 
-        RecyclerView pageListView = (RecyclerView) view.findViewById(R.id.page_list_view);
+        RecyclerView pageListView = (RecyclerView) view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         pageListView.setLayoutManager(layoutManager);
         pageListView.setAdapter(mPageListAdapter);

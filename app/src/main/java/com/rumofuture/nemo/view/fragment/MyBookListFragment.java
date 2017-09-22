@@ -73,7 +73,7 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
 
         mProgressBar = NemoProgressBarFragment.newInstance(getResources().getString(R.string.prompt_deleting));
 
-        View view = inflater.inflate(R.layout.fragment_my_book_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -85,7 +85,7 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
             }
         });
 
-        final RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.book_list_view);
+        final RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.recycler_view);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         bookListView.setLayoutManager(layoutManager);
         bookListView.setAdapter(mBookListAdapter);

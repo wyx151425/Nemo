@@ -56,7 +56,7 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_follow_author_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -67,7 +67,7 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
             }
         });
 
-        RecyclerView authorListView = (RecyclerView) view.findViewById(R.id.author_list_view);
+        RecyclerView authorListView = (RecyclerView) view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         authorListView.setLayoutManager(layoutManager);
         authorListView.setAdapter(mAuthorListAdapter);
