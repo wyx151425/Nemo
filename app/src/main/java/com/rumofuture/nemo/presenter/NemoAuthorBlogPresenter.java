@@ -108,18 +108,16 @@ public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter
         follower.increment(UserSchema.Table.Cols.FOLLOW_TOTAL);
         mUserRepository.updateUserInfo(follower, this);
 
-        BmobPushManager pushManager = new BmobPushManager();
-        BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
-        query.addWhereEqualTo("installationId", "C8CDE03327B6A0485A153C838ADD17A5");
-        pushManager.setQuery(query);
-        pushManager.pushMessage("", new PushListener() {
-            @Override
-            public void done(BmobException e) {
-                if (null == e) {
-                    Toast.makeText(((NemoAuthorBlogFragment) mView).getActivity(), "推送成功", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+//        BmobPushManager pushManager = new BmobPushManager();
+//        BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
+//        query.addWhereEqualTo("installationId", "C8CDE03327B6A0485A153C838ADD17A5");
+//        pushManager.setQuery(query);
+//        pushManager.pushMessage("", new PushListener() {
+//            @Override
+//            public void done(BmobException e) {
+//
+//            }
+//        });
     }
 
     @Override

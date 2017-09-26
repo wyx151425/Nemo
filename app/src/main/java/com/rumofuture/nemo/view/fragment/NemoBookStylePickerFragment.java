@@ -65,8 +65,9 @@ public class NemoBookStylePickerFragment extends DialogFragment {
     }
 
     private void sendResult(int resultCode, String style) {
-        if (getTargetFragment() == null)
+        if (null == getTargetFragment()) {
             return;
+        }
 
         Intent intent = new Intent();
         intent.putExtra(EXTRA_STYLE, style);
