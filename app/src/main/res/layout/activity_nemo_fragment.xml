@@ -19,6 +19,10 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/colorSilver"/>
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout

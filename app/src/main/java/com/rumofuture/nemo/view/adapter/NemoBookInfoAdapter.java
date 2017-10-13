@@ -15,6 +15,7 @@ import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.view.activity.NemoAuthorBlogActivity;
 import com.rumofuture.nemo.view.activity.NemoBookPageListActivity;
+import com.rumofuture.nemo.view.activity.NemoBookShareActivity;
 import com.rumofuture.nemo.view.fragment.NemoBookInfoFragment;
 
 import java.util.List;
@@ -60,7 +61,11 @@ public class NemoBookInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.mBookInfoContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NemoBookPageListActivity.actionStart(mContext, mBook);
+                    if (mBook.getShare()) {
+                        NemoBookShareActivity.actionStart(mContext, mBook.getUrl());
+                    } else {
+                        NemoBookPageListActivity.actionStart(mContext, mBook);
+                    }
                 }
             });
             holder.mReviewActionView.setOnClickListener(new View.OnClickListener() {

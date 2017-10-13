@@ -13,6 +13,7 @@
     <string name="title_activity_nemo_album_book_list">专辑</string>
     <string name="title_activity_nemo_author_search">搜索作者</string>
     <string name="title_activity_nemo_book_info">漫画册</string>
+    <string name="title_activity_nemo_book_share">漫画分享</string>
     <string name="title_activity_nemo_book_page_list">漫画展示</string>
     <string name="title_activity_nemo_book_search">搜索漫画</string>
     <string name="title_activity_nemo_email_bind">绑定邮箱</string>
@@ -172,4 +173,7 @@
     <string name="prompt_my_follower">我的粉丝</string>
     <string name="prompt_my_collected">我的收藏</string>
     <string name="prompt_my_settings">我的设置</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

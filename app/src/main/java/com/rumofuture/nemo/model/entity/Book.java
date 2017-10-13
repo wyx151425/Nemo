@@ -14,6 +14,7 @@ public class Book extends BmobObject {
     private String name;  // 名称
     private String style;  // 风格
     private String introduction;  // 简介
+    private String url;  // 网页地址
 
     private Integer pageTotal;  // 漫画册漫画分页数
     private Integer favorTotal;  // 收藏此漫画的用户数
@@ -22,6 +23,8 @@ public class Book extends BmobObject {
 
     private Boolean approve;
     private Boolean show;
+    private Boolean share;
+    private Boolean own;
 
     public User getAuthor() {
         return author;
@@ -53,6 +56,14 @@ public class Book extends BmobObject {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Integer getPageTotal() {
@@ -93,5 +104,21 @@ public class Book extends BmobObject {
 
     public void setShow(Boolean show) {
         this.show = show;
+    }
+
+    public Boolean getShare() {
+        return share;
+    }
+
+    public void setShare(Boolean share) {
+        this.share = share;
+    }
+
+    public Boolean getOwn() {
+        return own;
+    }
+
+    public void setOwn(Boolean own) {
+        this.own = own;
     }
 }
