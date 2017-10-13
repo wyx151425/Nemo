@@ -62,7 +62,7 @@ public class NemoBookInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v) {
                     if (mBook.getShare()) {
-                        NemoBookShareActivity.actionStart(mContext, mBook.getUrl());
+                        NemoBookShareActivity.actionStart(mContext, mBook);
                     } else {
                         NemoBookPageListActivity.actionStart(mContext, mBook);
                     }

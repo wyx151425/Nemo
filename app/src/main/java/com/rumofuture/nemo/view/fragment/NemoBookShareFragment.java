@@ -10,21 +10,22 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.model.entity.Book;
 
 public class NemoBookShareFragment extends Fragment {
 
-    public static final String ARG_URL = "com.rumofuture.nemo.view.fragment.NemoBookShareFragment.url";
-    private String mUrl;
+    public static final String ARG_BOOK = "com.rumofuture.nemo.view.fragment.NemoBookShareFragment.url";
+    private Book mBook;
     private WebView mWebView;
 
     public NemoBookShareFragment() {
 
     }
 
-    public static NemoBookShareFragment newInstance(String url) {
+    public static NemoBookShareFragment newInstance(Book book) {
         Bundle args = new Bundle();
         NemoBookShareFragment fragment = new NemoBookShareFragment();
-        args.putString(ARG_URL, url);
+        args.putSerializable(ARG_BOOK, book);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,7 +34,7 @@ public class NemoBookShareFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (null != getArguments()) {
-            mUrl = getArguments().getString(ARG_URL);
+            mBook = (Book) getArguments().getSerializable(ARG_BOOK);
         }
     }
 
@@ -45,7 +46,7 @@ public class NemoBookShareFragment extends Fragment {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new NemoWebViewClient());
         mWebView.setSaveEnabled(false);
-        mWebView.loadUrl("http://mp.weixin.qq.com/s/q-c00ld4Pe26Y66wToenOA");
+        mWebView.loadUrl(mBook.getUrl());
         return view;
     }
 
