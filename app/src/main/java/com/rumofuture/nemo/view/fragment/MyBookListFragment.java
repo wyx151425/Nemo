@@ -20,6 +20,7 @@ import com.rumofuture.nemo.app.widget.OnListScrollListener;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.view.activity.MyBookCreateActivity;
+import com.rumofuture.nemo.view.activity.NemoBookShareActivity;
 import com.rumofuture.nemo.view.adapter.MyBookListAdapter;
 
 import java.util.ArrayList;
@@ -67,7 +68,9 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyBookCreateActivity.actionStart(getActivity(), REQUEST_BOOK);
+                NemoBookSourcePickerFragment dialog =
+                        NemoBookSourcePickerFragment.newInstance();
+                dialog.show(getFragmentManager(), null);
             }
         });
 
