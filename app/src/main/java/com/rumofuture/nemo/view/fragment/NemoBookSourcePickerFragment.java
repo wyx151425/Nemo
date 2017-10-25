@@ -47,6 +47,8 @@ public class NemoBookSourcePickerFragment extends DialogFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 if (0 == position) {
                     MyBookCreateActivity.actionStart(getActivity(), REQUEST_BOOK);
+                } else {
+                    
                 }
             }
         });
