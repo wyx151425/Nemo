@@ -18,8 +18,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.view.activity.MyBookCreateActivity;
 
 public class NemoBookSourcePickerFragment extends DialogFragment {
+
+    private static final int REQUEST_BOOK = 710;
 
     public NemoBookSourcePickerFragment() {
 
@@ -42,7 +45,9 @@ public class NemoBookSourcePickerFragment extends DialogFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(getActivity(), sourceArray[position], Toast.LENGTH_SHORT).show();
+                if (0 == position) {
+                    MyBookCreateActivity.actionStart(getActivity(), REQUEST_BOOK);
+                }
             }
         });
 
