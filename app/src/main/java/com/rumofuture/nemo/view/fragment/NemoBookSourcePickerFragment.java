@@ -1,24 +1,20 @@
 package com.rumofuture.nemo.view.fragment;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.view.activity.MyBookCreateActivity;
+import com.rumofuture.nemo.view.activity.MyBookShareActivity;
 
 public class NemoBookSourcePickerFragment extends DialogFragment {
 
@@ -48,7 +44,7 @@ public class NemoBookSourcePickerFragment extends DialogFragment {
                 if (0 == position) {
                     MyBookCreateActivity.actionStart(getActivity(), REQUEST_BOOK);
                 } else {
-
+                    MyBookShareActivity.actionStart(getActivity(), REQUEST_BOOK);
                 }
             }
         });

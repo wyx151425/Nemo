@@ -82,6 +82,7 @@
     <string name="prompt_book_introduction">简介</string>
     <string name="prompt_book_collector">收藏</string>
     <string name="prompt_book_review">评论</string>
+    <string name="prompt_book_url">网址</string>
 
     <string name="prompt_book_style_pick">选择风格</string>
 
@@ -174,7 +175,4 @@
     <string name="prompt_my_follower">我的粉丝</string>
     <string name="prompt_my_collected">我的收藏</string>
     <string name="prompt_my_settings">我的设置</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
