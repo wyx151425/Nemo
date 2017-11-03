@@ -31,7 +31,7 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:support-v4:26.1.0'
     compile 'cn.bmob.android:bmob-sdk:3.5.7'
-    compile ('cn.bmob.android:bmob-push:1.0.1', {
+    compile('cn.bmob.android:bmob-push:1.0.1', {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     })
     compile 'com.android.support:cardview-v7:26.1.0'

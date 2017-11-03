@@ -204,6 +204,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".view.activity.MyBookShareActivity"
+            android:label="@string/title_activity_nemo_book_share"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <!-- *******以下添加推送所需要的服务和广播******* -->
 
