@@ -26,7 +26,7 @@ public class NemoMainWelcomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_main_welcome, container, false);
 
-        Button logInButton = (Button) view.findViewById(R.id.log_in_button);
+        Button logInButton = view.findViewById(R.id.log_in_button);
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,7 +34,7 @@ public class NemoMainWelcomeFragment extends Fragment {
             }
         });
 
-        Button signUpButton = (Button) view.findViewById(R.id.sign_up_button);
+        Button signUpButton = view.findViewById(R.id.sign_up_button);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

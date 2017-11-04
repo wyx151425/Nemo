@@ -1,6 +1,7 @@
 package com.rumofuture.nemo.view.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.model.entity.User;
+import com.rumofuture.nemo.presenter.NemoMainMePresenter;
 import com.rumofuture.nemo.view.activity.MyBlogActivity;
 import com.rumofuture.nemo.view.activity.MyBookListActivity;
 import com.rumofuture.nemo.view.activity.MyFavoriteBookListActivity;
@@ -30,6 +33,8 @@ public class NemoMainMeFragment extends Fragment {
     private TextView mMyFollowerTotalView;
     private TextView mMyFavoriteBookView;
 
+    private NemoMainMePresenter mPresenter;
+
     public NemoMainMeFragment() {
 
     }
@@ -39,11 +44,17 @@ public class NemoMainMeFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPresenter = new NemoMainMePresenter(DataSourceManager.provideUserRepository(getActivity()));
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_main_me, container, false);
 
-        LinearLayout myInfoContainer = (LinearLayout) view.findViewById(R.id.my_info_container);
+        LinearLayout myInfoContainer = view.findViewById(R.id.my_info_container);
         myInfoContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,14 +62,14 @@ public class NemoMainMeFragment extends Fragment {
             }
         });
 
-        mMyAvatarView = (ImageView) view.findViewById(R.id.my_avatar_view);
-        mMyNameView = (TextView) view.findViewById(R.id.my_name_view);
-        mMyMottoView = (TextView) view.findViewById(R.id.my_motto_view);
-        mMyFollowAuthorTotalView = (TextView) view.findViewById(R.id.my_follow_author_total_view);
-        mMyFollowerTotalView = (TextView) view.findViewById(R.id.my_follower_total_view);
-        mMyFavoriteBookView = (TextView) view.findViewById(R.id.my_favorite_book_total_view);
+        mMyAvatarView = view.findViewById(R.id.my_avatar_view);
+        mMyNameView = view.findViewById(R.id.my_name_view);
+        mMyMottoView = view.findViewById(R.id.my_motto_view);
+        mMyFollowAuthorTotalView = view.findViewById(R.id.my_follow_author_total_view);
+        mMyFollowerTotalView = view.findViewById(R.id.my_follower_total_view);
+        mMyFavoriteBookView = view.findViewById(R.id.my_favorite_book_total_view);
 
-        TextView myBookListView = (TextView) view.findViewById(R.id.my_book_list_view);
+        TextView myBookListView = view.findViewById(R.id.my_book_list_view);
         myBookListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +77,7 @@ public class NemoMainMeFragment extends Fragment {
             }
         });
 
-        TextView myFollowAuthorListView = (TextView) view.findViewById(R.id.my_follow_author_list_view);
+        TextView myFollowAuthorListView = view.findViewById(R.id.my_follow_author_list_view);
         myFollowAuthorListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +85,7 @@ public class NemoMainMeFragment extends Fragment {
             }
         });
 
-        TextView myFollowerListView = (TextView) view.findViewById(R.id.my_follower_list_view);
+        TextView myFollowerListView = view.findViewById(R.id.my_follower_list_view);
         myFollowerListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +93,7 @@ public class NemoMainMeFragment extends Fragment {
             }
         });
 
-        TextView myFavoriteBookListView = (TextView) view.findViewById(R.id.recycler_view);
+        TextView myFavoriteBookListView = view.findViewById(R.id.recycler_view);
         myFavoriteBookListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +101,7 @@ public class NemoMainMeFragment extends Fragment {
             }
         });
 
-        TextView mySettingListView = (TextView) view.findViewById(R.id.my_setting_list_view);
+        TextView mySettingListView = view.findViewById(R.id.my_setting_list_view);
         mySettingListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +116,11 @@ public class NemoMainMeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         User myself = BmobUser.getCurrentUser(User.class);
+        if (!myself.getAuthorize() && null != myself.getProfile() && !myself.getProfile().equals("")
+                && null != myself.getAvatar() && null != myself.getPortrait()) {
+            mPresenter.getAuthorization();
+        }
+
         if (null != myself.getAvatar()) {
             Glide.with(getActivity()).load(myself.getAvatar().getUrl()).into(mMyAvatarView);
         }

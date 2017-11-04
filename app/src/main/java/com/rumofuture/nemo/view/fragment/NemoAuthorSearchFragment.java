@@ -55,7 +55,7 @@ public class NemoAuthorSearchFragment extends Fragment implements NemoAuthorSear
 
         View view = inflater.inflate(R.layout.fragment_nemo_recycler_view, container, false);
 
-        RecyclerView authorListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView authorListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         authorListView.setLayoutManager(layoutManager);
         authorListView.setAdapter(mAuthorListAdapter);
@@ -80,9 +80,7 @@ public class NemoAuthorSearchFragment extends Fragment implements NemoAuthorSear
     @Override
     public void showAuthorSearchSuccess(List<User> authorList) {
         mAuthorList.clear();
-        for (User author : authorList) {
-            mAuthorList.add(author);
-        }
+        mAuthorList.addAll(authorList);
         mAuthorListAdapter.notifyDataSetChanged();
     }
 

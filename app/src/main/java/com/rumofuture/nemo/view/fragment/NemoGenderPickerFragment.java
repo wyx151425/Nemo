@@ -14,6 +14,8 @@ import android.widget.NumberPicker;
 
 import com.rumofuture.nemo.R;
 
+import java.util.Objects;
+
 public class NemoGenderPickerFragment extends DialogFragment {
 
     public static final String EXTRA_GENDER = "com.rumofuture.nemo.view.fragment.NemoDatePickerFragment.gender";
@@ -39,14 +41,14 @@ public class NemoGenderPickerFragment extends DialogFragment {
         String gender = (String) getArguments().getSerializable(ARG_GENDER);
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_my_sex_picker, null);
-        mNumberPicker = (NumberPicker) view.findViewById(R.id.dialog_sex_picker);
+        mNumberPicker = view.findViewById(R.id.dialog_sex_picker);
         String[] genderArray = {"男", "女", "保密"};
         mNumberPicker.setDisplayedValues(genderArray);
         mNumberPicker.setMinValue(0);
         mNumberPicker.setMaxValue(genderArray.length - 1);
         int value = 0;
         for (int index = 0; index < genderArray.length; index++) {
-            if (gender.equals(genderArray[index])) {
+            if (Objects.equals(gender, genderArray[index])) {
                 value = index;
             }
         }

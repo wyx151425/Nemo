@@ -33,10 +33,10 @@ public class MyPasswordUpdateFragment extends Fragment implements MyPasswordUpda
 
         View view = inflater.inflate(R.layout.fragment_my_password_update, container, false);
 
-        final EditText oldPasswordView = (EditText) view.findViewById(R.id.old_password_view);
-        final EditText newPasswordView = (EditText) view.findViewById(R.id.new_password_view);
+        final EditText oldPasswordView = view.findViewById(R.id.old_password_view);
+        final EditText newPasswordView = view.findViewById(R.id.new_password_view);
 
-        Button passwordUpdateButton = (Button) view.findViewById(R.id.password_update_button);
+        Button passwordUpdateButton = view.findViewById(R.id.password_update_button);
         passwordUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +62,7 @@ public class MyPasswordUpdateFragment extends Fragment implements MyPasswordUpda
 
     @Override
     public void showUserPasswordUpdateFailed(BmobException e) {
-//        Toast.makeText(getActivity(), R.string.prompt_update_failed, Toast.LENGTH_LONG).show();
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), R.string.prompt_update_failed, Toast.LENGTH_LONG).show();
     }
 
     @Override

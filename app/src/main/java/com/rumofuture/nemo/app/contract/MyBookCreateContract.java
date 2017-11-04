@@ -25,7 +25,6 @@ public interface MyBookCreateContract {
     }
 
     interface Presenter extends NemoImageUploadPresenter {
-        void getAuthorization();
         void createBook(Book book);
     }
 }

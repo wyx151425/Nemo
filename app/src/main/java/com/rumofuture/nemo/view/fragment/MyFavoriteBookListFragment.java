@@ -58,7 +58,7 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -67,7 +67,7 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
             }
         });
 
-        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView bookListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         bookListView.setLayoutManager(layoutManager);
         bookListView.setAdapter(mBookListAdapter);
@@ -99,9 +99,7 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        for (Book book : bookList) {
-            mBookList.add(book);
-        }
+        mBookList.addAll(bookList);
         mBookListAdapter.notifyDataSetChanged();
     }
 
@@ -110,7 +108,7 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        Toast.makeText(getActivity(), "获取失败" + e.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), R.string.prompt_load_failed, Toast.LENGTH_LONG).show();
     }
 
     @Override

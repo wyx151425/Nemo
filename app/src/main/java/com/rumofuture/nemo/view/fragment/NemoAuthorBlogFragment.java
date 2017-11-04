@@ -84,7 +84,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_recycler_view, container, false);
 
-        mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        mFab = getActivity().findViewById(R.id.fab);
         mFab.setClickable(false);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,12 +97,12 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
                         mPresenter.followUser(mFollow);
                     }
                 } else {
-                    Toast.makeText(getActivity(), "登录Nemo即可关注此作者", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "登录Nemo 即刻关注", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView bookListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         bookListView.setLayoutManager(layoutManager);
         bookListView.setAdapter(mBookListAdapter);
@@ -143,9 +143,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
 
     @Override
     public void showAuthorBookListGetSuccess(List<Book> bookList) {
-        for (Book book : bookList) {
-            mBookList.add(book);
-        }
+        mBookList.addAll(bookList);
         mBookListAdapter.notifyDataSetChanged();
     }
 

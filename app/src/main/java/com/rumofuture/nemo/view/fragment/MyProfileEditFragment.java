@@ -63,10 +63,10 @@ public class MyProfileEditFragment extends Fragment implements MyInfoUpdateContr
         mProgressBar = NemoProgressBarFragment.newInstance(getString(R.string.prompt_updating));
 
         View view = inflater.inflate(R.layout.fragment_my_profile_edit, container, false);
-        mProfileView = (EditText) view.findViewById(R.id.my_profile_view);
+        mProfileView = view.findViewById(R.id.my_profile_view);
         mProfileView.setText(mProfile);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

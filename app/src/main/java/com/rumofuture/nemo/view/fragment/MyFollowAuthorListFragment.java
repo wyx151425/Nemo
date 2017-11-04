@@ -58,7 +58,7 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -67,7 +67,7 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
             }
         });
 
-        RecyclerView authorListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView authorListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         authorListView.setLayoutManager(layoutManager);
         authorListView.setAdapter(mAuthorListAdapter);
@@ -98,9 +98,7 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        for (User author : authorList) {
-            mAuthorList.add(author);
-        }
+        mAuthorList.addAll(authorList);
         mAuthorListAdapter.notifyDataSetChanged();
     }
 
@@ -109,7 +107,7 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        Toast.makeText(getActivity(), "获取失败" + e.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), R.string.prompt_load_failed, Toast.LENGTH_LONG).show();
     }
 
     @Override

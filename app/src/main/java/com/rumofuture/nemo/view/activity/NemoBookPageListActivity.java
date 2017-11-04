@@ -25,7 +25,7 @@ public class NemoBookPageListActivity extends NemoActivity {
 
         Book book = (Book) getIntent().getSerializableExtra(EXTRA_BOOK_OBJECT);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {

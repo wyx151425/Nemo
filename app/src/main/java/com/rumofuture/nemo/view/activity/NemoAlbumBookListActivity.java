@@ -24,7 +24,7 @@ public class NemoAlbumBookListActivity extends NemoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nemo_album_book_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Album album = (Album) getIntent().getSerializableExtra(EXTRA_ALBUM);

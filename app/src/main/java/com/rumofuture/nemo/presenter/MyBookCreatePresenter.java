@@ -66,13 +66,6 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
     }
 
     @Override
-    public void getAuthorization() {
-        User currentUser = BmobUser.getCurrentUser(User.class);
-        currentUser.setAuthorize(true);
-        mUserRepository.updateUserInfo(currentUser, this);
-    }
-
-    @Override
     public void createBook(final Book book) {
 
         // 如果未选择封面，则取消创建并提示错误
@@ -111,7 +104,6 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
         book.setPageTotal(0);
         book.setFavorTotal(0);
         book.setApprove(false);
-        book.setShow(true);
         mBookRepository.saveBook(book, this);
     }
 

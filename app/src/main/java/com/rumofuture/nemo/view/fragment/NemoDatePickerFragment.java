@@ -59,7 +59,7 @@ public class NemoDatePickerFragment extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_nemo_date_picker, null);
 
-        mDatePicker = (DatePicker) view.findViewById(R.id.dialog_date_picker);
+        mDatePicker = view.findViewById(R.id.dialog_date_picker);
         if (null != mDate) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(mDate);

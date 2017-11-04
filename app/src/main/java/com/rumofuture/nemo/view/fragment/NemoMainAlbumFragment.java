@@ -52,7 +52,7 @@ public class NemoMainAlbumFragment extends Fragment implements NemoMainAlbumCont
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_main_album, container, false);
 
-        RecyclerView albumListView = (RecyclerView) view.findViewById(R.id.album_list_view);
+        RecyclerView albumListView = view.findViewById(R.id.album_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         albumListView.setLayoutManager(layoutManager);
         albumListView.setAdapter(mAlbumListAdapter);
@@ -70,9 +70,7 @@ public class NemoMainAlbumFragment extends Fragment implements NemoMainAlbumCont
     @Override
     public void showAlbumListGetSuccess(List<Album> albumList) {
         mAlbumList.clear();
-        for (Album album : albumList) {
-            mAlbumList.add(album);
-        }
+        mAlbumList.addAll(albumList);
         mAlbumListAdapter.notifyDataSetChanged();
     }
 

@@ -59,7 +59,7 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -68,7 +68,7 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
             }
         });
 
-        RecyclerView followerListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView followerListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         followerListView.setLayoutManager(layoutManager);
         followerListView.setAdapter(mFollowerListAdapter);
@@ -99,9 +99,7 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        for (User follower : followerList) {
-            mFollowerList.add(follower);
-        }
+        mFollowerList.addAll(followerList);
         mFollowerListAdapter.notifyDataSetChanged();
     }
 

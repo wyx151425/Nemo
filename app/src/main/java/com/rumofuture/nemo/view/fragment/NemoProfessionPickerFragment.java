@@ -84,7 +84,7 @@ public class NemoProfessionPickerFragment extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_nemo_list_view, null);
 
-        mListView = (ListView) view.findViewById(R.id.list_view);
+        mListView = view.findViewById(R.id.list_view);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getActivity(), R.layout.item_nemo_profession_list, mProfessionArray);
         mListView.setAdapter(adapter);

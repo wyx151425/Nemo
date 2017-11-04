@@ -25,7 +25,7 @@ public class NemoBookReviewEditActivity extends NemoActivity {
 
         Book book = (Book) getIntent().getSerializableExtra(EXTRA_BOOK);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (null != getSupportActionBar()) {

@@ -42,7 +42,7 @@ public class NemoBookShareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_book_share, container, false);
-        mWebView = (WebView) view.findViewById(R.id.web_view);
+        mWebView = view.findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new NemoWebViewClient());
         mWebView.setSaveEnabled(false);

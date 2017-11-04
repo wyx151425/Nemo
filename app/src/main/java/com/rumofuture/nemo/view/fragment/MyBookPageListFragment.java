@@ -81,7 +81,7 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -91,7 +91,7 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
             }
         });
 
-        RecyclerView pageListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView pageListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         pageListView.setLayoutManager(layoutManager);
         pageListView.setAdapter(mPageListAdapter);
@@ -99,7 +99,7 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
         mScrollListener.setLayoutManager(layoutManager);
         pageListView.addOnScrollListener(mScrollListener);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,9 +168,7 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        for (Page page : pageList) {
-            mPageList.add(page);
-        }
+        mPageList.addAll(pageList);
         mPageListAdapter.notifyDataSetChanged();
     }
 

@@ -80,28 +80,28 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
     }
 
     private void initView(View view) {
-        mAvatarView = (ImageView) view.findViewById(R.id.author_avatar_view);
+        mAvatarView = view.findViewById(R.id.author_avatar_view);
         if (null != mUserCurrent.getAvatar()) {
             Glide.with(getActivity()).load(mUserCurrent.getAvatar().getUrl()).into(mAvatarView);
         }
 
-        mNameView = (TextView) view.findViewById(R.id.author_name_view);
+        mNameView = view.findViewById(R.id.author_name_view);
         mNameView.setText(mUserCurrent.getName());
 
-        mMottoView = (EditText) view.findViewById(R.id.author_motto_view);
+        mMottoView = view.findViewById(R.id.author_motto_view);
         if (null != mUserCurrent.getMotto()) {
             mMottoView.setText(mUserCurrent.getMotto());
         }
 
-        mMobilePhoneNumberView = (TextView) view.findViewById(R.id.user_mobile_phone_number_view);
+        mMobilePhoneNumberView = view.findViewById(R.id.user_mobile_phone_number_view);
         mMobilePhoneNumberView.setText(mUserCurrent.getMobilePhoneNumber());
 
-        mEmailView = (TextView) view.findViewById(R.id.user_email_view);
+        mEmailView = view.findViewById(R.id.user_email_view);
         if (null != mUserCurrent.getEmail()) {
             mEmailView.setText(mUserCurrent.getEmail());
         }
 
-        mSexView = (TextView) view.findViewById(R.id.user_sex_view);
+        mSexView = view.findViewById(R.id.user_sex_view);
         if (null != mUserCurrent.getGender()) {
             mSexView.setText(mUserCurrent.getGender());
         }
@@ -114,7 +114,7 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
             }
         });
 
-        mBirthdayView = (TextView) view.findViewById(R.id.user_birthday_view);
+        mBirthdayView = view.findViewById(R.id.user_birthday_view);
         if (null != mUserCurrent.getBirthday()) {
             mBirthdayView.setText(mUserCurrent.getBirthday());
         }
@@ -130,7 +130,7 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
             }
         });
 
-        mProfessionView = (TextView) view.findViewById(R.id.user_profession_view);
+        mProfessionView = view.findViewById(R.id.user_profession_view);
         if (null != mUserCurrent.getProfession()) {
             mProfessionView.setText(mUserCurrent.getProfession());
         }
@@ -145,12 +145,12 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
             }
         });
 
-        mLocationView = (TextView) view.findViewById(R.id.user_location_view);
+        mLocationView = view.findViewById(R.id.user_location_view);
         if (null != mUserCurrent.getLocation()) {
             mLocationView.setText(mUserCurrent.getLocation());
         }
 
-        mProfileView = (TextView) view.findViewById(R.id.my_profile_view);
+        mProfileView = view.findViewById(R.id.my_profile_view);
         if (null != mUserCurrent.getProfile()) {
             mProfileView.setText(mUserCurrent.getProfile());
         }
@@ -164,7 +164,7 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

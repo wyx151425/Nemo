@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,9 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
     private EditText mBookNameView;
     private TextView mBookStyleView;
     private EditText mBookIntroductionView;
+    private SwitchCompat mBookOwnSwitchView;
+    private SwitchCompat mBookShowSwitchView;
+    private SwitchCompat mBookShareSwitchView;
 
     private static final int REQUEST_STYLE = 711;
 
@@ -51,7 +55,9 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        permissionCheck();
+        if (!BmobUser.getCurrentUser(User.class).getAuthorize()) {
+            showDialog();
+        }
     }
 
     @Override
@@ -60,7 +66,7 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
         mProgressBar = NemoProgressBarFragment.newInstance(getString(R.string.prompt_creating));
         View view = inflater.inflate(R.layout.fragment_my_book_create, container, false);
 
-        mBookCoverView = (ImageView) view.findViewById(R.id.book_cover_view);
+        mBookCoverView = view.findViewById(R.id.book_cover_view);
         mBookCoverView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,10 +74,13 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
             }
         });
 
-        mBookNameView = (EditText) view.findViewById(R.id.book_name_view);
-        mBookIntroductionView = (EditText) view.findViewById(R.id.book_introduction_view);
+        mBookNameView = view.findViewById(R.id.book_name_view);
+        mBookIntroductionView = view.findViewById(R.id.book_introduction_view);
+        mBookOwnSwitchView = view.findViewById(R.id.book_own_switch_view);
+        mBookShowSwitchView = view.findViewById(R.id.book_show_switch_view);
+        mBookShareSwitchView = view.findViewById(R.id.book_share_switch_view);
 
-        mBookStyleView = (TextView) view.findViewById(R.id.book_style_view);
+        mBookStyleView = view.findViewById(R.id.book_style_view);
         mBookStyleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +90,7 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +98,9 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
                 book.setName(mBookNameView.getText().toString().trim());
                 book.setStyle(mBookStyleView.getText().toString());
                 book.setIntroduction(mBookIntroductionView.getText().toString());
+                book.setOwn(mBookOwnSwitchView.isChecked());
+                book.setShow(mBookShowSwitchView.isChecked());
+                book.setShare(mBookShareSwitchView.isChecked());
                 mPresenter.createBook(book);
             }
         });
@@ -153,19 +165,6 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
             mProgressBar.show(getFragmentManager(), null);
         } else {
             mProgressBar.dismiss();
-        }
-    }
-
-    private void permissionCheck() {
-        User user = BmobUser.getCurrentUser(User.class);
-        if (null == user.getAvatar()) {
-            showDialog();
-        } else if (null == user.getPortrait()) {
-            showDialog();
-        } else if (null == user.getProfile() || user.getProfile().equals("")) {
-            showDialog();
-        } else if (!user.getAuthorize()) {
-            mPresenter.getAuthorization();
         }
     }
 

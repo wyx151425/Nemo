@@ -83,6 +83,9 @@
     <string name="prompt_book_collector">收藏</string>
     <string name="prompt_book_review">评论</string>
     <string name="prompt_book_url">网址</string>
+    <string name="prompt_book_own">原创</string>
+    <string name="prompt_book_show">展示</string>
+    <string name="prompt_book_share">分享</string>
 
     <string name="prompt_book_style_pick">选择风格</string>
 

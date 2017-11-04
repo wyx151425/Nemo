@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,10 +58,10 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nemo_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        mBottomNavigationView = findViewById(R.id.bottom_navigation_view);
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
         NemoMainActivity.BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
     }
@@ -241,6 +242,7 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
     }
 
     private static class BottomNavigationViewHelper {
+        @SuppressLint("RestrictedApi")
         static void disableShiftMode(BottomNavigationView view) {
             BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
             try {

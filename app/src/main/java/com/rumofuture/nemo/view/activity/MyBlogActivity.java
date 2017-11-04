@@ -53,7 +53,7 @@ public class MyBlogActivity extends NemoActivity {
 
         initView();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,11 +146,11 @@ public class MyBlogActivity extends NemoActivity {
     }
 
     private void initView() {
-        mAppBar = (AppBarLayout) findViewById(R.id.app_bar);
-        mMyInfoContainer = (FrameLayout) findViewById(R.id.my_info_container);
-        mMyInfoLayout = (LinearLayout) findViewById(R.id.my_info_layout);
+        mAppBar = findViewById(R.id.app_bar);
+        mMyInfoContainer = findViewById(R.id.my_info_container);
+        mMyInfoLayout = findViewById(R.id.my_info_layout);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -158,13 +158,13 @@ public class MyBlogActivity extends NemoActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        mToolbarTitleView = (TextView) findViewById(R.id.toolbar_title_view);
+        mToolbarTitleView = findViewById(R.id.toolbar_title_view);
 
-        mMyNameView = (TextView) findViewById(R.id.my_name_view);
-        mMyMottoView = (TextView) findViewById(R.id.my_motto_view);
-        mMyProfileView = (TextView) findViewById(R.id.my_profile_view);
-        mMyAvatarView = (CircleImageView) findViewById(R.id.my_avatar_view);
-        mMyPortraitView = (ImageView) findViewById(R.id.my_portrait_view);
+        mMyNameView = findViewById(R.id.my_name_view);
+        mMyMottoView = findViewById(R.id.my_motto_view);
+        mMyProfileView = findViewById(R.id.my_profile_view);
+        mMyAvatarView = findViewById(R.id.my_avatar_view);
+        mMyPortraitView = findViewById(R.id.my_portrait_view);
     }
 
     private void initData() {

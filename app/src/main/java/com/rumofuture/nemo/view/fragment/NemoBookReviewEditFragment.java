@@ -59,8 +59,8 @@ public class NemoBookReviewEditFragment extends Fragment implements NemoReviewEd
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_review_edit, container, false);
 
-        final EditText reviewContentView = (EditText) view.findViewById(R.id.review_content_view);
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        final EditText reviewContentView = view.findViewById(R.id.review_content_view);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

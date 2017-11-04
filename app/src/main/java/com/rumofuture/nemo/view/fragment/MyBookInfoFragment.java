@@ -70,7 +70,7 @@ public class MyBookInfoFragment extends Fragment implements MyBookReviewListCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_recycler_view, container, false);
 
-        RecyclerView reviewListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView reviewListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         reviewListView.setLayoutManager(layoutManager);
         reviewListView.setAdapter(mReviewListAdapter);

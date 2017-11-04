@@ -69,7 +69,7 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -78,7 +78,7 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
             }
         });
 
-        RecyclerView pageListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView pageListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         pageListView.setLayoutManager(layoutManager);
         pageListView.setAdapter(mPageListAdapter);
@@ -109,9 +109,7 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        for (Page page : pageList) {
-            mPageList.add(page);
-        }
+        mPageList.addAll(pageList);
         mPageListAdapter.notifyDataSetChanged();
     }
 

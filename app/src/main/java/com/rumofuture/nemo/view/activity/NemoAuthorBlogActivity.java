@@ -146,11 +146,11 @@ public class NemoAuthorBlogActivity extends NemoActivity {
     }
 
     private void initView() {
-        mAppBar = (AppBarLayout) findViewById(R.id.app_bar);
-        mAuthorInformationForm = (FrameLayout) findViewById(R.id.author_info_container);
-        mAuthorInformationContainer = (LinearLayout) findViewById(R.id.author_info_layout);
+        mAppBar = findViewById(R.id.app_bar);
+        mAuthorInformationForm = findViewById(R.id.author_info_container);
+        mAuthorInformationContainer = findViewById(R.id.author_info_layout);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -158,11 +158,11 @@ public class NemoAuthorBlogActivity extends NemoActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        mToolbarTitleView = (TextView) findViewById(R.id.toolbar_title);
-        mAuthorNameView = (TextView) findViewById(R.id.author_name_view);
-        mAuthorMottoView = (TextView) findViewById(R.id.author_motto_view);
-        mAuthorAvatarView = (CircleImageView) findViewById(R.id.author_avatar_view);
-        mAuthorPortraitView = (ImageView) findViewById(R.id.author_portrait_view);
+        mToolbarTitleView = findViewById(R.id.toolbar_title);
+        mAuthorNameView = findViewById(R.id.author_name_view);
+        mAuthorMottoView = findViewById(R.id.author_motto_view);
+        mAuthorAvatarView = findViewById(R.id.author_avatar_view);
+        mAuthorPortraitView = findViewById(R.id.author_portrait_view);
 
         mAuthor = (User) getIntent().getSerializableExtra(EXTRA_AUTHOR);
 

@@ -55,7 +55,7 @@ public class NemoBookSearchFragment extends Fragment implements NemoBookSearchCo
 
         View view = inflater.inflate(R.layout.fragment_nemo_recycler_view, container, false);
 
-        RecyclerView bookListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView bookListView = view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         bookListView.setLayoutManager(layoutManager);
         bookListView.setAdapter(mBookListAdapter);
@@ -80,9 +80,7 @@ public class NemoBookSearchFragment extends Fragment implements NemoBookSearchCo
     @Override
     public void showBookSearchSuccess(List<Book> bookList) {
         mBookList.clear();
-        for (Book book : bookList) {
-            mBookList.add(book);
-        }
+        mBookList.addAll(bookList);
         mBookListAdapter.notifyDataSetChanged();
     }
 

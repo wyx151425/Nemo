@@ -41,10 +41,10 @@ public class NemoLogInFragment extends Fragment implements NemoLogInContract.Vie
         mProgressBar = NemoProgressBarFragment.newInstance(getString(R.string.prompt_logging_in));
         View view = inflater.inflate(R.layout.fragment_nemo_log_in, container, false);
 
-        mMobilePhoneNumberView = (EditText) view.findViewById(R.id.user_mobile_phone_number_view);
-        mPasswordView = (EditText) view.findViewById(R.id.user_password_view);
+        mMobilePhoneNumberView = view.findViewById(R.id.user_mobile_phone_number_view);
+        mPasswordView = view.findViewById(R.id.user_password_view);
 
-        Button mMobilePhoneNumberLogInButton = (Button) view.findViewById(R.id.log_in_button);
+        Button mMobilePhoneNumberLogInButton = view.findViewById(R.id.log_in_button);
         mMobilePhoneNumberLogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +55,7 @@ public class NemoLogInFragment extends Fragment implements NemoLogInContract.Vie
             }
         });
 
-        TextView passwordUpdateButton = (TextView) view.findViewById(R.id.password_update_button);
+        TextView passwordUpdateButton = view.findViewById(R.id.password_update_button);
         passwordUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +63,7 @@ public class NemoLogInFragment extends Fragment implements NemoLogInContract.Vie
             }
         });
 
-        TextView signUpButton = (TextView) view.findViewById(R.id.sign_up_button);
+        TextView signUpButton = view.findViewById(R.id.sign_up_button);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -58,9 +58,9 @@ public class NemoMainFragment extends Fragment implements NemoMainContract.View 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_main, container, false);
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar_view);
+        mProgressBar = view.findViewById(R.id.progress_bar_view);
 
-        mBookListView = (RecyclerView) view.findViewById(R.id.book_list_view);
+        mBookListView = view.findViewById(R.id.book_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mBookListView.setLayoutManager(layoutManager);
         mBookListView.setAdapter(mBookListAdapter);
@@ -100,9 +100,7 @@ public class NemoMainFragment extends Fragment implements NemoMainContract.View 
         if (0 == mPageCode) {
             mBookList.clear();
         }
-        for (Book book : bookList) {
-            mBookList.add(book);
-        }
+        mBookList.addAll(bookList);
         mBookListAdapter.notifyDataSetChanged();
         mPageCode++;
     }

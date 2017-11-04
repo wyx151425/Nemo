@@ -26,7 +26,7 @@ public class NemoAuthorBookInfoActivity extends NemoActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nemo_book_info);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Book book = (Book) getIntent().getSerializableExtra(EXTRA_BOOK);

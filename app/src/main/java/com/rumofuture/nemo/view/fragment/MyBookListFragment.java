@@ -64,13 +64,11 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NemoBookSourcePickerFragment dialog =
-                        NemoBookSourcePickerFragment.newInstance();
-                dialog.show(getFragmentManager(), null);
+                MyBookCreateActivity.actionStart(getActivity(), REQUEST_BOOK);
             }
         });
 
@@ -78,7 +76,7 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
 
         View view = inflater.inflate(R.layout.fragment_nemo_swipe_refresh, container, false);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -128,9 +126,7 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        for (Book book : bookList) {
-            mBookList.add(book);
-        }
+        mBookList.addAll(bookList);
         mBookListAdapter.notifyDataSetChanged();
     }
 

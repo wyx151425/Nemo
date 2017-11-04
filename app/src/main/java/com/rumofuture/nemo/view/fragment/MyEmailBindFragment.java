@@ -35,8 +35,8 @@ public class MyEmailBindFragment extends Fragment implements MyEmailBindContract
         mProgressBar = NemoProgressBarFragment.newInstance(getResources().getString(R.string.prompt_binding));
         View view = inflater.inflate(R.layout.fragment_nemo_email_bind, container, false);
 
-        mEmailView = (EditText) view.findViewById(R.id.email_view);
-        final Button emailBindButton = (Button) view.findViewById(R.id.email_bind_button);
+        mEmailView = view.findViewById(R.id.email_view);
+        final Button emailBindButton = view.findViewById(R.id.email_bind_button);
 
         emailBindButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -58,9 +58,9 @@ public class NemoMainDiscoverFragment extends Fragment implements NemoMainDiscov
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nemo_main_discover, container, false);
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar_view);
+        mProgressBar = view.findViewById(R.id.progress_bar_view);
 
-        mAuthorListView = (RecyclerView) view.findViewById(R.id.author_list_view);
+        mAuthorListView = view.findViewById(R.id.author_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mAuthorListView.setLayoutManager(layoutManager);
         mAuthorListView.setAdapter(mAuthorListAdapter);
@@ -100,9 +100,7 @@ public class NemoMainDiscoverFragment extends Fragment implements NemoMainDiscov
         if (0 == mPageCode) {
             mAuthorList.clear();
         }
-        for (User author : authorList) {
-            mAuthorList.add(author);
-        }
+        mAuthorList.addAll(authorList);
         mAuthorListAdapter.notifyDataSetChanged();
         mPageCode++;
     }

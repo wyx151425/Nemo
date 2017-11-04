@@ -104,7 +104,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
          * 如果当前应用有用户登录，且此漫画册未被此用户收藏过，则执行次漫画册收藏对象的保存操作；
          * 如果当前应用没有用户登录，则提示用户登录才能收藏此漫画册；
          */
-        mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        mFab = getActivity().findViewById(R.id.fab);
         mFab.setClickable(false);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,12 +117,12 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
                         mPresenter.favoriteBook(mFavorite);
                     }
                 } else {
-                    Toast.makeText(getActivity(), "登录Nemo即可收藏此漫画册", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "登录Nemo 即刻收藏", Toast.LENGTH_LONG).show();
                 }
             }
         });  // mFab注释范围结束
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView =view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mBookInfoAdapter);
@@ -211,9 +211,7 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
 
     @Override
     public void showReviewListGetSuccess(List<Review> reviewList) {
-        for (Review review : reviewList) {
-            mReviewList.add(review);
-        }
+        mReviewList.addAll(reviewList);
         mBookInfoAdapter.notifyDataSetChanged();
     }
 
@@ -228,7 +226,11 @@ public class NemoAuthorBookInfoFragment extends Fragment implements NemoBookInfo
     }
 
     public void actionEditReview() {
-        NemoBookReviewEditActivity.actionStart(this, mBook, REQUEST_REVIEW);
+        if (null != BmobUser.getCurrentUser(User.class)) {
+            NemoBookReviewEditActivity.actionStart(this, mBook, REQUEST_REVIEW);
+        } else {
+            Toast.makeText(getActivity(), "登录Nemo 即刻评论", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
