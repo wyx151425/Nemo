@@ -144,6 +144,9 @@
     <string name="prompt_delete_failed">删除失败</string>
     <string name="prompt_edit_success">编辑成功</string>
     <string name="prompt_edit_failed">编辑失败</string>
+    <string name="prompt_uploading">正在上传</string>
+    <string name="prompt_upload_success">上传成功</string>
+    <string name="prompt_upload_failed">上传失败</string>
     <string name="prompt_updating">正在更新</string>
     <string name="prompt_update_success">更新成功</string>
     <string name="prompt_update_failed">更新失败</string>
@@ -171,6 +174,7 @@
     <string name="action_upload_page">上传漫画分页</string>
     <string name="action_bind_email">绑定邮箱</string>
     <string name="action_update_user_password">修改密码</string>
+    <string name="action_update_url">修改网址</string>
 
     <string name="prompt_my_subscriptions">我的订阅</string>
     <string name="prompt_my_books">我的漫画</string>
@@ -178,4 +182,7 @@
     <string name="prompt_my_follower">我的粉丝</string>
     <string name="prompt_my_collected">我的收藏</string>
     <string name="prompt_my_settings">我的设置</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

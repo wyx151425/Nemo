@@ -42,7 +42,7 @@
                 android:maxLines="1"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorSilver"
-                android:textSize="@dimen/nemo_text_standard_size"/>
+                android:textSize="@dimen/nemo_text_large_size"/>
 
             <View
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                 android:hint="@string/prompt_user_motto"
                 android:maxLines="1"
                 android:textColorHint="@color/colorSilver"
-                android:textSize="@dimen/nemo_text_more_small_size"/>
+                android:textSize="@dimen/nemo_text_small_size"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -83,6 +83,7 @@
             android:id="@+id/my_action_view"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="@dimen/activity_horizontal_light_margin"
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:drawableStart="@mipmap/ic_assessment_black_list"
             android:gravity="center_vertical"
@@ -216,6 +217,7 @@
             android:id="@+id/my_book_list_view"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="@dimen/activity_horizontal_light_margin"
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:drawableStart="@mipmap/ic_satellite_black_list"
             android:gravity="center_vertical"
@@ -232,6 +234,7 @@
             android:id="@+id/my_follow_author_list_view"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="@dimen/activity_horizontal_light_margin"
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:drawableStart="@mipmap/ic_account_box_black_list"
             android:gravity="center_vertical"
@@ -248,6 +251,7 @@
             android:id="@+id/my_follower_list_view"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="@dimen/activity_horizontal_light_margin"
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:drawableStart="@mipmap/ic_hd_black_list"
             android:gravity="center_vertical"
@@ -264,6 +268,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="@dimen/activity_horizontal_light_margin"
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:drawableStart="@mipmap/ic_dns_black_list"
             android:gravity="center_vertical"
@@ -280,6 +285,7 @@
             android:id="@+id/my_setting_list_view"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_marginStart="@dimen/activity_horizontal_light_margin"
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:drawableStart="@mipmap/ic_settings_application_black_list"
             android:gravity="center_vertical"

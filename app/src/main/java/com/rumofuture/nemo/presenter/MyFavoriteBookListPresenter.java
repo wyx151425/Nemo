@@ -9,6 +9,7 @@ import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.model.source.UserDataSource;
 
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -66,8 +67,10 @@ public class MyFavoriteBookListPresenter implements MyFavoriteBookListContract.P
     @Override
     public void onTotalGetSuccess(Integer total) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        currentUser.setFavoriteTotal(total);
-        mUserRepository.updateUserInfo(currentUser, this);
+        if (!Objects.equals(currentUser.getFavoriteTotal(), total)) {
+            currentUser.setFavoriteTotal(total);
+            mUserRepository.updateUserInfo(currentUser, this);
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,8 +15,6 @@ import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.view.activity.NemoAuthorBlogActivity;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by WangZhenqi on 2017/9/19.
@@ -67,7 +66,7 @@ public class NemoAuthorSearchListAdapter extends RecyclerView.Adapter<NemoAuthor
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout mAuthorInfoContainer;
-        CircleImageView mAuthorAvatarView;
+        ImageView mAuthorAvatarView;
         TextView mAuthorNameView;
         TextView mAuthorMottoView;
         TextView mAuthorBookTotalView;
@@ -77,11 +76,11 @@ public class NemoAuthorSearchListAdapter extends RecyclerView.Adapter<NemoAuthor
             super(itemView);
 
             mAuthorInfoContainer = (LinearLayout) itemView;
-            mAuthorAvatarView = (CircleImageView) itemView.findViewById(R.id.author_avatar_view);
-            mAuthorNameView = (TextView) itemView.findViewById(R.id.author_name_view);
-            mAuthorMottoView = (TextView) itemView.findViewById(R.id.author_motto_view);
-            mAuthorBookTotalView = (TextView) itemView.findViewById(R.id.author_book_total_view);
-            mAuthorFollowerTotalView = (TextView) itemView.findViewById(R.id.author_follower_total_view);
+            mAuthorAvatarView = itemView.findViewById(R.id.author_avatar_view);
+            mAuthorNameView = itemView.findViewById(R.id.author_name_view);
+            mAuthorMottoView = itemView.findViewById(R.id.author_motto_view);
+            mAuthorBookTotalView = itemView.findViewById(R.id.author_book_total_view);
+            mAuthorFollowerTotalView = itemView.findViewById(R.id.author_follower_total_view);
         }
     }
 }

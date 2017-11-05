@@ -16,6 +16,7 @@ import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.view.activity.MyBookPageListActivity;
+import com.rumofuture.nemo.view.activity.MyBookShareActivity;
 import com.rumofuture.nemo.view.fragment.MyBookInfoFragment;
 
 import java.util.List;
@@ -55,7 +56,11 @@ public class MyBookInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.mBookInfoContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MyBookPageListActivity.actionStart(mContext, mBook);
+                    if (mBook.getShare()) {
+                        MyBookShareActivity.actionStart(mContext, mBook);
+                    } else {
+                        MyBookPageListActivity.actionStart(mContext, mBook);
+                    }
                 }
             });
 

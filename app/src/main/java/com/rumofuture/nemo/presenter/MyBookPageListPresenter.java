@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.contract.MyBookPageListContract;
 import com.rumofuture.nemo.app.manager.ImageChooseManager;
 import com.rumofuture.nemo.model.entity.Book;
@@ -74,11 +75,12 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
                 // 如果请求码为2，则将进行的是漫画分页更新操作
                 if (mView.isActive()) {
                     final BmobFile newImage = new BmobFile(new File(mPageImage.getFilePathOriginal()));
-                    mView.showProgressBar(true);
                     if (UPLOAD_PAGE_REQUEST_CODE == requestCode) {
+                        mView.showProgressBar(true, R.string.prompt_uploading);
                         mPage.setImage(newImage);
                         mPageRepository.savePage(mPage, MyBookPageListPresenter.this);
                     } else if (UPDATE_PAGE_REQUEST_CODE == requestCode) {
+                        mView.showProgressBar(true, R.string.prompt_updating);
                         mPageRepository.updatePage(mPage, newImage, MyBookPageListPresenter.this);
                     }
                 }
@@ -116,6 +118,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
 
     @Override
     public void deletePage(Page page) {
+        mView.showProgressBar(true, R.string.prompt_deleting);
         mPageRepository.deletePage(page, this);
     }
 
@@ -137,8 +140,8 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
     @Override
     public void onPageSaveSuccess(Page page) {
         if (mView.isActive()) {
+            mView.showProgressBar(false, 0);
             mView.showPageSaveSuccess(page);
-            mView.showProgressBar(false);
         }
 
         mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL);
@@ -148,16 +151,16 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
     @Override
     public void onPageSaveFailed(BmobException e) {
         if (mView.isActive()) {
+            mView.showProgressBar(false, 0);
             mView.showPageSaveFailed(e);
-            mView.showProgressBar(false);
         }
     }
 
     @Override
     public void onPageDeleteSuccess(Page page) {
         if (mView.isActive()) {
+            mView.showProgressBar(false, 0);
             mView.showPageDeleteSuccess(page);
-            mView.showProgressBar(false);
         }
 
         mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL, -1);
@@ -167,24 +170,24 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
     @Override
     public void onPageDeleteFailed(BmobException e) {
         if (mView.isActive()) {
+            mView.showProgressBar(false, 0);
             mView.showPageDeleteFailed(e);
-            mView.showProgressBar(false);
         }
     }
 
     @Override
     public void onPageUpdateSuccess(Page page) {
         if (mView.isActive()) {
+            mView.showProgressBar(false, 0);
             mView.showPageUpdateSuccess(page);
-            mView.showProgressBar(false);
         }
     }
 
     @Override
     public void onPageUpdateFailed(BmobException e) {
         if (mView.isActive()) {
+            mView.showProgressBar(false, 0);
             mView.showPageUpdateFailed(e);
-            mView.showProgressBar(false);
         }
     }
 

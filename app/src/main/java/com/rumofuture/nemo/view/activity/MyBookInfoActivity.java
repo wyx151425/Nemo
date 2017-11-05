@@ -25,7 +25,7 @@ public class MyBookInfoActivity extends NemoActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nemo_fragment);
+        setContentView(R.layout.activity_my_book_info);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

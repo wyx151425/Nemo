@@ -186,8 +186,9 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
     }
 
     @Override
-    public void showProgressBar(boolean show) {
+    public void showProgressBar(boolean show, int stringId) {
         if (show) {
+            mProgressBar.setPrompt(getString(stringId));
             mProgressBar.show(getFragmentManager(), null);
         } else {
             mProgressBar.dismiss();

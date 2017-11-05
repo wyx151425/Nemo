@@ -32,9 +32,11 @@ public class NemoProgressBarFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mPrompt = (String) getArguments().getSerializable(ARG_PROMPT);
+        if (null == mPrompt) {
+            mPrompt = (String) getArguments().getSerializable(ARG_PROMPT);
+        }
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_nemo_progress_bar, null);
-        TextView promptView = (TextView) view.findViewById(R.id.prompt_view);
+        TextView promptView = view.findViewById(R.id.prompt_view);
         promptView.setText(mPrompt);
         return new AlertDialog.Builder(getActivity())
                 .setView(view)

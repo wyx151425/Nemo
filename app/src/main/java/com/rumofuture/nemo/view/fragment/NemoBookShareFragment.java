@@ -50,7 +50,7 @@ public class NemoBookShareFragment extends Fragment {
         return view;
     }
 
-    private static class NemoWebViewClient extends WebViewClient {
+    public static class NemoWebViewClient extends WebViewClient {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

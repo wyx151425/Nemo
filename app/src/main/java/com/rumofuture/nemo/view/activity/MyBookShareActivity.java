@@ -10,7 +10,8 @@ import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
 import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.app.manager.NemoActivityManager;
-import com.rumofuture.nemo.presenter.MyBookSharePresenter;
+import com.rumofuture.nemo.model.entity.Book;
+import com.rumofuture.nemo.presenter.MyBookUpdatePresenter;
 import com.rumofuture.nemo.view.fragment.MyBookShareFragment;
 
 /**
@@ -19,10 +20,12 @@ import com.rumofuture.nemo.view.fragment.MyBookShareFragment;
 
 public class MyBookShareActivity extends NemoActivity {
 
+    private static final String EXTRA_BOOK = "com.rumofuture.nemo.view.activity.MyBookShareActivity.book";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_book_create);
+        setContentView(R.layout.activity_my_book_share);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,14 +37,13 @@ public class MyBookShareActivity extends NemoActivity {
         MyBookShareFragment fragment =
                 (MyBookShareFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (null == fragment) {
-            fragment = MyBookShareFragment.newInstance();
+            fragment = MyBookShareFragment.newInstance((Book) getIntent().getSerializableExtra(EXTRA_BOOK));
             NemoActivityManager.addFragmentToActivity(
                     getSupportFragmentManager(), fragment, R.id.fragment_container);
         }
 
-        MyBookSharePresenter presenter = new MyBookSharePresenter(
+        MyBookUpdatePresenter presenter = new MyBookUpdatePresenter(
                 fragment,
-                DataSourceManager.provideUserRepository(MyBookShareActivity.this),
                 DataSourceManager.provideBookRepository(MyBookShareActivity.this)
         );
         fragment.setPresenter(presenter);
@@ -56,9 +58,10 @@ public class MyBookShareActivity extends NemoActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static void actionStart(Context context, int requestCode) {
+    public static void actionStart(Context context, Book book) {
         Intent intent = new Intent();
         intent.setClass(context, MyBookShareActivity.class);
-        ((NemoActivity) context).startActivityForResult(intent, requestCode);
+        intent.putExtra(EXTRA_BOOK, book);
+        context.startActivity(intent);
     }
 }

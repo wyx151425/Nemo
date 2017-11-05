@@ -7,6 +7,7 @@ import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
 
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -61,8 +62,10 @@ public class MyFollowerListPresenter implements MyFollowerListContract.Presenter
     @Override
     public void onTotalGetSuccess(Integer total) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        currentUser.setFollowerTotal(total);
-        mUserRepository.updateUserInfo(currentUser, this);
+        if (!Objects.equals(currentUser.getFollowerTotal(), total)) {
+            currentUser.setFollowerTotal(total);
+            mUserRepository.updateUserInfo(currentUser, this);
+        }
     }
 
     @Override
