@@ -113,6 +113,8 @@
     <string name="prompt_navigation_explore">发现</string>
     <string name="prompt_navigation_me">我</string>
     <string name="prompt_nemo_sms_code">验证码</string>
+    <string name="prompt_email_format_error">邮箱格式错误</string>
+    <string name="prompt_email_bind_failed">邮箱绑定失败</string>
 
     <string name="prompt_number_zero">0</string>
 

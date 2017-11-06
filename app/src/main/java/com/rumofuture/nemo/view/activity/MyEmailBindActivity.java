@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
+import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.app.manager.NemoActivityManager;
 import com.rumofuture.nemo.presenter.MyEmailBindPresenter;
 import com.rumofuture.nemo.view.fragment.MyEmailBindFragment;
@@ -33,7 +34,10 @@ public class MyEmailBindActivity extends NemoActivity {
             NemoActivityManager.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
         }
 
-        MyEmailBindPresenter presenter = new MyEmailBindPresenter(fragment);
+        MyEmailBindPresenter presenter = new MyEmailBindPresenter(
+                fragment,
+                DataSourceManager.provideUserRepository(MyEmailBindActivity.this)
+        );
         fragment.setPresenter(presenter);
     }
 

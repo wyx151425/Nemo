@@ -16,13 +16,13 @@ public interface MyEmailBindContract {
 
         void showEmailError(Integer stringId);
 
-        void showEmailBindRequestSuccess(String prompt);
-        void showEmailBindRequestFailed(BmobException e);
+        void showEmailBindSuccess(String prompt);
+        void showEmailBindFailed(BmobException e);
 
         boolean isActive();
     }
 
     interface Presenter extends NemoPresenter {
-        void bindEmailRequest(String email);
+        void bindEmail(String email);
     }
 }

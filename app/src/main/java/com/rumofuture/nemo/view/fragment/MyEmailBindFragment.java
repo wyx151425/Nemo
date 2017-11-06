@@ -41,7 +41,7 @@ public class MyEmailBindFragment extends Fragment implements MyEmailBindContract
         emailBindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.bindEmailRequest(mEmailView.getText().toString().trim());
+                mPresenter.bindEmail(mEmailView.getText().toString().trim());
             }
         });
 
@@ -67,19 +67,19 @@ public class MyEmailBindFragment extends Fragment implements MyEmailBindContract
         if (null == stringId) {
             mEmailView.setError(null);
         } else {
-            mEmailView.setError("邮箱地址格式错误");
+            mEmailView.setError(getString(stringId));
             mEmailView.requestFocus();
         }
     }
 
     @Override
-    public void showEmailBindRequestSuccess(String prompt) {
+    public void showEmailBindSuccess(String prompt) {
         Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showEmailBindRequestFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showEmailBindFailed(BmobException e) {
+        Toast.makeText(getActivity(), R.string.prompt_email_bind_failed, Toast.LENGTH_LONG).show();
     }
 
     @Override
