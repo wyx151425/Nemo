@@ -108,6 +108,7 @@ public class NemoSignUpPresenter implements NemoSignUpContract.Presenter, UserDa
             @Override
             public void done(BmobException e) {
                 if (e == null) {
+                    user.setMobilePhoneNumberVerified(true);
                     mUserRepository.signUp(user, NemoSignUpPresenter.this);
                 } else {
                     if (mView.isActive()) {
