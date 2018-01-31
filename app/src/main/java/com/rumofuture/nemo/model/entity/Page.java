@@ -11,6 +11,7 @@ public class Page extends BmobObject {
 
     private Book book;  // 所属漫画册
     private BmobFile image;  // 图像
+    private Integer status;  // 状态
 
     public Book getBook() {
         return book;
@@ -26,5 +27,13 @@ public class Page extends BmobObject {
 
     public void setImage(BmobFile image) {
         this.image = image;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

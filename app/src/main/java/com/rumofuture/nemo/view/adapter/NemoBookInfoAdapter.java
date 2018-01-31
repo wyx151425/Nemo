@@ -61,7 +61,7 @@ public class NemoBookInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.mBookInfoContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mBook.getShare()) {
+                    if (1 == mBook.getType()) {
                         NemoBookShareActivity.actionStart(mContext, mBook);
                     } else {
                         NemoBookPageListActivity.actionStart(mContext, mBook);
@@ -94,7 +94,7 @@ public class NemoBookInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             bookViewHolder.mBookNameView.setText(mBook.getName());
             bookViewHolder.mBookIntroductionView.setText(mBook.getIntroduction());
             bookViewHolder.mBookStyleView.setText(mBook.getStyle());
-            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(mBook.getFavorTotal()));
+            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(mBook.getFavor()));
         } else {
             Review review = mReviewList.get(position - 1);
             ReviewViewHolder reviewViewHolder = (ReviewViewHolder) holder;

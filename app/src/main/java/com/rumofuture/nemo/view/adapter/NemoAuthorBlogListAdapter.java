@@ -73,7 +73,7 @@ public class NemoAuthorBlogListAdapter extends RecyclerView.Adapter<RecyclerView
             bookViewHolder.mBookNameView.setText(book.getName());
             bookViewHolder.mBookStyleView.setText(book.getStyle());
             bookViewHolder.mBookIntroductionView.setText(book.getIntroduction());
-            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(book.getFavorTotal()));
+            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(book.getFavor()));
         }
     }
 

@@ -101,9 +101,9 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
         // 显示进度条
         book.setCover(new BmobFile(new File(mCoverImage.getFilePathOriginal())));
         book.setAuthor(BmobUser.getCurrentUser(User.class));
-        book.setPageTotal(0);
-        book.setFavorTotal(0);
-        book.setApprove(false);
+        book.setPage(0);
+        book.setFavor(0);
+        book.setStatus(1);
         mBookRepository.saveBook(book, this);
     }
 
@@ -115,7 +115,7 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
         }
 
         User currentUser = BmobUser.getCurrentUser(User.class);
-        currentUser.increment(UserSchema.Table.Cols.BOOK_TOTAL);
+        currentUser.increment(UserSchema.Table.Cols.BOOK);
         mUserRepository.updateUserInfo(currentUser, this);
     }
 

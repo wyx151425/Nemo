@@ -197,7 +197,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
             mView.showPageListGetSuccess(pageList);
         }
 
-        mBook.setPageTotal(pageList.size());
+        mBook.setPage(pageList.size());
         mBookRepository.updateBook(mBook, null, this);
     }
 
@@ -220,7 +220,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
 
     @Override
     public void onTotalGetSuccess(Integer total) {
-        mBook.setPageTotal(total);
+        mBook.setPage(total);
         mBookRepository.updateBook(mBook, null, this);
     }
 

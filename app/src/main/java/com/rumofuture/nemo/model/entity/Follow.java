@@ -11,6 +11,8 @@ public class Follow extends BmobObject {
     private User author;
     private User follower;
 
+    private Integer status;
+
     public Follow() {
 
     }
@@ -34,5 +36,13 @@ public class Follow extends BmobObject {
 
     public void setFollower(User follower) {
         this.follower = follower;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -98,11 +98,11 @@ public class NemoSignUpPresenter implements NemoSignUpContract.Presenter, UserDa
         user.setPassword(password);
         user.setMobilePhoneNumber(mobilePhoneNumber);
         user.setAge(0);
-        user.setFollowTotal(0);
-        user.setFollowerTotal(0);
-        user.setFavoriteTotal(0);
-        user.setBookTotal(0);
-        user.setAuthorize(false);
+        user.setFollow(0);
+        user.setFollower(0);
+        user.setFavorite(0);
+        user.setBook(0);
+        user.setStatus(1);
 
         BmobSMS.verifySmsCode(user.getMobilePhoneNumber(), smsCode, new UpdateListener() {
             @Override

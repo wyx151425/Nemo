@@ -25,7 +25,7 @@ public class NemoMainMePresenter implements UserDataSource.UserInfoUpdateCallbac
 
     public void getAuthorization() {
         User user = BmobUser.getCurrentUser(User.class);
-        user.setAuthorize(true);
+        user.setStatus(2);
         mUserRepository.updateUserInfo(user, this);
     }
 
@@ -36,6 +36,6 @@ public class NemoMainMePresenter implements UserDataSource.UserInfoUpdateCallbac
 
     @Override
     public void onUserInfoUpdateFailed(BmobException e) {
-        BmobUser.getCurrentUser(User.class).setAuthorize(false);
+        BmobUser.getCurrentUser(User.class).setStatus(1);
     }
 }

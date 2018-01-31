@@ -11,6 +11,8 @@ public class Favorite extends BmobObject {
     private Book book;
     private User favor;
 
+    private Integer status;
+
     public Favorite() {
 
     }
@@ -34,5 +36,13 @@ public class Favorite extends BmobObject {
 
     public void setFavor(User favor) {
         this.favor = favor;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

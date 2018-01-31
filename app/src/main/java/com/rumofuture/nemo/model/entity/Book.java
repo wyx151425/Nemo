@@ -8,23 +8,54 @@ import cn.bmob.v3.datatype.BmobFile;
  */
 
 public class Book extends BmobObject {
-
-    private User author;  // 所属漫画作者
-
-    private String name;  // 名称
-    private String style;  // 风格
-    private String introduction;  // 简介
-    private String url;  // 网页地址
-
-    private Integer pageTotal;  // 漫画册漫画分页数
-    private Integer favorTotal;  // 收藏此漫画的用户数
-
-    private BmobFile cover;  // 漫画册封面
-
-    private Boolean approve;
-    private Boolean show;
-    private Boolean share;
-    private Boolean own;
+    /**
+     * 所属漫画作者
+     */
+    private User author;
+    /**
+     * 漫画册名称
+     */
+    private String name;
+    /**
+     * 漫画册所属风格
+     */
+    private String style;
+    /**
+     * 漫画册简介
+     */
+    private String introduction;
+    /**
+     * 资源路径
+     */
+    private String url;
+    /**
+     * 漫画册封面路径
+     */
+    private BmobFile cover;
+    /**
+     * 漫画册漫画分页数
+     */
+    private Integer page;
+    /**
+     * 收藏此漫画的用户数
+     */
+    private Integer favor;
+    /**
+     * 漫画册审核状态（0禁止展示/1新创建待审核/2更新后待审核/3审核通过可展示）
+     */
+    private Integer status;
+    /**
+     * 漫画册类型（0本地/1网页链接）
+     */
+    private Integer type;
+    /**
+     * 漫画册是否公开
+     */
+    private Boolean publish;
+    /**
+     * 漫画册是否是自己原创
+     */
+    private Boolean copyright;
 
     public User getAuthor() {
         return author;
@@ -66,22 +97,6 @@ public class Book extends BmobObject {
         this.url = url;
     }
 
-    public Integer getPageTotal() {
-        return pageTotal;
-    }
-
-    public void setPageTotal(Integer pageTotal) {
-        this.pageTotal = pageTotal;
-    }
-
-    public Integer getFavorTotal() {
-        return favorTotal;
-    }
-
-    public void setFavorTotal(Integer favorTotal) {
-        this.favorTotal = favorTotal;
-    }
-
     public BmobFile getCover() {
         return cover;
     }
@@ -90,35 +105,51 @@ public class Book extends BmobObject {
         this.cover = cover;
     }
 
-    public Boolean getApprove() {
-        return approve;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setApprove(Boolean approve) {
-        this.approve = approve;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public Boolean getShow() {
-        return show;
+    public Integer getFavor() {
+        return favor;
     }
 
-    public void setShow(Boolean show) {
-        this.show = show;
+    public void setFavor(Integer favor) {
+        this.favor = favor;
     }
 
-    public Boolean getShare() {
-        return share;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setShare(Boolean share) {
-        this.share = share;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public Boolean getOwn() {
-        return own;
+    public Integer getType() {
+        return type;
     }
 
-    public void setOwn(Boolean own) {
-        this.own = own;
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Boolean getPublish() {
+        return publish;
+    }
+
+    public void setPublish(Boolean publish) {
+        this.publish = publish;
+    }
+
+    public Boolean getCopyright() {
+        return copyright;
+    }
+
+    public void setCopyright(Boolean copyright) {
+        this.copyright = copyright;
     }
 }

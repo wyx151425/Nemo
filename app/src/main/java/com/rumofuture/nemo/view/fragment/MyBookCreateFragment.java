@@ -55,7 +55,7 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!BmobUser.getCurrentUser(User.class).getAuthorize()) {
+        if (1 == BmobUser.getCurrentUser(User.class).getStatus()) {
             showDialog();
         }
     }
@@ -98,9 +98,13 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
                 book.setName(mBookNameView.getText().toString().trim());
                 book.setStyle(mBookStyleView.getText().toString());
                 book.setIntroduction(mBookIntroductionView.getText().toString());
-                book.setOwn(mBookOwnSwitchView.isChecked());
-                book.setShow(mBookShowSwitchView.isChecked());
-                book.setShare(mBookShareSwitchView.isChecked());
+                book.setCopyright(mBookOwnSwitchView.isChecked());
+                book.setPublish(mBookShowSwitchView.isChecked());
+                if (mBookShareSwitchView.isChecked()) {
+                    book.setType(1);
+                } else {
+                    book.setType(0);
+                }
                 mPresenter.createBook(book);
             }
         });

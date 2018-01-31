@@ -62,8 +62,8 @@ public class MyFollowerListPresenter implements MyFollowerListContract.Presenter
     @Override
     public void onTotalGetSuccess(Integer total) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        if (!Objects.equals(currentUser.getFollowerTotal(), total)) {
-            currentUser.setFollowerTotal(total);
+        if (!Objects.equals(currentUser.getFollower(), total)) {
+            currentUser.setFollower(total);
             mUserRepository.updateUserInfo(currentUser, this);
         }
     }

@@ -56,7 +56,7 @@ public class NemoAlbumBookListAdapter extends RecyclerView.Adapter<NemoAlbumBook
         holder.mBookNameView.setText(book.getName());
         holder.mBookIntroductionView.setText(book.getIntroduction());
         holder.mBookStyleView.setText(book.getStyle());
-        holder.mBookCollectorCountView.setText(String.valueOf(book.getFavorTotal()));
+        holder.mBookCollectorCountView.setText(String.valueOf(book.getFavor()));
     }
 
     @Override

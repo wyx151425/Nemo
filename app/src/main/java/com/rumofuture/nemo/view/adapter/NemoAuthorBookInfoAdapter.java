@@ -79,7 +79,7 @@ public class NemoAuthorBookInfoAdapter extends RecyclerView.Adapter<RecyclerView
             bookViewHolder.mBookNameView.setText(mBook.getName());
             bookViewHolder.mBookIntroductionView.setText(mBook.getIntroduction());
             bookViewHolder.mBookStyleView.setText(mBook.getStyle());
-            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(mBook.getFavorTotal()));
+            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(mBook.getFavor()));
         } else {
             Review review = mReviewList.get(position - 1);
             NemoAuthorBookInfoAdapter.ReviewViewHolder reviewViewHolder = (NemoAuthorBookInfoAdapter.ReviewViewHolder) holder;

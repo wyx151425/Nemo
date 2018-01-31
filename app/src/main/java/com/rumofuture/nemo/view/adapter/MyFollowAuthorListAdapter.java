@@ -55,8 +55,8 @@ public class MyFollowAuthorListAdapter extends RecyclerView.Adapter<MyFollowAuth
         Glide.with(mContext).load(author.getAvatar().getUrl()).into(holder.mUserAvatarView);
         holder.mUserNameView.setText(author.getName());
         holder.mUserMottoView.setText(author.getMotto());
-        holder.mUserBookCountView.setText(String.valueOf(author.getBookTotal()));
-        holder.mUserFollowerCountView.setText(String.valueOf(author.getFollowerTotal()));
+        holder.mUserBookCountView.setText(String.valueOf(author.getBook()));
+        holder.mUserFollowerCountView.setText(String.valueOf(author.getFollower()));
     }
 
     @Override

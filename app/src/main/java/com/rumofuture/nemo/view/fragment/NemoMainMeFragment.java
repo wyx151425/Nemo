@@ -116,7 +116,7 @@ public class NemoMainMeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         User myself = BmobUser.getCurrentUser(User.class);
-        if (!myself.getAuthorize() && null != myself.getProfile() && !myself.getProfile().equals("")
+        if (myself.getStatus() == 1 && null != myself.getProfile() && !myself.getProfile().equals("")
                 && null != myself.getAvatar() && null != myself.getPortrait()) {
             mPresenter.getAuthorization();
         }
@@ -126,8 +126,8 @@ public class NemoMainMeFragment extends Fragment {
         }
         mMyNameView.setText(myself.getName());
         mMyMottoView.setText(myself.getMotto());
-        mMyFollowAuthorTotalView.setText(String.valueOf(myself.getFollowTotal()));
-        mMyFollowerTotalView.setText(String.valueOf(myself.getFollowerTotal()));
-        mMyFavoriteBookView.setText(String.valueOf(myself.getFavoriteTotal()));
+        mMyFollowAuthorTotalView.setText(String.valueOf(myself.getFollow()));
+        mMyFollowerTotalView.setText(String.valueOf(myself.getFollower()));
+        mMyFavoriteBookView.setText(String.valueOf(myself.getFavorite()));
     }
 }

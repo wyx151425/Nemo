@@ -67,8 +67,8 @@ public class MyFavoriteBookListPresenter implements MyFavoriteBookListContract.P
     @Override
     public void onTotalGetSuccess(Integer total) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        if (!Objects.equals(currentUser.getFavoriteTotal(), total)) {
-            currentUser.setFavoriteTotal(total);
+        if (!Objects.equals(currentUser.getFavorite(), total)) {
+            currentUser.setFavorite(total);
             mUserRepository.updateUserInfo(currentUser, this);
         }
     }

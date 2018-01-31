@@ -12,6 +12,8 @@ import com.rumofuture.nemo.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import cn.bmob.push.PushConstants;
 
 public class NemoNotifyReceiver extends BroadcastReceiver {
@@ -22,7 +24,7 @@ public class NemoNotifyReceiver extends BroadcastReceiver {
         JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(message);
-            if (intent.getAction().equals(PushConstants.ACTION_MESSAGE)) {
+            if (Objects.equals(intent.getAction(), PushConstants.ACTION_MESSAGE)) {
                 //获取NotificationManager实例
                 NotificationManager notifyManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 //实例化NotificationCompat.Builde并设置相关属性
@@ -37,7 +39,9 @@ public class NemoNotifyReceiver extends BroadcastReceiver {
                 //设置通知时间，默认为系统发出通知的时间，通常不用设置
                 //.setWhen(System.currentTimeMillis());
                 //通过builder.build()方法生成Notification对象,并发送通知,id=1
-                notifyManager.notify(1, builder.build());
+                if (null != notifyManager) {
+                    notifyManager.notify(1, builder.build());
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -54,8 +54,8 @@ public class NemoAuthorSearchListAdapter extends RecyclerView.Adapter<NemoAuthor
         Glide.with(mContext).load(author.getAvatar().getUrl()).into(holder.mAuthorAvatarView);
         holder.mAuthorNameView.setText(author.getName());
         holder.mAuthorMottoView.setText(author.getMotto());
-        holder.mAuthorBookTotalView.setText(String.valueOf(author.getBookTotal()));
-        holder.mAuthorFollowerTotalView.setText(String.valueOf(author.getFollowerTotal()));
+        holder.mAuthorBookTotalView.setText(String.valueOf(author.getBook()));
+        holder.mAuthorFollowerTotalView.setText(String.valueOf(author.getFollower()));
     }
 
     @Override

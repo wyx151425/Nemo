@@ -70,7 +70,7 @@ public class NemoMainBookListAdapter extends RecyclerView.Adapter<NemoMainBookLi
             holder.mBookNameView.setText(book.getName());
             holder.mBookStyleView.setText(book.getStyle());
             holder.mBookIntroductionView.setText(book.getIntroduction());
-            holder.mBookFavorTotalView.setText(String.valueOf(book.getFavorTotal()));
+            holder.mBookFavorTotalView.setText(String.valueOf(book.getFavor()));
         }
     }
 

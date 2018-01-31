@@ -105,7 +105,7 @@ public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter
         }
 
         User follower = follow.getFollower();
-        follower.increment(UserSchema.Table.Cols.FOLLOW_TOTAL);
+        follower.increment(UserSchema.Table.Cols.FOLLOW);
         mUserRepository.updateUserInfo(follower, this);
 
 //        BmobPushManager pushManager = new BmobPushManager();
@@ -134,7 +134,7 @@ public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter
         }
 
         User follower = BmobUser.getCurrentUser(User.class);
-        follower.increment(UserSchema.Table.Cols.FOLLOW_TOTAL, -1);
+        follower.increment(UserSchema.Table.Cols.FOLLOW, -1);
         mUserRepository.updateUserInfo(follower, this);
     }
 

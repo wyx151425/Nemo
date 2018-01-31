@@ -79,7 +79,7 @@ public class MyBookListAdapter extends RecyclerView.Adapter<MyBookListAdapter.It
         holder.mBookNameView.setText(book.getName());
         holder.mBookIntroductionView.setText(book.getIntroduction());
         holder.mBookStyleView.setText(book.getStyle());
-        holder.mBookFavorTotalView.setText(String.valueOf(book.getFavorTotal()));
+        holder.mBookFavorTotalView.setText(String.valueOf(book.getFavor()));
     }
 
     @Override

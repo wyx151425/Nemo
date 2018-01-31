@@ -16,6 +16,8 @@ public class Album extends BmobObject {
     private Integer number;
     private Integer bookTotal;  // 专辑漫画册总数
 
+    private Integer status;
+
     public Album() {
 
     }

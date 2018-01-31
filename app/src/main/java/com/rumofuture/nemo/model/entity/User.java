@@ -19,15 +19,15 @@ public class User extends BmobUser {
     private String birthday;  // 生日
 
     private Integer age;  // 年龄
-    private Integer followTotal;  // 关注作家数
-    private Integer followerTotal;  // 粉丝数
-    private Integer favoriteTotal; // 收藏漫画册数
-    private Integer bookTotal;  // 漫画册数量
+    private Integer follow;  // 关注作家数
+    private Integer follower;  // 粉丝数
+    private Integer favorite; // 收藏漫画册数
+    private Integer book;  // 漫画册数量
 
     private BmobFile avatar;  // 头像
     private BmobFile portrait;  // 个人肖像
 
-    private Boolean authorize;
+    private Integer status;  // 用户状态（0禁用/1普通用户/2可发布漫画用户）
 
     public String getName() {
         return name;
@@ -93,36 +93,36 @@ public class User extends BmobUser {
         this.age = age;
     }
 
-    public Integer getFollowTotal() {
-        return followTotal;
+    public Integer getFollow() {
+        return follow;
     }
 
-    public void setFollowTotal(Integer followTotal) {
-        this.followTotal = followTotal;
+    public void setFollow(Integer follow) {
+        this.follow = follow;
     }
 
-    public Integer getFollowerTotal() {
-        return followerTotal;
+    public Integer getFollower() {
+        return follower;
     }
 
-    public void setFollowerTotal(Integer followerTotal) {
-        this.followerTotal = followerTotal;
+    public void setFollower(Integer follower) {
+        this.follower = follower;
     }
 
-    public Integer getFavoriteTotal() {
-        return favoriteTotal;
+    public Integer getFavorite() {
+        return favorite;
     }
 
-    public void setFavoriteTotal(Integer favoriteTotal) {
-        this.favoriteTotal = favoriteTotal;
+    public void setFavorite(Integer favorite) {
+        this.favorite = favorite;
     }
 
-    public Integer getBookTotal() {
-        return bookTotal;
+    public Integer getBook() {
+        return book;
     }
 
-    public void setBookTotal(Integer bookTotal) {
-        this.bookTotal = bookTotal;
+    public void setBook(Integer book) {
+        this.book = book;
     }
 
     public BmobFile getAvatar() {
@@ -141,11 +141,11 @@ public class User extends BmobUser {
         this.portrait = portrait;
     }
 
-    public Boolean getAuthorize() {
-        return authorize;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setAuthorize(Boolean authorize) {
-        this.authorize = authorize;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

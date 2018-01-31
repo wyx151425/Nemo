@@ -46,8 +46,8 @@ public class MyFollowerListAdapter extends RecyclerView.Adapter<MyFollowerListAd
         Glide.with(mContext).load(user.getAvatar().getUrl()).into(holder.mUserAvatarView);
         holder.mUserNameView.setText(user.getName());
         holder.mUserMottoView.setText(user.getMotto());
-        holder.mUserBookCountView.setText(String.valueOf(user.getBookTotal()));
-        holder.mUserFollowerCountView.setText(String.valueOf(user.getFollowerTotal()));
+        holder.mUserBookCountView.setText(String.valueOf(user.getBook()));
+        holder.mUserFollowerCountView.setText(String.valueOf(user.getFollower()));
     }
 
     @Override

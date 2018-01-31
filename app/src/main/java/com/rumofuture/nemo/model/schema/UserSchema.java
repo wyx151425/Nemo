@@ -31,15 +31,15 @@ public class UserSchema {
             public static final String BIRTHDAY = "birthday";
 
             public static final String AGE = "age";
-            public static final String FOLLOW_TOTAL = "followTotal";
-            public static final String FOLLOWER_TOTAL = "followerTotal";
-            public static final String FAVORITE_TOTAL = "favoriteTotal";
-            public static final String BOOK_TOTAL = "bookTotal";
+            public static final String FOLLOW = "follow";
+            public static final String FOLLOWER = "follower";
+            public static final String FAVORITE = "favorite";
+            public static final String BOOK = "book";
 
             public static final String AVATAR = "avatar";
             public static final String PORTRAIT = "portrait";
 
-            public static final String AUTHORIZE = "authorize";
+            public static final String STATUS = "status";
         }
     }
 }

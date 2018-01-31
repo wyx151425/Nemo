@@ -77,7 +77,7 @@ public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter, Us
         }
 
         User collector = favorite.getFavor();
-        collector.increment(UserSchema.Table.Cols.FAVORITE_TOTAL);
+        collector.increment(UserSchema.Table.Cols.FAVORITE);
         mUserRepository.updateUserInfo(collector, this);
 
         Book book = favorite.getBook();
@@ -99,7 +99,7 @@ public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter, Us
         }
 
         User collector = favorite.getFavor();
-        collector.increment(UserSchema.Table.Cols.FAVORITE_TOTAL, -1);
+        collector.increment(UserSchema.Table.Cols.FAVORITE, -1);
         mUserRepository.updateUserInfo(collector, this);
 
         Book book = favorite.getBook();

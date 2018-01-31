@@ -54,7 +54,7 @@ public class MyBookListPresenter implements MyBookListContract.Presenter, UserDa
 
     @Override
     public void deleteBook(Book book) {
-        if (0 < book.getPageTotal()) {
+        if (0 < book.getPage()) {
             mView.showBookDeleteFailed(new BmobException("删除失败：请先删除漫画册内所有漫画分页"));
         } else {
             mView.showProgressBar(true);
@@ -65,14 +65,14 @@ public class MyBookListPresenter implements MyBookListContract.Presenter, UserDa
     @Override
     public void updateMyBookTotalOnCreate() {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        currentUser.increment(UserSchema.Table.Cols.BOOK_TOTAL);
+        currentUser.increment(UserSchema.Table.Cols.BOOK);
         mUserRepository.updateUserInfo(currentUser, this);
     }
 
     @Override
     public void updateMyBookTotalOnDelete() {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        currentUser.increment(UserSchema.Table.Cols.BOOK_TOTAL, -1);
+        currentUser.increment(UserSchema.Table.Cols.BOOK, -1);
         mUserRepository.updateUserInfo(currentUser, this);
     }
 
@@ -110,8 +110,8 @@ public class MyBookListPresenter implements MyBookListContract.Presenter, UserDa
     @Override
     public void onTotalGetSuccess(Integer total) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        if (!Objects.equals(currentUser.getBookTotal(), total)) {
-            currentUser.setBookTotal(total);
+        if (!Objects.equals(currentUser.getBook(), total)) {
+            currentUser.setBook(total);
             mUserRepository.updateUserInfo(currentUser, this);
         }
     }

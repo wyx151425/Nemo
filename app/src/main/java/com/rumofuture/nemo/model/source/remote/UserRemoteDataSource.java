@@ -160,7 +160,7 @@ public class UserRemoteDataSource implements UserDataSource {
     @Override
     public void getAuthorList(int pageCode, final UserListGetCallback callback) {
         BmobQuery<User> query = new BmobQuery<>();
-        query.addWhereEqualTo(UserSchema.Table.Cols.AUTHORIZE, true);
+        query.addWhereGreaterThanOrEqualTo(UserSchema.Table.Cols.STATUS, 2);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageCode * PAGE_LIMIT);
         query.findObjects(new FindListener<User>() {
@@ -259,7 +259,7 @@ public class UserRemoteDataSource implements UserDataSource {
     public void searchAuthor(String keyword, final UserListGetCallback callback) {
         BmobQuery<User> query = new BmobQuery<>();
         query.addWhereEqualTo(UserSchema.Table.Cols.NAME, keyword);
-        query.addWhereEqualTo(UserSchema.Table.Cols.AUTHORIZE, true);
+        query.addWhereGreaterThanOrEqualTo(UserSchema.Table.Cols.STATUS, 2);
         query.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> userList, BmobException e) {

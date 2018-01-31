@@ -56,7 +56,7 @@ public class MyBookInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.mBookInfoContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mBook.getShare()) {
+                    if (1 == mBook.getType()) {
                         MyBookShareActivity.actionStart(mContext, mBook);
                     } else {
                         MyBookPageListActivity.actionStart(mContext, mBook);
@@ -100,7 +100,7 @@ public class MyBookInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             bookViewHolder.mBookNameView.setText(mBook.getName());
             bookViewHolder.mBookIntroductionView.setText(mBook.getIntroduction());
             bookViewHolder.mBookStyleView.setText(mBook.getStyle());
-            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(mBook.getFavorTotal()));
+            bookViewHolder.mBookFavorTotalView.setText(String.valueOf(mBook.getFavor()));
         } else {
             Review review = mReviewList.get(position - 1);
             ReviewViewHolder reviewViewHolder = (ReviewViewHolder) holder;

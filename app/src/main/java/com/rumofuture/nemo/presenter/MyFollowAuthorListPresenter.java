@@ -62,8 +62,8 @@ public class MyFollowAuthorListPresenter implements MyFollowAuthorListContract.P
     @Override
     public void onTotalGetSuccess(Integer total) {
         User currentUser = BmobUser.getCurrentUser(User.class);
-        if (!Objects.equals(currentUser.getFollowTotal(), total)) {
-            currentUser.setFollowTotal(total);
+        if (!Objects.equals(currentUser.getFollow(), total)) {
+            currentUser.setFollow(total);
             mUserRepository.updateUserInfo(currentUser, this);
         }
     }

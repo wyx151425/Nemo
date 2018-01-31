@@ -12,6 +12,8 @@ public class Review extends BmobObject {
     private User reviewer;
     private String content;
 
+    private Integer status;
+
     public Review() {
 
     }
@@ -43,5 +45,13 @@ public class Review extends BmobObject {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
