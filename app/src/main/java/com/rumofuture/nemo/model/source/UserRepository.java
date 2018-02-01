@@ -2,7 +2,10 @@ package com.rumofuture.nemo.model.source;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.User;
+
+import java.util.List;
 
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -35,57 +38,57 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public void logIn(User user, UserLogInCallback callback) {
-        mUserRemoteDataSource.logIn(user, callback);
+    public void login(User user, NemoCallback<User> callback) {
+        mUserRemoteDataSource.login(user, callback);
     }
 
     @Override
-    public void signUp(User user, UserSignUpCallback callback) {
-        mUserRemoteDataSource.signUp(user, callback);
+    public void register(User user, NemoCallback<User> callback) {
+        mUserRemoteDataSource.register(user, callback);
     }
 
     @Override
-    public void updateUserAvatar(BmobFile newAvatar, UserImageUpdateCallback callback) {
+    public void updateUserAvatar(BmobFile newAvatar, NemoCallback<BmobFile> callback) {
         mUserRemoteDataSource.updateUserAvatar(newAvatar, callback);
     }
 
     @Override
-    public void updateUserPortrait(BmobFile newPortrait, UserImageUpdateCallback callback) {
+    public void updateUserPortrait(BmobFile newPortrait, NemoCallback<BmobFile> callback) {
         mUserRemoteDataSource.updateUserPortrait(newPortrait, callback);
     }
 
     @Override
-    public void updateUserInfo(User user, UserInfoUpdateCallback callback) {
+    public void updateUserInfo(User user, NemoCallback<User> callback) {
         mUserRemoteDataSource.updateUserInfo(user, callback);
     }
 
     @Override
-    public void getAuthorList(int pageCode, UserListGetCallback callback) {
-        mUserRemoteDataSource.getAuthorList(pageCode, callback);
+    public void getAuthorList(int pageIndex, NemoCallback<List<User>> callback) {
+        mUserRemoteDataSource.getAuthorList(pageIndex, callback);
     }
 
     @Override
-    public void getFollowAuthorList(User follower, int pageCode, UserListGetCallback callback) {
-        mUserRemoteDataSource.getFollowAuthorList(follower, pageCode, callback);
+    public void getFollowAuthorList(User follower, int pageIndex, NemoCallback<List<User>> callback) {
+        mUserRemoteDataSource.getFollowAuthorList(follower, pageIndex, callback);
     }
 
     @Override
-    public void getFollowerList(User author, int pageCode, UserListGetCallback callback) {
-        mUserRemoteDataSource.getFollowerList(author, pageCode, callback);
+    public void getFollowerList(User author, int pageIndex, NemoCallback<List<User>> callback) {
+        mUserRemoteDataSource.getFollowerList(author, pageIndex, callback);
     }
 
     @Override
-    public void getFollowAuthorTotal(User follower, TotalGetCallback callback) {
+    public void getFollowAuthorTotal(User follower, NemoCallback<Integer> callback) {
         mUserRemoteDataSource.getFollowAuthorTotal(follower, callback);
     }
 
     @Override
-    public void getFollowerTotal(User author, TotalGetCallback callback) {
+    public void getFollowerTotal(User author, NemoCallback<Integer> callback) {
         mUserRemoteDataSource.getFollowerTotal(author, callback);
     }
 
     @Override
-    public void searchAuthor(String keyword, UserListGetCallback callback) {
+    public void searchAuthor(String keyword, NemoCallback<List<User>> callback) {
         mUserRemoteDataSource.searchAuthor(keyword, callback);
     }
 }

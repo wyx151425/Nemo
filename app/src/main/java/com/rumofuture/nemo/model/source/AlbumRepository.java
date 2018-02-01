@@ -2,7 +2,10 @@ package com.rumofuture.nemo.model.source;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Album;
+
+import java.util.List;
 
 /**
  * Created by WangZhenqi on 2017/9/20.
@@ -33,17 +36,12 @@ public class AlbumRepository implements AlbumDataSource {
     }
 
     @Override
-    public void updateAlbum(Album album, AlbumUpdateCallback callback) {
-        mAlbumRemoteDataSource.updateAlbum(album, callback);
-    }
-
-    @Override
-    public void getAlbumByStyle(String style, AlbumGetCallback callback) {
+    public void getAlbumByStyle(String style, NemoCallback<Album> callback) {
         mAlbumRemoteDataSource.getAlbumByStyle(style, callback);
     }
 
     @Override
-    public void getAlbumList(AlbumListGetCallback callback) {
+    public void getAlbumList(NemoCallback<List<Album>> callback) {
         mAlbumRemoteDataSource.getAlbumList(callback);
     }
 }

@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source.remote;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Favorite;
 import com.rumofuture.nemo.model.schema.FavoriteSchema;
 import com.rumofuture.nemo.model.source.FavoriteDataSource;
@@ -28,36 +29,36 @@ public class FavoriteRemoteDataSource implements FavoriteDataSource {
     }
 
     @Override
-    public void saveFavorite(final Favorite favorite, final FavoriteSaveCallback callback) {
+    public void saveFavorite(final Favorite favorite, final NemoCallback<Favorite> callback) {
         favorite.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (null == e) {
                     favorite.setObjectId(objectId);
-                    callback.onFavoriteSaveSuccess(favorite);
+                    callback.onSuccess(favorite);
                 } else {
-                    callback.onFavoriteSaveFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void deleteFavorite(final Favorite favorite, final FavoriteDeleteCallback callback) {
+    public void deleteFavorite(final Favorite favorite, final NemoCallback<Favorite> callback) {
         favorite.delete(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (null == e) {
-                    callback.onFavoriteDeleteSuccess(favorite);
+                    callback.onSuccess(favorite);
                 } else {
-                    callback.onFavoriteDeleteFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFavorite(Favorite favorite, final FavoriteGetCallback callback) {
+    public void getFavorite(Favorite favorite, final NemoCallback<Favorite> callback) {
         BmobQuery<Favorite> query = new BmobQuery<>();
         query.addWhereEqualTo(FavoriteSchema.Table.Cols.BOOK, favorite.getBook());
         query.addWhereEqualTo(FavoriteSchema.Table.Cols.FAVOR, favorite.getFavor());
@@ -67,9 +68,9 @@ public class FavoriteRemoteDataSource implements FavoriteDataSource {
             @Override
             public void done(List<Favorite> favoriteList, BmobException e) {
                 if (null == e) {
-                    callback.onFavoriteGetSuccess(favoriteList.get(0));
+                    callback.onSuccess(favoriteList.get(0));
                 } else {
-                    callback.onFavoriteGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });

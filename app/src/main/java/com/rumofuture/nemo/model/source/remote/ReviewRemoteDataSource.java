@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source.remote;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.model.schema.ReviewSchema;
@@ -32,48 +33,48 @@ public class ReviewRemoteDataSource implements ReviewDataSource {
     }
 
     @Override
-    public void saveReview(final Review review, final ReviewSaveCallback callback) {
+    public void saveReview(final Review review, final NemoCallback<Review> callback) {
         review.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (null == e) {
                     review.setObjectId(objectId);
-                    callback.onReviewSaveSuccess(review);
+                    callback.onSuccess(review);
                 } else {
-                    callback.onReviewSaveFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void deleteReview(final Review review, final ReviewDeleteCallback callback) {
+    public void deleteReview(final Review review, final NemoCallback<Review> callback) {
         review.delete(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (null == e) {
-                    callback.onReviewDeleteSuccess(review);
+                    callback.onSuccess(review);
                 } else {
-                    callback.onReviewDeleteFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getReviewListByBook(Book book, int pageCode, final ReviewListGetCallback callback) {
+    public void getReviewListByBook(Book book, int pageIndex, final NemoCallback<List<Review>> callback) {
         BmobQuery<Review> query = new BmobQuery<>();
         query.addWhereEqualTo(ReviewSchema.Table.Cols.BOOK, book);
         query.include(ReviewSchema.Table.Cols.REVIEWER);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.findObjects(new FindListener<Review>() {
             @Override
             public void done(List<Review> reviewList, BmobException e) {
                 if (null == e) {
-                    callback.onReviewListGetSuccess(reviewList);
+                    callback.onSuccess(reviewList);
                 } else {
-                    callback.onReviewListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });

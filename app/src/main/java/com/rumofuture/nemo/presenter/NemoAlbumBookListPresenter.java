@@ -16,8 +16,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/4/27.
  */
 
-public class NemoAlbumBookListPresenter implements NemoAlbumBookListContract.Presenter, BookDataSource.BookListGetCallback,
-        BookDataSource.TotalGetCallback, AlbumDataSource.AlbumUpdateCallback, AlbumDataSource.AlbumGetCallback {
+public class NemoAlbumBookListPresenter implements NemoAlbumBookListContract.Presenter {
 
     private NemoAlbumBookListContract.View mView;
     private BookDataSource mBookRepository;

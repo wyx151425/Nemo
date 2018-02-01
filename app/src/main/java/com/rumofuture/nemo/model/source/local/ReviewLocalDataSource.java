@@ -3,9 +3,12 @@ package com.rumofuture.nemo.model.source.local;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
 import com.rumofuture.nemo.model.source.ReviewDataSource;
+
+import java.util.List;
 
 /**
  * Created by WangZhenqi on 2017/9/12.
@@ -29,17 +32,17 @@ public class ReviewLocalDataSource implements ReviewDataSource {
     }
 
     @Override
-    public void saveReview(Review review, ReviewSaveCallback callback) {
+    public void saveReview(Review review, NemoCallback<Review> callback) {
 
     }
 
     @Override
-    public void deleteReview(Review review, ReviewDeleteCallback callback) {
+    public void deleteReview(Review review, NemoCallback<Review> callback) {
 
     }
 
     @Override
-    public void getReviewListByBook(Book book, int pageCode, ReviewListGetCallback callback) {
+    public void getReviewListByBook(Book book, int pageIndex, NemoCallback<List<Review>> callback) {
 
     }
 }

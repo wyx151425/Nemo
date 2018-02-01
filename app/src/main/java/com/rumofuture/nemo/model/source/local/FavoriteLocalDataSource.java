@@ -3,6 +3,7 @@ package com.rumofuture.nemo.model.source.local;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Favorite;
 import com.rumofuture.nemo.model.source.FavoriteDataSource;
 
@@ -27,17 +28,17 @@ public class FavoriteLocalDataSource implements FavoriteDataSource {
     }
 
     @Override
-    public void saveFavorite(Favorite favorite, FavoriteSaveCallback callback) {
+    public void saveFavorite(Favorite favorite, NemoCallback<Favorite> callback) {
 
     }
 
     @Override
-    public void deleteFavorite(Favorite favorite, FavoriteDeleteCallback callback) {
+    public void deleteFavorite(Favorite favorite, NemoCallback<Favorite> callback) {
 
     }
 
     @Override
-    public void getFavorite(Favorite favorite, FavoriteGetCallback callback) {
+    public void getFavorite(Favorite favorite, NemoCallback<Favorite> callback) {
 
     }
 }

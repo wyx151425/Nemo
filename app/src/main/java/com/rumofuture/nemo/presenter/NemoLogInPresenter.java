@@ -63,7 +63,7 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
             User user = new User();
             user.setUsername(mobilePhoneNumber);
             user.setPassword(password);
-            mUserRepository.logIn(user, this);
+            mUserRepository.login(user, this);
         }
     }
 

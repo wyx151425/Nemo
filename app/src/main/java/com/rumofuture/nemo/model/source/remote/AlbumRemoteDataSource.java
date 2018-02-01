@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source.remote;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.schema.AlbumSchema;
 import com.rumofuture.nemo.model.source.AlbumDataSource;
@@ -28,37 +29,23 @@ public class AlbumRemoteDataSource implements AlbumDataSource {
     }
 
     @Override
-    public void updateAlbum(final Album album, final AlbumUpdateCallback callback) {
-        album.update(new UpdateListener() {
-            @Override
-            public void done(BmobException e) {
-                if (null == e) {
-                    callback.onAlbumUpdateSuccess(album);
-                } else {
-                    callback.onAlbumUpdateFailed(e);
-                }
-            }
-        });
-    }
-
-    @Override
-    public void getAlbumByStyle(String style, final AlbumGetCallback callback) {
+    public void getAlbumByStyle(String style, final NemoCallback<Album> callback) {
         BmobQuery<Album> query = new BmobQuery<>();
         query.addWhereEqualTo(AlbumSchema.Table.Cols.STYLE, style);
         query.findObjects(new FindListener<Album>() {
             @Override
             public void done(List<Album> albumList, BmobException e) {
                 if (null == e) {
-                    callback.onAlbumGetSuccess(albumList.get(0));
+                    callback.onSuccess(albumList.get(0));
                 } else {
-                    callback.onAlbumGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getAlbumList(final AlbumListGetCallback callback) {
+    public void getAlbumList(final NemoCallback<List<Album>> callback) {
         BmobQuery<Album> query = new BmobQuery<>();
         query.setLimit(PAGE_LIMIT);
         query.order(AlbumSchema.Table.Cols.NUMBER);
@@ -66,9 +53,9 @@ public class AlbumRemoteDataSource implements AlbumDataSource {
             @Override
             public void done(List<Album> albumList, BmobException e) {
                 if (null == e) {
-                    callback.onAlbumListGetSuccess(albumList);
+                    callback.onSuccess(albumList);
                 } else {
-                    callback.onAlbumListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });

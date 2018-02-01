@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source.remote;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Page;
 import com.rumofuture.nemo.model.schema.PageSchema;
@@ -35,7 +36,7 @@ public class PageRemoteDataSource implements PageDataSource {
     }
 
     @Override
-    public void savePage(final Page page, final PageSaveCallback callback) {
+    public void savePage(final Page page, final NemoCallback<Page> callback) {
         final BmobFile image = page.getImage();
         image.upload(new UploadFileListener() {
             @Override
@@ -46,9 +47,9 @@ public class PageRemoteDataSource implements PageDataSource {
                         public void done(String objectId, BmobException e) {
                             if (null == e) {
                                 page.setObjectId(objectId);
-                                callback.onPageSaveSuccess(page);
+                                callback.onSuccess(page);
                             } else {
-                                callback.onPageSaveFailed(e);
+                                callback.onFailed(e.getMessage());
                                 image.delete(new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
@@ -59,20 +60,20 @@ public class PageRemoteDataSource implements PageDataSource {
                         }
                     });
                 } else {
-                    callback.onPageSaveFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void deletePage(final Page page, final PageDeleteCallback callback) {
+    public void deletePage(final Page page, final NemoCallback<Page> callback) {
         final BmobFile image = page.getImage();
         page.delete(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (null == e) {
-                    callback.onPageDeleteSuccess(page);
+                    callback.onSuccess(page);
                     image.delete(new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
@@ -80,14 +81,14 @@ public class PageRemoteDataSource implements PageDataSource {
                         }
                     });
                 } else {
-                    callback.onPageDeleteFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void updatePage(final Page page, final BmobFile newImage, final PageUpdateCallback callback) {
+    public void updatePage(final Page page, final BmobFile newImage, final NemoCallback<Page> callback) {
         final BmobFile oldImage = page.getImage();
         newImage.upload(new UploadFileListener() {
             @Override
@@ -98,7 +99,7 @@ public class PageRemoteDataSource implements PageDataSource {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
-                                callback.onPageUpdateSuccess(page);
+                                callback.onSuccess(page);
                                 oldImage.delete(new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
@@ -106,47 +107,47 @@ public class PageRemoteDataSource implements PageDataSource {
                                     }
                                 });
                             } else {
-                                callback.onPageUpdateFailed(e);
+                                callback.onFailed(e.getMessage());
                             }
                         }
                     });
                 } else {
-                    callback.onPageUpdateFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getPageListByBook(Book book, int pageCode, final PageListGetCallback callBack) {
+    public void getPageListByBook(Book book, int pageIndex, final NemoCallback<List<Page>> callBack) {
         BmobQuery<Page> query = new BmobQuery<>();
         query.addWhereEqualTo(PageSchema.Table.Cols.BOOK, book);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.order(PageSchema.Table.Cols.CREATE_TIME);
         query.findObjects(new FindListener<Page>() {
             @Override
             public void done(List<Page> pageList, BmobException e) {
                 if (e == null) {
-                    callBack.onPageListGetSuccess(pageList);
+                    callBack.onSuccess(pageList);
                 } else {
-                    callBack.onPageListGetFailed(e);
+                    callBack.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getPageTotal(Book book, final TotalGetCallback callback) {
+    public void getPageTotalNumber(Book book, final NemoCallback<Integer> callback) {
         BmobQuery<Page> query = new BmobQuery<>();
         query.addWhereEqualTo(PageSchema.Table.Cols.BOOK, book);
         query.count(Page.class, new CountListener() {
             @Override
-            public void done(Integer total, BmobException e) {
+            public void done(Integer totalNumber, BmobException e) {
                 if (null == e) {
-                    callback.onTotalGetSuccess(total);
+                    callback.onSuccess(totalNumber);
                 } else {
-                    callback.onTotalGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source.remote;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Follow;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.schema.FollowSchema;
@@ -36,35 +37,35 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void logIn(User user, final UserLogInCallback callback) {
+    public void login(User user, final NemoCallback<User> callback) {
         user.login(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {
                 if (null == e) {
-                    callback.onUserLogInSuccess(user);
+                    callback.onSuccess(user);
                 } else {
-                    callback.onUserLogInFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void signUp(User user, final UserSignUpCallback callback) {
+    public void register(User user, final NemoCallback<User> callback) {
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {
                 if (null == e) {
-                    callback.onUserSignUpSuccess(user);
+                    callback.onSuccess(user);
                 } else {
-                    callback.onUserSignUpFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void updateUserAvatar(final BmobFile newAvatar, final UserImageUpdateCallback callback) {
+    public void updateUserAvatar(final BmobFile newAvatar, final NemoCallback<BmobFile> callback) {
         final User currentUser = BmobUser.getCurrentUser(User.class);
 
         final User targetUser = new User();
@@ -81,7 +82,7 @@ public class UserRemoteDataSource implements UserDataSource {
                         @Override
                         public void done(BmobException e) {
                             if (null == e) {
-                                callback.onUserImageUpdateSuccess(newAvatar);
+                                callback.onSuccess(newAvatar);
                                 currentUser.setAvatar(newAvatar);
                                 if (null != oldAvatar) {
                                     oldAvatar.delete(new UpdateListener() {
@@ -92,19 +93,19 @@ public class UserRemoteDataSource implements UserDataSource {
                                     });
                                 }
                             } else {
-                                callback.onUserImageUpdateFailed(e);
+                                callback.onFailed(e.getMessage());
                             }
                         }
                     });
                 } else {
-                    callback.onUserImageUpdateFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void updateUserPortrait(final BmobFile newPortrait, final UserImageUpdateCallback callback) {
+    public void updateUserPortrait(final BmobFile newPortrait, final NemoCallback<BmobFile> callback) {
         final User currentUser = BmobUser.getCurrentUser(User.class);
 
         final User targetUser = new User();
@@ -121,7 +122,7 @@ public class UserRemoteDataSource implements UserDataSource {
                         @Override
                         public void done(BmobException e) {
                             if (null == e) {
-                                callback.onUserImageUpdateSuccess(newPortrait);
+                                callback.onSuccess(newPortrait);
                                 currentUser.setPortrait(newPortrait);
                                 if (null != oldPortrait) {
                                     oldPortrait.delete(new UpdateListener() {
@@ -132,56 +133,56 @@ public class UserRemoteDataSource implements UserDataSource {
                                     });
                                 }
                             } else {
-                                callback.onUserImageUpdateFailed(e);
+                                callback.onFailed(e.getMessage());
                             }
                         }
                     });
                 } else {
-                    callback.onUserImageUpdateFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void updateUserInfo(User user, final UserInfoUpdateCallback callback) {
+    public void updateUserInfo(final User user, final NemoCallback<User> callback) {
         user.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (null == e) {
-                    callback.onUserInfoUpdateSuccess();
+                    callback.onSuccess(user);
                 } else {
-                    callback.onUserInfoUpdateFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getAuthorList(int pageCode, final UserListGetCallback callback) {
+    public void getAuthorList(int pageIndex, final NemoCallback<List<User>> callback) {
         BmobQuery<User> query = new BmobQuery<>();
         query.addWhereGreaterThanOrEqualTo(UserSchema.Table.Cols.STATUS, 2);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> authorList, BmobException e) {
                 if (null == e) {
-                    callback.onUserListGetSuccess(authorList);
+                    callback.onSuccess(authorList);
                 } else {
-                    callback.onUserListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFollowAuthorList(User follower, int pageCode, final UserListGetCallback callback) {
+    public void getFollowAuthorList(User follower, int pageIndex, final NemoCallback<List<User>> callback) {
         BmobQuery<Follow> query = new BmobQuery<>();
         query.addWhereEqualTo(FollowSchema.Table.Cols.FOLLOWER, follower);
         query.include(FollowSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.order(FollowSchema.Table.Cols.CREATE_TIME);
         query.findObjects(new FindListener<Follow>() {
             @Override
@@ -191,21 +192,21 @@ public class UserRemoteDataSource implements UserDataSource {
                     for (Follow follow : followList) {
                         authorList.add(follow.getAuthor());
                     }
-                    callback.onUserListGetSuccess(authorList);
+                    callback.onSuccess(authorList);
                 } else {
-                    callback.onUserListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFollowerList(User author, int pageCode, final UserListGetCallback callback) {
+    public void getFollowerList(User author, int pageIndex, final NemoCallback<List<User>> callback) {
         BmobQuery<Follow> query = new BmobQuery<>();
         query.addWhereEqualTo(FollowSchema.Table.Cols.AUTHOR, BmobUser.getCurrentUser(User.class));
         query.include(FollowSchema.Table.Cols.FOLLOWER);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.order(FollowSchema.Table.Cols.CREATE_TIME);
         query.findObjects(new FindListener<Follow>() {
             @Override
@@ -215,48 +216,48 @@ public class UserRemoteDataSource implements UserDataSource {
                     for (Follow follow : followList) {
                         followerList.add(follow.getFollower());
                     }
-                    callback.onUserListGetSuccess(followerList);
+                    callback.onSuccess(followerList);
                 } else {
-                    callback.onUserListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFollowAuthorTotal(User follower, final TotalGetCallback callback) {
+    public void getFollowAuthorTotal(User follower, final NemoCallback<Integer> callback) {
         BmobQuery<Follow> query = new BmobQuery<>();
         query.addWhereEqualTo(FollowSchema.Table.Cols.FOLLOWER, follower);
         query.count(Follow.class, new CountListener() {
             @Override
             public void done(Integer total, BmobException e) {
                 if (null == e) {
-                    callback.onTotalGetSuccess(total);
+                    callback.onSuccess(total);
                 } else {
-                    callback.onTotalGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFollowerTotal(User author, final TotalGetCallback callback) {
+    public void getFollowerTotal(User author, final NemoCallback<Integer> callback) {
         BmobQuery<Follow> query = new BmobQuery<>();
         query.addWhereEqualTo(FollowSchema.Table.Cols.AUTHOR, author);
         query.count(Follow.class, new CountListener() {
             @Override
             public void done(Integer total, BmobException e) {
                 if (null == e) {
-                    callback.onTotalGetSuccess(total);
+                    callback.onSuccess(total);
                 } else {
-                    callback.onTotalGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void searchAuthor(String keyword, final UserListGetCallback callback) {
+    public void searchAuthor(String keyword, final NemoCallback<List<User>> callback) {
         BmobQuery<User> query = new BmobQuery<>();
         query.addWhereEqualTo(UserSchema.Table.Cols.NAME, keyword);
         query.addWhereGreaterThanOrEqualTo(UserSchema.Table.Cols.STATUS, 2);
@@ -264,9 +265,9 @@ public class UserRemoteDataSource implements UserDataSource {
             @Override
             public void done(List<User> userList, BmobException e) {
                 if (e == null) {
-                    callback.onUserListGetSuccess(userList);
+                    callback.onSuccess(userList);
                 } else {
-                    callback.onUserListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });

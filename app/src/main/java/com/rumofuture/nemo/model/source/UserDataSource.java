@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.User;
 
 import java.util.List;
@@ -15,49 +16,19 @@ public interface UserDataSource {
 
     int PAGE_LIMIT = 32;
 
-    void logIn(User user, UserLogInCallback callback);
-    void signUp(User user, UserSignUpCallback callback);
+    void login(User user, NemoCallback<User> callback);
+    void register(User user, NemoCallback<User> callback);
 
-    void updateUserAvatar(BmobFile newAvatar, UserImageUpdateCallback callback);
-    void updateUserPortrait(BmobFile newPortrait, UserImageUpdateCallback callback);
-    void updateUserInfo(User user, UserInfoUpdateCallback callback);
+    void updateUserAvatar(BmobFile newAvatar, NemoCallback<BmobFile> callback);
+    void updateUserPortrait(BmobFile newPortrait, NemoCallback<BmobFile> callback);
+    void updateUserInfo(User user, NemoCallback<User> callback);
 
-    void getAuthorList(int pageCode, UserListGetCallback callback);
-    void getFollowAuthorList(User follower, int pageCode, UserListGetCallback callback);
-    void getFollowerList(User author, int pageCode, UserListGetCallback callback);
+    void getAuthorList(int pageIndex, NemoCallback<List<User>> callback);
+    void getFollowAuthorList(User follower, int pageIndex, NemoCallback<List<User>> callback);
+    void getFollowerList(User author, int pageIndex, NemoCallback<List<User>> callback);
 
-    void getFollowAuthorTotal(User follower, TotalGetCallback callback);
-    void getFollowerTotal(User author, TotalGetCallback callback);
+    void getFollowAuthorTotal(User follower, NemoCallback<Integer> callback);
+    void getFollowerTotal(User author, NemoCallback<Integer> callback);
 
-    void searchAuthor(String keyword, UserListGetCallback callback);
-
-    interface UserLogInCallback {
-        void onUserLogInSuccess(User user);
-        void onUserLogInFailed(BmobException e);
-    }
-
-    interface UserSignUpCallback {
-        void onUserSignUpSuccess(User user);
-        void onUserSignUpFailed(BmobException e);
-    }
-
-    interface UserInfoUpdateCallback {
-        void onUserInfoUpdateSuccess();
-        void onUserInfoUpdateFailed(BmobException e);
-    }
-
-    interface UserImageUpdateCallback {
-        void onUserImageUpdateSuccess(BmobFile image);
-        void onUserImageUpdateFailed(BmobException e);
-    }
-
-    interface UserListGetCallback {
-        void onUserListGetSuccess(List<User> userList);
-        void onUserListGetFailed(BmobException e);
-    }
-
-    interface TotalGetCallback {
-        void onTotalGetSuccess(Integer total);
-        void onTotalGetFailed(BmobException e);
-    }
+    void searchAuthor(String keyword, NemoCallback<List<User>> callback);
 }

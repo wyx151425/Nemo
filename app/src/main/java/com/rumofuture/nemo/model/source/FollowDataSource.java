@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Follow;
 
 import cn.bmob.v3.exception.BmobException;
@@ -9,23 +10,7 @@ import cn.bmob.v3.exception.BmobException;
  */
 
 public interface FollowDataSource {
-
-    void saveFollow(Follow follow, FollowSaveCallback callback);
-    void deleteFollow(Follow follow, FollowDeleteCallback callback);
-    void getFollow(Follow follow, FollowGetCallback callback);
-
-    interface FollowSaveCallback {
-        void onFollowSaveSuccess(Follow follow);
-        void onFollowSaveFailed(BmobException e);
-    }
-
-    interface FollowDeleteCallback {
-        void onFollowDeleteSuccess(Follow follow);
-        void onFollowDeleteFailed(BmobException e);
-    }
-
-    interface FollowGetCallback {
-        void onFollowGetSuccess(Follow follow);
-        void onFollowGetFailed(BmobException e);
-    }
+    void saveFollow(Follow follow, NemoCallback<Follow> callback);
+    void deleteFollow(Follow follow, NemoCallback<Follow> callback);
+    void getFollow(Follow follow, NemoCallback<Follow> callback);
 }

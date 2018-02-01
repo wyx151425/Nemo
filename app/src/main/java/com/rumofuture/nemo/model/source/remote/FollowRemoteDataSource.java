@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source.remote;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Follow;
 import com.rumofuture.nemo.model.schema.FollowSchema;
 import com.rumofuture.nemo.model.source.FollowDataSource;
@@ -29,36 +30,36 @@ public class FollowRemoteDataSource implements FollowDataSource {
     }
 
     @Override
-    public void saveFollow(final Follow follow, final FollowSaveCallback callback) {
+    public void saveFollow(final Follow follow, final NemoCallback<Follow> callback) {
         follow.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (null == e) {
                     follow.setObjectId(objectId);
-                    callback.onFollowSaveSuccess(follow);
+                    callback.onSuccess(follow);
                 } else {
-                    callback.onFollowSaveFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void deleteFollow(final Follow follow, final FollowDeleteCallback callback) {
+    public void deleteFollow(final Follow follow, final NemoCallback<Follow> callback) {
         follow.delete(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (null == e) {
-                    callback.onFollowDeleteSuccess(follow);
+                    callback.onSuccess(follow);
                 } else {
-                    callback.onFollowDeleteFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFollow(Follow follow, final FollowGetCallback callback) {
+    public void getFollow(Follow follow, final NemoCallback<Follow> callback) {
         BmobQuery<Follow> query = new BmobQuery<>();
         query.addWhereEqualTo(FollowSchema.Table.Cols.AUTHOR, follow.getAuthor());
         query.addWhereEqualTo(FollowSchema.Table.Cols.FOLLOWER, follow.getFollower());
@@ -68,9 +69,9 @@ public class FollowRemoteDataSource implements FollowDataSource {
             @Override
             public void done(List<Follow> followList, BmobException e) {
                 if (null == e) {
-                    callback.onFollowGetSuccess(followList.get(0));
+                    callback.onSuccess(followList.get(0));
                 } else {
-                    callback.onFollowGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });

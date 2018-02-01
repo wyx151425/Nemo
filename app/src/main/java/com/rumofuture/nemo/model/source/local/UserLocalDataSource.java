@@ -2,8 +2,11 @@ package com.rumofuture.nemo.model.source.local;
 
 import android.content.Context;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
+
+import java.util.List;
 
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -26,58 +29,59 @@ public class UserLocalDataSource implements UserDataSource {
         mContext = context;
     }
 
+
     @Override
-    public void logIn(User user, UserLogInCallback callback) {
+    public void login(User user, NemoCallback<User> callback) {
 
     }
 
     @Override
-    public void signUp(User user, UserSignUpCallback callback) {
+    public void register(User user, NemoCallback<User> callback) {
 
     }
 
     @Override
-    public void updateUserAvatar(BmobFile newAvatar, UserImageUpdateCallback callback) {
+    public void updateUserAvatar(BmobFile newAvatar, NemoCallback<BmobFile> callback) {
 
     }
 
     @Override
-    public void updateUserPortrait(BmobFile newPortrait, UserImageUpdateCallback callback) {
+    public void updateUserPortrait(BmobFile newPortrait, NemoCallback<BmobFile> callback) {
 
     }
 
     @Override
-    public void updateUserInfo(User user, UserInfoUpdateCallback callback) {
+    public void updateUserInfo(User user, NemoCallback<User> callback) {
 
     }
 
     @Override
-    public void getAuthorList(int pageCode, UserListGetCallback callback) {
+    public void getAuthorList(int pageIndex, NemoCallback<List<User>> callback) {
 
     }
 
     @Override
-    public void getFollowAuthorList(User follower, int pageCode, UserListGetCallback callback) {
+    public void getFollowAuthorList(User follower, int pageIndex, NemoCallback<List<User>> callback) {
 
     }
 
     @Override
-    public void getFollowerList(User author, int pageCode, UserListGetCallback callback) {
+    public void getFollowerList(User author, int pageIndex, NemoCallback<List<User>> callback) {
 
     }
 
     @Override
-    public void getFollowAuthorTotal(User follower, TotalGetCallback callback) {
+    public void getFollowAuthorTotal(User follower, NemoCallback<Integer> callback) {
 
     }
 
     @Override
-    public void getFollowerTotal(User author, TotalGetCallback callback) {
+    public void getFollowerTotal(User author, NemoCallback<Integer> callback) {
 
     }
 
     @Override
-    public void searchAuthor(String keyword, UserListGetCallback callback) {
+    public void searchAuthor(String keyword, NemoCallback<List<User>> callback) {
 
     }
 }

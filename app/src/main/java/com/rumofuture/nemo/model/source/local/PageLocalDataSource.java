@@ -2,9 +2,12 @@ package com.rumofuture.nemo.model.source.local;
 
 import android.content.Context;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Page;
 import com.rumofuture.nemo.model.source.PageDataSource;
+
+import java.util.List;
 
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -27,28 +30,29 @@ public class PageLocalDataSource implements PageDataSource {
         mContext = context;
     }
 
+
     @Override
-    public void savePage(Page page, PageSaveCallback callback) {
+    public void savePage(Page page, NemoCallback<Page> callback) {
 
     }
 
     @Override
-    public void deletePage(Page page, PageDeleteCallback callback) {
+    public void deletePage(Page page, NemoCallback<Page> callback) {
 
     }
 
     @Override
-    public void updatePage(Page page, BmobFile newImage, PageUpdateCallback callback) {
+    public void updatePage(Page page, BmobFile newImage, NemoCallback<Page> callback) {
 
     }
 
     @Override
-    public void getPageListByBook(Book book, int pageCode, PageListGetCallback callBack) {
+    public void getPageListByBook(Book book, int pageIndex, NemoCallback<List<Page>> callBack) {
 
     }
 
     @Override
-    public void getPageTotal(Book book, TotalGetCallback callback) {
+    public void getPageTotalNumber(Book book, NemoCallback<Integer> callback) {
 
     }
 }

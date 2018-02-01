@@ -134,7 +134,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
     public void getBookPageList(Book book, int pageCode) {
         mBook = book;
         mPageRepository.getPageListByBook(mBook, pageCode, this);
-        mPageRepository.getPageTotal(mBook, this);
+        mPageRepository.getPageTotalNumber(mBook, this);
     }
 
     @Override

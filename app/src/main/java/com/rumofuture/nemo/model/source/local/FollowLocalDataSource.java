@@ -3,6 +3,7 @@ package com.rumofuture.nemo.model.source.local;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Follow;
 import com.rumofuture.nemo.model.source.FollowDataSource;
 
@@ -27,17 +28,17 @@ public class FollowLocalDataSource implements FollowDataSource {
     }
 
     @Override
-    public void saveFollow(Follow follow, FollowSaveCallback callback) {
+    public void saveFollow(Follow follow, NemoCallback<Follow> callback) {
 
     }
 
     @Override
-    public void deleteFollow(Follow follow, FollowDeleteCallback callback) {
+    public void deleteFollow(Follow follow, NemoCallback<Follow> callback) {
 
     }
 
     @Override
-    public void getFollow(Follow follow, FollowGetCallback callback) {
+    public void getFollow(Follow follow, NemoCallback<Follow> callback) {
 
     }
 }

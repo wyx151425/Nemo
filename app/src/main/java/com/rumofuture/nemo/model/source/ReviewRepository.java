@@ -2,8 +2,11 @@ package com.rumofuture.nemo.model.source;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Review;
+
+import java.util.List;
 
 /**
  * Created by WangZhenqi on 2017/9/12.
@@ -35,17 +38,17 @@ public class ReviewRepository implements ReviewDataSource {
     }
 
     @Override
-    public void saveReview(Review review, ReviewSaveCallback callback) {
+    public void saveReview(Review review, NemoCallback<Review> callback) {
         mReviewRemoteDataSource.saveReview(review, callback);
     }
 
     @Override
-    public void deleteReview(Review review, ReviewDeleteCallback callback) {
+    public void deleteReview(Review review, NemoCallback<Review> callback) {
         mReviewRemoteDataSource.deleteReview(review, callback);
     }
 
     @Override
-    public void getReviewListByBook(Book book, int pageCode, ReviewListGetCallback callback) {
-        mReviewRemoteDataSource.getReviewListByBook(book, pageCode, callback);
+    public void getReviewListByBook(Book book, int pageIndex, NemoCallback<List<Review>> callback) {
+        mReviewRemoteDataSource.getReviewListByBook(book, pageIndex, callback);
     }
 }

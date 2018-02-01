@@ -2,6 +2,7 @@ package com.rumofuture.nemo.model.source;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Follow;
 
 /**
@@ -33,17 +34,17 @@ public class FollowRepository implements FollowDataSource {
     }
 
     @Override
-    public void saveFollow(Follow follow, FollowSaveCallback callback) {
+    public void saveFollow(Follow follow, NemoCallback<Follow> callback) {
         mFollowRemoteDataSource.saveFollow(follow, callback);
     }
 
     @Override
-    public void deleteFollow(Follow follow, FollowDeleteCallback callback) {
+    public void deleteFollow(Follow follow, NemoCallback<Follow> callback) {
         mFollowRemoteDataSource.deleteFollow(follow, callback);
     }
 
     @Override
-    public void getFollow(Follow follow, FollowGetCallback callback) {
+    public void getFollow(Follow follow, NemoCallback<Follow> callback) {
         mFollowRemoteDataSource.getFollow(follow, callback);
     }
 }

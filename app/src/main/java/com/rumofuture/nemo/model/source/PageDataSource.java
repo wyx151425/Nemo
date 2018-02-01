@@ -1,5 +1,6 @@
 package com.rumofuture.nemo.model.source;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Page;
 
@@ -16,34 +17,9 @@ public interface PageDataSource {
 
     int PAGE_LIMIT = 64;
 
-    void savePage(Page page, PageSaveCallback callback);
-    void deletePage(Page page, PageDeleteCallback callback);
-    void updatePage(Page page, BmobFile newImage, final PageUpdateCallback callback);
-    void getPageListByBook(Book book, int pageCode, PageListGetCallback callBack);
-    void getPageTotal(Book book, TotalGetCallback callback);
-
-    interface PageSaveCallback {
-        void onPageSaveSuccess(Page page);
-        void onPageSaveFailed(BmobException e);
-    }
-
-    interface PageDeleteCallback {
-        void onPageDeleteSuccess(Page page);
-        void onPageDeleteFailed(BmobException e);
-    }
-
-    interface PageUpdateCallback {
-        void onPageUpdateSuccess(Page page);
-        void onPageUpdateFailed(BmobException e);
-    }
-
-    interface PageListGetCallback {
-        void onPageListGetSuccess(List<Page> pageList);
-        void onPageListGetFailed(BmobException e);
-    }
-
-    interface TotalGetCallback {
-        void onTotalGetSuccess(Integer total);
-        void onTotalGetFailed(BmobException e);
-    }
+    void savePage(Page page, NemoCallback<Page> callback);
+    void deletePage(Page page, NemoCallback<Page> callback);
+    void updatePage(Page page, BmobFile newImage, NemoCallback<Page> callback);
+    void getPageListByBook(Book book, int pageIndex, NemoCallback<List<Page>> callBack);
+    void getPageTotalNumber(Book book, NemoCallback<Integer> callback);
 }
