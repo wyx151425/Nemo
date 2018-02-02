@@ -2,6 +2,7 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoMainDiscoverContract;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
@@ -14,7 +15,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/9/15.
  */
 
-public class NemoMainDiscoverPresenter implements NemoMainDiscoverContract.Presenter, UserDataSource.UserListGetCallback {
+public class NemoMainDiscoverPresenter implements NemoMainDiscoverContract.Presenter {
 
     private NemoMainDiscoverContract.View mView;
     private UserDataSource mUserRepository;
@@ -37,22 +38,22 @@ public class NemoMainDiscoverPresenter implements NemoMainDiscoverContract.Prese
         if (0 == pageCode) {
             mView.showProgressBar(true);
         }
-        mUserRepository.getAuthorList(pageCode, this);
-    }
+        mUserRepository.getAuthorList(pageCode, new NemoCallback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> data) {
+                if (mView.isActive()) {
+                    mView.showAuthorListGetSuccess(data);
+                    mView.showProgressBar(false);
+                }
+            }
 
-    @Override
-    public void onUserListGetSuccess(List<User> authorList) {
-        if (mView.isActive()) {
-            mView.showAuthorListGetSuccess(authorList);
-            mView.showProgressBar(false);
-        }
-    }
-
-    @Override
-    public void onUserListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showAuthorListGetFailed(e);
-            mView.showProgressBar(false);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showAuthorListGetFailed(message);
+                    mView.showProgressBar(false);
+                }
+            }
+        });
     }
 }

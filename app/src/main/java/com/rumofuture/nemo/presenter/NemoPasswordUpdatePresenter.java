@@ -21,6 +21,8 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class NemoPasswordUpdatePresenter implements NemoPasswordUpdateContract.Presenter {
 
+    private static final Pattern PATTERN = Pattern.compile("[0-9]*");
+
     private NemoPasswordUpdateContract.View mView;
 
     private Handler mHandler;
@@ -53,11 +55,13 @@ public class NemoPasswordUpdatePresenter implements NemoPasswordUpdateContract.P
             public void done(Integer smsId, BmobException e) {
                 if (e == null) {
                     mHandler.postDelayed(runnable, 1000);
-                    if (mView.isActive())
+                    if (mView.isActive()) {
                         mView.showRequestSMSCodeSuccess(smsId);
+                    }
                 } else {
-                    if (mView.isActive())
-                        mView.showRequestSMSCodeFailed(e);
+                    if (mView.isActive()) {
+                        mView.showRequestSMSCodeFailed(e.getMessage());
+                    }
                 }
             }
         });
@@ -89,7 +93,7 @@ public class NemoPasswordUpdatePresenter implements NemoPasswordUpdateContract.P
                 } else {
                     if (mView.isActive()) {
                         mView.showProgressView(false);
-                        mView.showUserPasswordModifyFailed(e);
+                        mView.showUserPasswordModifyFailed(e.getMessage());
                     }
                 }
             }
@@ -103,8 +107,7 @@ public class NemoPasswordUpdatePresenter implements NemoPasswordUpdateContract.P
      * @return 验证结果
      */
     private boolean isMobilePhoneNumberValid(String mobilePhoneNumber) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        Matcher isNumber = pattern.matcher(mobilePhoneNumber);
+        Matcher isNumber = PATTERN.matcher(mobilePhoneNumber);
         return isNumber.matches() && (11 == mobilePhoneNumber.length());
     }
 

@@ -15,13 +15,13 @@ public interface NemoPasswordUpdateContract {
         void showProgressView(boolean show);
 
         void showUserPasswordModifySuccess();
-        void showUserPasswordModifyFailed(BmobException e);
+        void showUserPasswordModifyFailed(String message);
 
         void showMobilePhoneNumberError(int stringId);
         void showPasswordError(int stringId);
 
         void showRequestSMSCodeSuccess(Integer smsId);
-        void showRequestSMSCodeFailed(BmobException e);
+        void showRequestSMSCodeFailed(String message);
 
         void showSMSCodeRequestTime(String time);
         void showSMSCodeRequestTimeOut(String message);

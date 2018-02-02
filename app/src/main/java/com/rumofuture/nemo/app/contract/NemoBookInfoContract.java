@@ -18,18 +18,18 @@ public interface NemoBookInfoContract {
 
     interface View extends NemoView<NemoBookInfoContract.Presenter> {
         void showBookFavoriteSuccess(Favorite favorite);
-        void showBookFavoriteFailed(BmobException e);
+        void showBookFavoriteFailed(String message);
 
         void showFavoriteRemoveSuccess();
-        void showFavoriteRemoveFailed(BmobException e);
+        void showFavoriteRemoveFailed(String message);
 
         void showFavoriteGetSuccess(Favorite favorite);
-        void showFavoriteGetFailed(BmobException e);
+        void showFavoriteGetFailed(String message);
 
         void showBookFavorTotalUpdateSuccess(Book book);
 
         void showReviewListGetSuccess(List<Review> reviewList);
-        void showReviewListGetFailed(BmobException e);
+        void showReviewListGetFailed(String message);
 
         boolean isActive();
     }

@@ -11,16 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.app.contract.NemoLogInContract;
+import com.rumofuture.nemo.app.contract.NemoLoginContract;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.view.activity.NemoPasswordUpdateActivity;
 import com.rumofuture.nemo.view.activity.NemoSignUpActivity;
 
 import cn.bmob.v3.exception.BmobException;
 
-public class NemoLogInFragment extends Fragment implements NemoLogInContract.View {
+public class NemoLogInFragment extends Fragment implements NemoLoginContract.View {
 
-    private NemoLogInContract.Presenter mPresenter;
+    private NemoLoginContract.Presenter mPresenter;
 
     private NemoProgressBarFragment mProgressBar;
 
@@ -48,7 +48,7 @@ public class NemoLogInFragment extends Fragment implements NemoLogInContract.Vie
         mMobilePhoneNumberLogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.logIn(
+                mPresenter.login(
                         mMobilePhoneNumberView.getText().toString().trim(),
                         mPasswordView.getText().toString().trim()
                 );
@@ -75,7 +75,7 @@ public class NemoLogInFragment extends Fragment implements NemoLogInContract.Vie
     }
 
     @Override
-    public void setPresenter(NemoLogInContract.Presenter presenter) {
+    public void setPresenter(NemoLoginContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -109,7 +109,7 @@ public class NemoLogInFragment extends Fragment implements NemoLogInContract.Vie
     }
 
     @Override
-    public void showLogInSuccess(User user) {
+    public void showLoginSuccess(User user) {
         Toast.makeText(getActivity(), R.string.prompt_log_in_success, Toast.LENGTH_LONG).show();
         getActivity().finish();
     }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.MyBookCreateContract;
 import com.rumofuture.nemo.app.manager.ImageChooseManager;
 import com.rumofuture.nemo.model.entity.Book;
@@ -25,7 +26,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/4/13.
  */
 
-public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, UserDataSource.UserInfoUpdateCallback, BookDataSource.BookSaveCallback {
+public class MyBookCreatePresenter implements MyBookCreateContract.Presenter {
 
     private MyBookCreateContract.View mView;
     private UserDataSource mUserRepository;
@@ -70,8 +71,9 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
 
         // 如果未选择封面，则取消创建并提示错误
         if (mCoverImage == null) {
-            if (mView.isActive())
+            if (mView.isActive()) {
                 mView.showBookInfoError(R.string.prompt_book_cover_required);
+            }
             return;
         }
 
@@ -85,15 +87,17 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
 
         // 如果未填写漫画册风格，则取消创建并提示错误
         if (TextUtils.isEmpty(book.getStyle())) {
-            if (mView.isActive())
+            if (mView.isActive()) {
                 mView.showBookInfoError(R.string.prompt_book_style_required);
+            }
             return;
         }
 
         // 如果未填写漫画册简介，则取消创建并提示错误
         if (TextUtils.isEmpty(book.getIntroduction())) {
-            if (mView.isActive())
+            if (mView.isActive()) {
                 mView.showBookInfoError(R.string.prompt_book_introduction_required);
+            }
             return;
         }
 
@@ -104,27 +108,37 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
         book.setPage(0);
         book.setFavor(0);
         book.setStatus(1);
-        mBookRepository.saveBook(book, this);
-    }
+        mBookRepository.saveBook(book, new NemoCallback<Book>() {
+            @Override
+            public void onSuccess(Book data) {
+                if (mView.isActive()) {
+                    mView.showBookCreateSuccess(book);
+                    mView.showProgressBar(false);
+                }
 
-    @Override
-    public void onBookSaveSuccess(Book book) {
-        if (mView.isActive()) {
-            mView.showBookCreateSuccess(book);
-            mView.showProgressBar(false);
-        }
+                User currentUser = BmobUser.getCurrentUser(User.class);
+                currentUser.increment(UserSchema.Table.Cols.BOOK);
+                mUserRepository.updateUserInfo(currentUser, new NemoCallback<User>() {
+                    @Override
+                    public void onSuccess(User data) {
 
-        User currentUser = BmobUser.getCurrentUser(User.class);
-        currentUser.increment(UserSchema.Table.Cols.BOOK);
-        mUserRepository.updateUserInfo(currentUser, this);
-    }
+                    }
 
-    @Override
-    public void onBookSaveFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showBookCreateFailed(e);
-            mView.showProgressBar(false);
-        }
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showBookCreateFailed(message);
+                    mView.showProgressBar(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -133,24 +147,15 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter, Us
         ((MyBookCreateFragment) mView).getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mView.isActive())
+                if (mView.isActive()) {
                     mView.showBookCoverHasChosen(mCoverImage.getFilePathOriginal());
+                }
             }
         });
     }
 
     @Override
     public void releaseImageChooseManager() {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateSuccess() {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateFailed(BmobException e) {
 
     }
 }

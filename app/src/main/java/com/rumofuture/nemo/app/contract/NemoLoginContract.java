@@ -4,27 +4,25 @@ import com.rumofuture.nemo.app.NemoPresenter;
 import com.rumofuture.nemo.app.NemoView;
 import com.rumofuture.nemo.model.entity.User;
 
-import cn.bmob.v3.exception.BmobException;
-
 /**
  * Created by WangZhenqi on 2017/4/16.
  */
 
-public interface NemoLogInContract {
+public interface NemoLoginContract {
 
-    interface View extends NemoView<NemoLogInContract.Presenter> {
+    interface View extends NemoView<NemoLoginContract.Presenter> {
         void showProgressBar(boolean show);
 
         void showMobilePhoneNumberError(Integer stringId);
         void showPasswordError(Integer stringId);
 
-        void showLogInSuccess(User user);
-        void showLogInFailed(BmobException e);
+        void showLoginSuccess(User user);
+        void showloginfailed(String message);
 
         boolean isActive();
     }
 
     interface Presenter extends NemoPresenter {
-        void logIn(String mobilePhoneNumber, String password);
+        void login(String mobilePhoneNumber, String password);
     }
 }

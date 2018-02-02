@@ -2,19 +2,18 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoMainAlbumContract;
 import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.source.AlbumDataSource;
 
 import java.util.List;
 
-import cn.bmob.v3.exception.BmobException;
-
 /**
  * Created by WangZhenqi on 2017/9/20.
  */
 
-public class NemoMainAlbumPresenter implements NemoMainAlbumContract.Presenter, AlbumDataSource.AlbumListGetCallback {
+public class NemoMainAlbumPresenter implements NemoMainAlbumContract.Presenter {
 
     private NemoMainAlbumContract.View mView;
     private AlbumDataSource mAlbumRepository;
@@ -34,20 +33,20 @@ public class NemoMainAlbumPresenter implements NemoMainAlbumContract.Presenter, 
 
     @Override
     public void getAlbumList() {
-        mAlbumRepository.getAlbumList(this);
-    }
+        mAlbumRepository.getAlbumList(new NemoCallback<List<Album>>() {
+            @Override
+            public void onSuccess(List<Album> data) {
+                if (mView.isActive()) {
+                    mView.showAlbumListGetSuccess(data);
+                }
+            }
 
-    @Override
-    public void onAlbumListGetSuccess(List<Album> albumList) {
-        if (mView.isActive()) {
-            mView.showAlbumListGetSuccess(albumList);
-        }
-    }
-
-    @Override
-    public void onAlbumListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showAlbumListGetFailed(e);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showAlbumListGetFailed(message);
+                }
+            }
+        });
     }
 }

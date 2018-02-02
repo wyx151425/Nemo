@@ -62,7 +62,7 @@ public class NemoAlbumBookListPresenter implements NemoAlbumBookListContract.Pre
     @Override
     public void onAlbumGetSuccess(Album album) {
         mAlbum = album;
-        mBookRepository.getAlbumBookTotal(album, this);
+        mBookRepository.getAlbumBookTotalNumber(album, this);
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface NemoPageListContract {
 
     interface View extends NemoView<NemoPageListContract.Presenter> {
         void showPageListGetSuccess(List<Page> pageList);
-        void showPageListGetFailed(BmobException e);
+        void showPageListGetFailed(String message);
 
         boolean isActive();
     }

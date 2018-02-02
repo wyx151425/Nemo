@@ -10,9 +10,9 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/5/6.
  */
 
-public interface NemoSignUpContract {
+public interface NemoRegisterContract {
 
-    interface View extends NemoView<NemoSignUpContract.Presenter> {
+    interface View extends NemoView<NemoRegisterContract.Presenter> {
         void showProgressBar(boolean show);
 
         void showNameError(int stringId);
@@ -25,8 +25,8 @@ public interface NemoSignUpContract {
         void showSMSCodeRequestTime(String time);
         void showSMSCodeRequestTimeOut(String message);
 
-        void showSignUpSuccess(User user);
-        void showSignUpFailed(BmobException e);
+        void showRegisterSuccess(User user);
+        void showRegisterFailed(String message);
 
         boolean isActive();
     }

@@ -16,7 +16,7 @@ public interface NemoMainAlbumContract {
 
     interface View extends NemoView<NemoMainAlbumContract.Presenter> {
         void showAlbumListGetSuccess(List<Album> albumList);
-        void showAlbumListGetFailed(BmobException e);
+        void showAlbumListGetFailed(String message);
 
         boolean isActive();
     }

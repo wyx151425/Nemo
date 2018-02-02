@@ -18,10 +18,10 @@ public interface MyBookListContract {
         void showProgressBar(boolean show);
 
         void showBookListGetSuccess(List<Book> bookList);
-        void showBookListGetFailed(BmobException e);
+        void showBookListGetFailed(String message);
 
         void showBookDeleteSuccess(Book book);
-        void showBookDeleteFailed(BmobException e);
+        void showBookDeleteFailed(String message);
 
         boolean isActive();
     }
@@ -30,6 +30,6 @@ public interface MyBookListContract {
         void deleteBook(Book book);
         void updateMyBookTotalOnCreate();
         void updateMyBookTotalOnDelete();
-        void getMyBookList(int pageCode);
+        void getMyBookList(int pageIndex);
     }
 }

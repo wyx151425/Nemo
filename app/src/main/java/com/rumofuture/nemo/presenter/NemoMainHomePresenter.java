@@ -2,24 +2,23 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoMainContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
 
 import java.util.List;
 
-import cn.bmob.v3.exception.BmobException;
-
 /**
  * Created by WangZhenqi on 2017/4/16.
  */
 
-public class NemoMainPresenter implements NemoMainContract.Presenter, BookDataSource.BookListGetCallback {
+public class NemoMainHomePresenter implements NemoMainContract.Presenter {
 
     private NemoMainContract.View mView;
     private BookDataSource mBookRepository;
 
-    public NemoMainPresenter(
+    public NemoMainHomePresenter(
             @NonNull NemoMainContract.View view,
             @NonNull BookDataSource bookRepository
     ) {
@@ -37,22 +36,22 @@ public class NemoMainPresenter implements NemoMainContract.Presenter, BookDataSo
         if (0 == pageCode) {
             mView.showProgressBar(true);
         }
-        mBookRepository.getBookListWithAuthor(pageCode, this);
-    }
+        mBookRepository.getBookListWithAuthor(pageCode, new NemoCallback<List<Book>>() {
+            @Override
+            public void onSuccess(List<Book> data) {
+                if (mView.isActive()) {
+                    mView.showBookListGetSuccess(data);
+                    mView.showProgressBar(false);
+                }
+            }
 
-    @Override
-    public void onBookListGetSuccess(List<Book> bookList) {
-        if (mView.isActive()) {
-            mView.showBookListGetSuccess(bookList);
-            mView.showProgressBar(false);
-        }
-    }
-
-    @Override
-    public void onBookListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showBookListGetFailed(e);
-            mView.showProgressBar(false);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showBookListGetFailed(message);
+                    mView.showProgressBar(false);
+                }
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@ package com.rumofuture.nemo.model.source.remote;
 
 import android.support.annotation.Nullable;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Favorite;
@@ -39,7 +40,7 @@ public class BookRemoteDataSource implements BookDataSource {
     }
 
     @Override
-    public void saveBook(final Book book, final BookSaveCallback callback) {
+    public void saveBook(final Book book, final NemoCallback<Book> callback) {
         final BmobFile cover = book.getCover();
         // 用于上传封面图片的方法
         cover.upload(new UploadFileListener() {
@@ -53,9 +54,9 @@ public class BookRemoteDataSource implements BookDataSource {
                         public void done(String objectId, BmobException e) {
                             if (null == e) {
                                 book.setObjectId(objectId);
-                                callback.onBookSaveSuccess(book);
+                                callback.onSuccess(book);
                             } else {
-                                callback.onBookSaveFailed(e);
+                                callback.onFailed(e.getMessage());
                                 cover.delete(new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
@@ -66,20 +67,20 @@ public class BookRemoteDataSource implements BookDataSource {
                         }
                     });
                 } else {
-                    callback.onBookSaveFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void deleteBook(final Book book, final BookDeleteCallback callback) {
+    public void deleteBook(final Book book, final NemoCallback<Book> callback) {
         final BmobFile cover = book.getCover();
         book.delete(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (null == e) {
-                    callback.onBookDeleteSuccess(book);
+                    callback.onSuccess(book);
                     cover.delete(new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
@@ -87,14 +88,14 @@ public class BookRemoteDataSource implements BookDataSource {
                         }
                     });
                 } else {
-                    callback.onBookDeleteFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void updateBook(final Book book, @Nullable final BmobFile newCover, final BookUpdateCallback callback) {
+    public void updateBook(final Book book, @Nullable final BmobFile newCover, final NemoCallback<Book> callback) {
         if (null != newCover) {
             newCover.upload(new UploadFileListener() {
                 @Override
@@ -109,7 +110,7 @@ public class BookRemoteDataSource implements BookDataSource {
                         });
                         book.setCover(newCover);
                     } else {
-                        callback.onBookUpdateFailed(e);
+                        callback.onFailed(e.getMessage());
                     }
                 }
             });
@@ -119,84 +120,84 @@ public class BookRemoteDataSource implements BookDataSource {
             @Override
             public void done(BmobException e) {
                 if (null == e) {
-                    callback.onBookUpdateSuccess(book);
+                    callback.onSuccess(book);
                 } else {
-                    callback.onBookUpdateFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getBookListWithAuthor(int pageCode, final BookListGetCallback callback) {
+    public void getBookListWithAuthor(int pageIndex, final NemoCallback<List<Book>> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
         query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
         query.include(BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.findObjects(new FindListener<Book>() {
             @Override
             public void done(List<Book> bookList, BmobException e) {
                 if (null == e) {
-                    callback.onBookListGetSuccess(bookList);
+                    callback.onSuccess(bookList);
                 } else {
-                    callback.onBookListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getBookListByAuthor(User author, int pageCode, boolean self, final BookListGetCallback callback) {
+    public void getBookListByAuthor(User author, int pageIndex, boolean own, final NemoCallback<List<Book>> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.AUTHOR, author);
-        if (!self) {
+        if (!own) {
             query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
             query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
         }
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.findObjects(new FindListener<Book>() {
             @Override
             public void done(List<Book> bookList, BmobException e) {
                 if (null == e) {
-                    callback.onBookListGetSuccess(bookList);
+                    callback.onSuccess(bookList);
                 } else {
-                    callback.onBookListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getBookListByStyle(String style, int pageCode, final BookListGetCallback callback) {
+    public void getBookListByStyle(String style, int pageIndex, final NemoCallback<List<Book>> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.STYLE, style);
         query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
         query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
         query.include(BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.findObjects(new FindListener<Book>() {
             @Override
             public void done(List<Book> bookList, BmobException e) {
                 if (null == e) {
-                    callback.onBookListGetSuccess(bookList);
+                    callback.onSuccess(bookList);
                 } else {
-                    callback.onBookListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFavoriteBookList(User favor, int pageCode, final BookListGetCallback callback) {
+    public void getFavoriteBookList(User favor, int pageIndex, final NemoCallback<List<Book>> callback) {
         BmobQuery<Favorite> query = new BmobQuery<>();
         query.addWhereEqualTo(FavoriteSchema.Table.Cols.FAVOR, favor);
         query.include(FavoriteSchema.Table.Cols.BOOK + "." + BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
-        query.setSkip(pageCode * PAGE_LIMIT);
+        query.setSkip(pageIndex * PAGE_LIMIT);
         query.order(FavoriteSchema.Table.Cols.CREATE_TIME);
         query.findObjects(new FindListener<Favorite>() {
             @Override
@@ -206,19 +207,19 @@ public class BookRemoteDataSource implements BookDataSource {
                     for (Favorite favorite : favoriteList) {
                         bookList.add(favorite.getBook());
                     }
-                    callback.onBookListGetSuccess(bookList);
+                    callback.onSuccess(bookList);
                 } else {
-                    callback.onBookListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getAuthorBookTotal(User author, boolean self, final TotalGetCallback callback) {
+    public void getAuthorBookTotalNumber(User author, boolean own, final NemoCallback<Integer> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.AUTHOR, author);
-        if (!self) {
+        if (!own) {
             query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
             query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
         }
@@ -226,16 +227,16 @@ public class BookRemoteDataSource implements BookDataSource {
             @Override
             public void done(Integer total, BmobException e) {
                 if (null == e) {
-                    callback.onTotalGetSuccess(total);
+                    callback.onSuccess(total);
                 } else {
-                    callback.onTotalGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getAlbumBookTotal(Album album, final TotalGetCallback callback) {
+    public void getAlbumBookTotalNumber(Album album, final NemoCallback<Integer> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.STYLE, album.getStyle());
         query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
@@ -244,32 +245,32 @@ public class BookRemoteDataSource implements BookDataSource {
             @Override
             public void done(Integer total, BmobException e) {
                 if (null == e) {
-                    callback.onTotalGetSuccess(total);
+                    callback.onSuccess(total);
                 } else {
-                    callback.onTotalGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void getFavoriteBookTotal(User favor, final TotalGetCallback callback) {
+    public void getFavoriteBookTotalNumber(User favor, final NemoCallback<Integer> callback) {
         BmobQuery<Favorite> query = new BmobQuery<>();
         query.addWhereEqualTo(FavoriteSchema.Table.Cols.FAVOR, favor);
         query.count(Favorite.class, new CountListener() {
             @Override
             public void done(Integer total, BmobException e) {
                 if (null == e) {
-                    callback.onTotalGetSuccess(total);
+                    callback.onSuccess(total);
                 } else {
-                    callback.onTotalGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });
     }
 
     @Override
-    public void searchBook(String keyword, final BookListGetCallback callback) {
+    public void searchBook(String keyword, final NemoCallback<List<Book>> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.NAME, keyword);
         query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
@@ -279,9 +280,9 @@ public class BookRemoteDataSource implements BookDataSource {
             @Override
             public void done(List<Book> bookList, BmobException e) {
                 if (null == e) {
-                    callback.onBookListGetSuccess(bookList);
+                    callback.onSuccess(bookList);
                 } else {
-                    callback.onBookListGetFailed(e);
+                    callback.onFailed(e.getMessage());
                 }
             }
         });

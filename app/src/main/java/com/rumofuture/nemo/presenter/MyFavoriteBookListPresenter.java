@@ -45,7 +45,7 @@ public class MyFavoriteBookListPresenter implements MyFavoriteBookListContract.P
         mBookRepository.getFavoriteBookList(
                 BmobUser.getCurrentUser(User.class), pageCode, this
         );
-        mBookRepository.getFavoriteBookTotal(
+        mBookRepository.getFavoriteBookTotalNumber(
                 BmobUser.getCurrentUser(User.class), this
         );
     }

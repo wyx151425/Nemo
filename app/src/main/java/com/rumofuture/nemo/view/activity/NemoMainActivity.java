@@ -19,7 +19,7 @@ import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.presenter.NemoMainAlbumPresenter;
 import com.rumofuture.nemo.presenter.NemoMainDiscoverPresenter;
-import com.rumofuture.nemo.presenter.NemoMainPresenter;
+import com.rumofuture.nemo.presenter.NemoMainHomePresenter;
 import com.rumofuture.nemo.view.fragment.NemoMainAlbumFragment;
 import com.rumofuture.nemo.view.fragment.NemoMainDiscoverFragment;
 import com.rumofuture.nemo.view.fragment.NemoMainFragment;
@@ -160,7 +160,7 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
             case NAVIGATION_MAIN_INDEX:
                 if (null == mMainFragment) {
                     mMainFragment = NemoMainFragment.newInstance();
-                    NemoMainPresenter presenter = new NemoMainPresenter(
+                    NemoMainHomePresenter presenter = new NemoMainHomePresenter(
                             mMainFragment,
                             DataSourceManager.provideBookRepository(NemoMainActivity.this)
                     );

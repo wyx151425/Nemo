@@ -3,10 +3,13 @@ package com.rumofuture.nemo.model.source.local;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.BookDataSource;
+
+import java.util.List;
 
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -21,8 +24,9 @@ public class BookLocalDataSource implements BookDataSource {
     private Context mContext;
 
     public static BookLocalDataSource getInstance(Context context) {
-        if (sInstance == null)
+        if (sInstance == null) {
             sInstance = new BookLocalDataSource(context);
+        }
         return sInstance;
     }
 
@@ -31,57 +35,57 @@ public class BookLocalDataSource implements BookDataSource {
     }
 
     @Override
-    public void saveBook(Book book, BookSaveCallback callback) {
+    public void saveBook(Book book, NemoCallback<Book> callback) {
 
     }
 
     @Override
-    public void deleteBook(Book book, BookDeleteCallback callback) {
+    public void deleteBook(Book book, NemoCallback<Book> callback) {
 
     }
 
     @Override
-    public void updateBook(Book book, @Nullable BmobFile newCover, BookUpdateCallback callback) {
+    public void updateBook(Book book, @Nullable BmobFile newCover, NemoCallback<Book> callback) {
 
     }
 
     @Override
-    public void getBookListByAuthor(User author, int pageCode, boolean self, BookListGetCallback callback) {
+    public void getBookListWithAuthor(int pageIndex, NemoCallback<List<Book>> callback) {
 
     }
 
     @Override
-    public void getBookListWithAuthor(int pageCode, BookListGetCallback callback) {
+    public void getBookListByAuthor(User author, int pageIndex, boolean own, NemoCallback<List<Book>> callback) {
 
     }
 
     @Override
-    public void getBookListByStyle(String style, int pageCode, BookListGetCallback callback) {
+    public void getBookListByStyle(String style, int pageIndex, NemoCallback<List<Book>> callback) {
 
     }
 
     @Override
-    public void getFavoriteBookList(User favor, int pageCode, BookListGetCallback callback) {
+    public void getFavoriteBookList(User favor, int pageIndex, NemoCallback<List<Book>> callback) {
 
     }
 
     @Override
-    public void getAuthorBookTotal(User author, boolean self, TotalGetCallback callback) {
+    public void getAuthorBookTotalNumber(User author, boolean own, NemoCallback<Integer> callback) {
 
     }
 
     @Override
-    public void getAlbumBookTotal(Album album, TotalGetCallback callback) {
+    public void getAlbumBookTotalNumber(Album album, NemoCallback<Integer> callback) {
 
     }
 
     @Override
-    public void getFavoriteBookTotal(User favor, TotalGetCallback callback) {
+    public void getFavoriteBookTotalNumber(User favor, NemoCallback<Integer> callback) {
 
     }
 
     @Override
-    public void searchBook(String keyword, BookListGetCallback callback) {
+    public void searchBook(String keyword, NemoCallback<List<Book>> callback) {
 
     }
 }

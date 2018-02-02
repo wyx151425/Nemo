@@ -12,14 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.app.contract.NemoSignUpContract;
+import com.rumofuture.nemo.app.contract.NemoRegisterContract;
 import com.rumofuture.nemo.model.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
 
-public class NemoSignUpFragment extends Fragment implements NemoSignUpContract.View {
+public class NemoSignUpFragment extends Fragment implements NemoRegisterContract.View {
 
-    private NemoSignUpContract.Presenter mPresenter;
+    private NemoRegisterContract.Presenter mPresenter;
 
     private EditText mNameView;
     private EditText mMobilePhoneNumberView;
@@ -74,7 +74,7 @@ public class NemoSignUpFragment extends Fragment implements NemoSignUpContract.V
     }
 
     @Override
-    public void setPresenter(NemoSignUpContract.Presenter presenter) {
+    public void setPresenter(NemoRegisterContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
@@ -131,7 +131,7 @@ public class NemoSignUpFragment extends Fragment implements NemoSignUpContract.V
     }
 
     @Override
-    public void showSignUpSuccess(User user) {
+    public void showRegisterSuccess(User user) {
         Toast.makeText(getActivity(), R.string.prompt_sign_up_success, Toast.LENGTH_LONG).show();
         getActivity().finish();
     }

@@ -19,7 +19,7 @@ public interface MyBookCreateContract {
         void showProgressBar(boolean show);
 
         void showBookCreateSuccess(Book book);
-        void showBookCreateFailed(BmobException e);
+        void showBookCreateFailed(String message);
 
         boolean isActive();
     }

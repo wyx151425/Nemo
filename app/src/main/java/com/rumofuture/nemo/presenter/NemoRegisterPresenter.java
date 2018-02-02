@@ -4,7 +4,8 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.app.contract.NemoSignUpContract;
+import com.rumofuture.nemo.app.NemoCallback;
+import com.rumofuture.nemo.app.contract.NemoRegisterContract;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
 
@@ -20,16 +21,18 @@ import cn.bmob.v3.listener.UpdateListener;
  * Created by WangZhenqi on 2017/5/6.
  */
 
-public class NemoSignUpPresenter implements NemoSignUpContract.Presenter, UserDataSource.UserSignUpCallback {
+public class NemoRegisterPresenter implements NemoRegisterContract.Presenter {
 
-    private NemoSignUpContract.View mView;
+    private static final Pattern PATTERN = Pattern.compile("[0-9]*");
+
+    private NemoRegisterContract.View mView;
     private UserDataSource mUserRepository;
 
     private Handler mHandler;
     private int requestedTime;
 
-    public NemoSignUpPresenter(
-            NemoSignUpContract.View view,
+    public NemoRegisterPresenter(
+            NemoRegisterContract.View view,
             UserDataSource userRepository
     ) {
         mView = view;
@@ -59,11 +62,13 @@ public class NemoSignUpPresenter implements NemoSignUpContract.Presenter, UserDa
             public void done(Integer smsId, BmobException e) {
                 if (e == null) {
                     mHandler.postDelayed(runnable, 1000);
-                    if (mView.isActive())
+                    if (mView.isActive()) {
                         mView.showRequestSMSCodeSuccess(smsId);
+                    }
                 } else {
-                    if (mView.isActive())
+                    if (mView.isActive()) {
                         mView.showRequestSMSCodeFailed(e);
+                    }
                 }
             }
         });
@@ -107,33 +112,33 @@ public class NemoSignUpPresenter implements NemoSignUpContract.Presenter, UserDa
         BmobSMS.verifySmsCode(user.getMobilePhoneNumber(), smsCode, new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if (e == null) {
+                if (null == e) {
                     user.setMobilePhoneNumberVerified(true);
-                    mUserRepository.register(user, NemoSignUpPresenter.this);
+                    mUserRepository.register(user, new NemoCallback<User>() {
+                        @Override
+                        public void onSuccess(User data) {
+                            if (mView.isActive()) {
+                                mView.showProgressBar(false);
+                                mView.showRegisterSuccess(user);
+                            }
+                        }
+
+                        @Override
+                        public void onFailed(String message) {
+                            if (mView.isActive()) {
+                                mView.showProgressBar(false);
+                                mView.showRegisterFailed(message);
+                            }
+                        }
+                    });
                 } else {
                     if (mView.isActive()) {
                         mView.showProgressBar(false);
-                        mView.showSignUpFailed(e);
+                        mView.showRegisterFailed(e.getMessage());
                     }
                 }
             }
         });
-    }
-
-    @Override
-    public void onUserSignUpSuccess(User user) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false);
-            mView.showSignUpSuccess(user);
-        }
-    }
-
-    @Override
-    public void onUserSignUpFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false);
-            mView.showSignUpFailed(e);
-        }
     }
 
     private boolean isNameValid(String name) {
@@ -147,8 +152,7 @@ public class NemoSignUpPresenter implements NemoSignUpContract.Presenter, UserDa
      * @return 验证结果
      */
     private boolean isMobilePhoneNumberValid(String mobilePhoneNumber) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        Matcher isNumber = pattern.matcher(mobilePhoneNumber);
+        Matcher isNumber = PATTERN.matcher(mobilePhoneNumber);
         return isNumber.matches() && (11 == mobilePhoneNumber.length());
     }
 

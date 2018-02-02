@@ -18,7 +18,7 @@ public interface NemoBookSearchContract {
         void showProgressBar(boolean show);
 
         void showBookSearchSuccess(List<Book> bookList);
-        void showBookSearchFailed(BmobException e);
+        void showBookSearchFailed(String message);
 
         boolean isActive();
     }

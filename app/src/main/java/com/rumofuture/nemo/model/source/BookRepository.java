@@ -41,6 +41,7 @@ public class BookRepository implements BookDataSource {
         mBookRemoteDataSource = bookRemoteDataSource;
     }
 
+
     @Override
     public void saveBook(Book book, NemoCallback<Book> callback) {
         mBookRemoteDataSource.saveBook(book, callback);
@@ -62,37 +63,37 @@ public class BookRepository implements BookDataSource {
     }
 
     @Override
-    public void getBookListByAuthor(User author, int pageIndex, boolean self, NemoCallback<List<Book>> callback) {
-        mBookRemoteDataSource.getBookListByAuthor(author, pageIndex, );
+    public void getBookListByAuthor(User author, int pageIndex, boolean own, NemoCallback<List<Book>> callback) {
+        mBookRemoteDataSource.getBookListByAuthor(author, pageIndex, own, callback);
     }
 
     @Override
     public void getBookListByStyle(String style, int pageIndex, NemoCallback<List<Book>> callback) {
-
+        mBookRemoteDataSource.getBookListByStyle(style, pageIndex, callback);
     }
 
     @Override
     public void getFavoriteBookList(User favor, int pageIndex, NemoCallback<List<Book>> callback) {
-
+        mBookRemoteDataSource.getFavoriteBookList(favor, pageIndex, callback);
     }
 
     @Override
-    public void getAuthorBookTotal(User author, Integer type, NemoCallback<Integer> callback) {
-
+    public void getAuthorBookTotalNumber(User author, boolean own, NemoCallback<Integer> callback) {
+        mBookRemoteDataSource.getAuthorBookTotalNumber(author, own, callback);
     }
 
     @Override
-    public void getAlbumBookTotal(Album album, NemoCallback<Integer> callback) {
-
+    public void getAlbumBookTotalNumber(Album album, NemoCallback<Integer> callback) {
+        mBookRemoteDataSource.getAlbumBookTotalNumber(album, callback);
     }
 
     @Override
-    public void getFavoriteBookTotal(User favor, NemoCallback<Integer> callback) {
-
+    public void getFavoriteBookTotalNumber(User favor, NemoCallback<Integer> callback) {
+        mBookRemoteDataSource.getFavoriteBookTotalNumber(favor, callback);
     }
 
     @Override
     public void searchBook(String keyword, NemoCallback<List<Book>> callback) {
-
+        mBookRemoteDataSource.searchBook(keyword, callback);
     }
 }

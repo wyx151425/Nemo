@@ -3,7 +3,8 @@ package com.rumofuture.nemo.presenter;
 import android.text.TextUtils;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.app.contract.NemoLogInContract;
+import com.rumofuture.nemo.app.NemoCallback;
+import com.rumofuture.nemo.app.contract.NemoLoginContract;
 import com.rumofuture.nemo.model.entity.Device;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
@@ -19,12 +20,12 @@ import cn.bmob.v3.listener.FindListener;
  * Created by WangZhenqi on 2017/4/16.
  */
 
-public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserDataSource.UserLogInCallback {
+public class NemoLoginPresenter implements NemoLoginContract.Presenter {
 
-    private NemoLogInContract.View mView;
+    private NemoLoginContract.View mView;
     private UserDataSource mUserRepository;
 
-    public NemoLogInPresenter(NemoLogInContract.View view, UserDataSource userRepository) {
+    public NemoLoginPresenter(NemoLoginContract.View view, UserDataSource userRepository) {
         mView = view;
         mUserRepository = userRepository;
     }
@@ -35,7 +36,7 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
     }
 
     @Override
-    public void logIn(String mobilePhoneNumber, String password) {
+    public void login(String mobilePhoneNumber, String password) {
         mView.showMobilePhoneNumberError(null);
         mView.showPasswordError(null);
 
@@ -63,7 +64,24 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
             User user = new User();
             user.setUsername(mobilePhoneNumber);
             user.setPassword(password);
-            mUserRepository.login(user, this);
+            mUserRepository.login(user, new NemoCallback<User>() {
+                @Override
+                public void onSuccess(User data) {
+                    updateDeviceUser(data);
+                    if (mView.isActive()) {
+                        mView.showProgressBar(false);
+                        mView.showLoginSuccess(data);
+                    }
+                }
+
+                @Override
+                public void onFailed(String message) {
+                    if (mView.isActive()) {
+                        mView.showProgressBar(false);
+                        mView.showloginfailed(message);
+                    }
+                }
+            });
         }
     }
 
@@ -91,22 +109,5 @@ public class NemoLogInPresenter implements NemoLogInContract.Presenter, UserData
 
     private boolean isPasswordValid(String password) {
         return password.length() >= 6;
-    }
-
-    @Override
-    public void onUserLogInSuccess(User user) {
-        updateDeviceUser(user);
-        if (mView.isActive()) {
-            mView.showProgressBar(false);
-            mView.showLogInSuccess(user);
-        }
-    }
-
-    @Override
-    public void onUserLogInFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false);
-            mView.showLogInFailed(e);
-        }
     }
 }

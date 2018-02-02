@@ -18,12 +18,12 @@ public interface NemoMainDiscoverContract {
         void showProgressBar(boolean show);
 
         void showAuthorListGetSuccess(List<User> authorList);
-        void showAuthorListGetFailed(BmobException e);
+        void showAuthorListGetFailed(String message);
 
         boolean isActive();
     }
 
     interface Presenter extends NemoPresenter {
-        void getAuthorList(int pageCode);
+        void getAuthorList(int pageIndex);
     }
 }

@@ -16,7 +16,7 @@ public interface NemoReviewEditContract {
         void showProgressBar(boolean show);
 
         void showReviewSaveSuccess(Review review);
-        void showReviewSaveFailed(BmobException e);
+        void showReviewSaveFailed(String message);
 
         boolean isActive();
     }
