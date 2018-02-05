@@ -2,6 +2,7 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoBookInfoContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Favorite;
@@ -22,8 +23,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/4/23.
  */
 
-public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter, UserDataSource.UserInfoUpdateCallback, BookDataSource.BookUpdateCallback,
-        FavoriteDataSource.FavoriteSaveCallback, FavoriteDataSource.FavoriteDeleteCallback, FavoriteDataSource.FavoriteGetCallback, ReviewDataSource.ReviewListGetCallback {
+public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter {
 
     private NemoBookInfoContract.View mView;
     private UserDataSource mUserRepository;
@@ -52,115 +52,135 @@ public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter, Us
 
     @Override
     public void favoriteBook(Favorite favorite) {
-        mFavoriteRepository.saveFavorite(favorite, this);
+        mFavoriteRepository.saveFavorite(favorite, new NemoCallback<Favorite>() {
+            @Override
+            public void onSuccess(Favorite data) {
+                if (mView.isActive()) {
+                    mView.showBookFavoriteSuccess(data);
+                }
+
+                User collector = data.getFavor();
+                collector.increment(UserSchema.Table.Cols.FAVORITE);
+                mUserRepository.updateUserInfo(collector, new NemoCallback<User>() {
+                    @Override
+                    public void onSuccess(User data) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+
+                Book book = data.getBook();
+                book.increment(BookSchema.Table.Cols.FAVOR_TOTAL);
+                mBookRepository.updateBook(book, null, new NemoCallback<Book>() {
+                    @Override
+                    public void onSuccess(Book data) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showBookFavoriteFailed(message);
+                }
+            }
+        });
     }
 
     @Override
     public void removeBookFromMyFavorite(Favorite favorite) {
-        mFavoriteRepository.deleteFavorite(favorite, this);
+        mFavoriteRepository.deleteFavorite(favorite, new NemoCallback<Favorite>() {
+            @Override
+            public void onSuccess(Favorite data) {
+                if (mView.isActive()) {
+                    mView.showFavoriteRemoveSuccess();
+                }
+
+                User collector = data.getFavor();
+                collector.increment(UserSchema.Table.Cols.FAVORITE, -1);
+                mUserRepository.updateUserInfo(collector, new NemoCallback<User>() {
+                    @Override
+                    public void onSuccess(User data) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+
+                Book book = data.getBook();
+                book.increment(BookSchema.Table.Cols.FAVOR_TOTAL, -1);
+                mBookRepository.updateBook(book, null, new NemoCallback<Book>() {
+                    @Override
+                    public void onSuccess(Book data) {
+                        if (mView.isActive()) {
+                            mView.showBookFavorTotalUpdateSuccess(data);
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showFavoriteRemoveFailed(message);
+                }
+            }
+        });
     }
 
     @Override
     public void getFavoriteRelation(Favorite favorite) {
-        mFavoriteRepository.getFavorite(favorite, this);
+        mFavoriteRepository.getFavorite(favorite, new NemoCallback<Favorite>() {
+            @Override
+            public void onSuccess(Favorite data) {
+                if (mView.isActive()) {
+                    mView.showFavoriteGetSuccess(data);
+                }
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showFavoriteGetFailed(message);
+                }
+            }
+        });
     }
 
     @Override
-    public void getBookReviewList(Book book, int pageCode) {
-        mReviewRepository.getReviewListByBook(book, pageCode, this);
-    }
+    public void getBookReviewList(Book book, int pageIndex) {
+        mReviewRepository.getReviewListByBook(book, pageIndex, new NemoCallback<List<Review>>() {
+            @Override
+            public void onSuccess(List<Review> data) {
+                if (mView.isActive()) {
+                    mView.showReviewListGetSuccess(data);
+                }
+            }
 
-    @Override
-    public void onFavoriteSaveSuccess(Favorite favorite) {
-        if (mView.isActive()) {
-            mView.showBookFavoriteSuccess(favorite);
-        }
-
-        User collector = favorite.getFavor();
-        collector.increment(UserSchema.Table.Cols.FAVORITE);
-        mUserRepository.updateUserInfo(collector, this);
-
-        Book book = favorite.getBook();
-        book.increment(BookSchema.Table.Cols.FAVOR_TOTAL);
-        mBookRepository.updateBook(book, null, this);
-    }
-
-    @Override
-    public void onFavoriteSaveFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showBookFavoriteFailed(e);
-        }
-    }
-
-    @Override
-    public void onFavoriteDeleteSuccess(Favorite favorite) {
-        if (mView.isActive()) {
-            mView.showFavoriteRemoveSuccess();
-        }
-
-        User collector = favorite.getFavor();
-        collector.increment(UserSchema.Table.Cols.FAVORITE, -1);
-        mUserRepository.updateUserInfo(collector, this);
-
-        Book book = favorite.getBook();
-        book.increment(BookSchema.Table.Cols.FAVOR_TOTAL, -1);
-        mBookRepository.updateBook(book, null, this);
-    }
-
-    @Override
-    public void onFavoriteDeleteFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showFavoriteRemoveFailed(e);
-        }
-    }
-
-    @Override
-    public void onFavoriteGetSuccess(Favorite favorite) {
-        if (mView.isActive()) {
-            mView.showFavoriteGetSuccess(favorite);
-        }
-    }
-
-    @Override
-    public void onFavoriteGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showFavoriteGetFailed(e);
-        }
-    }
-
-    @Override
-    public void onUserInfoUpdateSuccess() {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onBookUpdateSuccess(Book book) {
-        if (mView.isActive()) {
-            mView.showBookFavorTotalUpdateSuccess(book);
-        }
-    }
-
-    @Override
-    public void onBookUpdateFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onReviewListGetSuccess(List<Review> reviewList) {
-        if (mView.isActive()) {
-            mView.showReviewListGetSuccess(reviewList);
-        }
-    }
-
-    @Override
-    public void onReviewListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showReviewListGetFailed(e);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showReviewListGetFailed(message);
+                }
+            }
+        });
     }
 }

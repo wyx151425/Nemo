@@ -106,7 +106,7 @@ public class NemoMainDiscoverFragment extends Fragment implements NemoMainDiscov
     }
 
     @Override
-    public void showAuthorListGetFailed(BmobException e) {
+    public void showAuthorListGetFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_load_failed, Toast.LENGTH_LONG).show();
     }
 

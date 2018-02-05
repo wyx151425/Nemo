@@ -85,8 +85,8 @@ public class NemoAuthorSearchFragment extends Fragment implements NemoAuthorSear
     }
 
     @Override
-    public void showAuthorSearchFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showAuthorSearchFailed(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

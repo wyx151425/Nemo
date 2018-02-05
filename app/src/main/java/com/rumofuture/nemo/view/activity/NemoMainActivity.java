@@ -22,7 +22,7 @@ import com.rumofuture.nemo.presenter.NemoMainDiscoverPresenter;
 import com.rumofuture.nemo.presenter.NemoMainHomePresenter;
 import com.rumofuture.nemo.view.fragment.NemoMainAlbumFragment;
 import com.rumofuture.nemo.view.fragment.NemoMainDiscoverFragment;
-import com.rumofuture.nemo.view.fragment.NemoMainFragment;
+import com.rumofuture.nemo.view.fragment.NemoMainHomeFragment;
 import com.rumofuture.nemo.view.fragment.NemoMainMeFragment;
 import com.rumofuture.nemo.view.fragment.NemoMainWelcomeFragment;
 
@@ -39,7 +39,7 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
 
     private static final String EXTRA_LOG = "com.rumofuture.nemo.view.activity.NemoMainActivity.log";
 
-    private NemoMainFragment mMainFragment;
+    private NemoMainHomeFragment mMainFragment;
     private NemoMainAlbumFragment mAlbumFragment;
     private NemoMainDiscoverFragment mDiscoverFragment;
     private NemoMainMeFragment mMeFragment;
@@ -159,7 +159,7 @@ public class NemoMainActivity extends NemoActivity implements BottomNavigationVi
         switch (index) {
             case NAVIGATION_MAIN_INDEX:
                 if (null == mMainFragment) {
-                    mMainFragment = NemoMainFragment.newInstance();
+                    mMainFragment = NemoMainHomeFragment.newInstance();
                     NemoMainHomePresenter presenter = new NemoMainHomePresenter(
                             mMainFragment,
                             DataSourceManager.provideBookRepository(NemoMainActivity.this)

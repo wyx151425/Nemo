@@ -17,7 +17,7 @@ import com.rumofuture.nemo.model.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
 
-public class NemoSignUpFragment extends Fragment implements NemoRegisterContract.View {
+public class NemoRegisterFragment extends Fragment implements NemoRegisterContract.View {
 
     private NemoRegisterContract.Presenter mPresenter;
 
@@ -30,12 +30,12 @@ public class NemoSignUpFragment extends Fragment implements NemoRegisterContract
 
     private NemoProgressBarFragment mProgressBar;
 
-    public NemoSignUpFragment() {
+    public NemoRegisterFragment() {
 
     }
 
-    public static NemoSignUpFragment newInstance() {
-        return new NemoSignUpFragment();
+    public static NemoRegisterFragment newInstance() {
+        return new NemoRegisterFragment();
     }
 
     @Override
@@ -137,7 +137,7 @@ public class NemoSignUpFragment extends Fragment implements NemoRegisterContract
     }
 
     @Override
-    public void showSignUpFailed(BmobException e) {
+    public void showRegisterFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_sign_up_failed, Toast.LENGTH_LONG).show();
     }
 

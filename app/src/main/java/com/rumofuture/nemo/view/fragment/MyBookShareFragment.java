@@ -102,7 +102,7 @@ public class MyBookShareFragment extends Fragment implements MyBookUpdateContrac
     }
 
     @Override
-    public void showBookUpdateFailed(BmobException e) {
+    public void showBookUpdateFailed(String message) {
         mBook.setUrl(mOldURL);
         Toast.makeText(getActivity(), R.string.prompt_update_failed, Toast.LENGTH_LONG).show();
     }

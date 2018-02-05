@@ -2,6 +2,7 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.MyFavoriteBookListContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.User;
@@ -18,8 +19,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/4/24.
  */
 
-public class MyFavoriteBookListPresenter implements MyFavoriteBookListContract.Presenter, UserDataSource.UserInfoUpdateCallback,
-        BookDataSource.BookListGetCallback, BookDataSource.TotalGetCallback {
+public class MyFavoriteBookListPresenter implements MyFavoriteBookListContract.Presenter {
 
     private MyFavoriteBookListContract.View mView;
     private UserDataSource mUserRepository;
@@ -43,48 +43,48 @@ public class MyFavoriteBookListPresenter implements MyFavoriteBookListContract.P
     @Override
     public void getMyFavoriteBookList(int pageCode) {
         mBookRepository.getFavoriteBookList(
-                BmobUser.getCurrentUser(User.class), pageCode, this
+                BmobUser.getCurrentUser(User.class), pageCode, new NemoCallback<List<Book>>() {
+                    @Override
+                    public void onSuccess(List<Book> data) {
+                        if (mView.isActive()) {
+                            mView.showMyFavoriteBookListGetSuccess(data);
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+                        if (mView.isActive()) {
+                            mView.showMyFavoriteBookListGetFailed(message);
+                        }
+                    }
+                }
         );
         mBookRepository.getFavoriteBookTotalNumber(
-                BmobUser.getCurrentUser(User.class), this
+                BmobUser.getCurrentUser(User.class), new NemoCallback<Integer>() {
+                    @Override
+                    public void onSuccess(Integer data) {
+                        User currentUser = BmobUser.getCurrentUser(User.class);
+                        if (!Objects.equals(currentUser.getFavorite(), data)) {
+                            currentUser.setFavorite(data);
+                            mUserRepository.updateUserInfo(currentUser, new NemoCallback<User>() {
+                                @Override
+                                public void onSuccess(User data) {
+
+                                }
+
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                }
         );
-    }
-
-    @Override
-    public void onBookListGetSuccess(List<Book> bookList) {
-        if (mView.isActive()) {
-            mView.showMyFavoriteBookListGetSuccess(bookList);
-        }
-    }
-
-    @Override
-    public void onBookListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showMyFavoriteBookListGetFailed(e);
-        }
-    }
-
-    @Override
-    public void onTotalGetSuccess(Integer total) {
-        User currentUser = BmobUser.getCurrentUser(User.class);
-        if (!Objects.equals(currentUser.getFavorite(), total)) {
-            currentUser.setFavorite(total);
-            mUserRepository.updateUserInfo(currentUser, this);
-        }
-    }
-
-    @Override
-    public void onTotalGetFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateSuccess() {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateFailed(BmobException e) {
-
     }
 }

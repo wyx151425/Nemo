@@ -78,7 +78,7 @@ public class MyEmailBindFragment extends Fragment implements MyEmailBindContract
     }
 
     @Override
-    public void showEmailBindFailed(BmobException e) {
+    public void showEmailBindFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_email_bind_failed, Toast.LENGTH_LONG).show();
     }
 

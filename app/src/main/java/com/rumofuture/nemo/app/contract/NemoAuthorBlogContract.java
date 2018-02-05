@@ -20,16 +20,16 @@ public interface NemoAuthorBlogContract {
         void showProgressBar(boolean show);
 
         void showAuthorBookListGetSuccess(List<Book> bookList);
-        void showAuthorBookListGetFailed(BmobException e);
+        void showAuthorBookListGetFailed(String message);
 
         void showUserFollowSuccess(Follow follow);
-        void showUserFollowFailed(BmobException e);
+        void showUserFollowFailed(String message);
 
         void showUserUnfollowSuccess(Follow follow);
-        void showUserUnfollowFailed(BmobException e);
+        void showUserUnfollowFailed(String message);
 
         void showFollowGetSuccess(Follow follow);
-        void showFollowGetFailed(BmobException e);
+        void showFollowGetFailed(String message);
 
         boolean isActive();
     }

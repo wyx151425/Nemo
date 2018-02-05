@@ -25,7 +25,7 @@ import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
 
-public class NemoMainFragment extends Fragment implements NemoMainContract.View {
+public class NemoMainHomeFragment extends Fragment implements NemoMainContract.View {
 
     private NemoMainContract.Presenter mPresenter;
 
@@ -38,12 +38,12 @@ public class NemoMainFragment extends Fragment implements NemoMainContract.View 
     private int mPageCode = 0;
     private boolean mQueryable = true;
 
-    public NemoMainFragment() {
+    public NemoMainHomeFragment() {
 
     }
 
-    public static NemoMainFragment newInstance() {
-        return new NemoMainFragment();
+    public static NemoMainHomeFragment newInstance() {
+        return new NemoMainHomeFragment();
     }
 
     @Override
@@ -106,7 +106,7 @@ public class NemoMainFragment extends Fragment implements NemoMainContract.View 
     }
 
     @Override
-    public void showBookListGetFailed(BmobException e) {
+    public void showBookListGetFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_load_failed, Toast.LENGTH_LONG).show();
     }
 

@@ -18,7 +18,7 @@ public interface NemoAuthorSearchContract {
         void showProgressBar(boolean show);
 
         void showAuthorSearchSuccess(List<User> authorList);
-        void showAuthorSearchFailed(BmobException e);
+        void showAuthorSearchFailed(String message);
 
         boolean isActive();
     }

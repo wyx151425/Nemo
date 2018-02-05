@@ -18,7 +18,7 @@ import com.rumofuture.nemo.view.activity.NemoSignUpActivity;
 
 import cn.bmob.v3.exception.BmobException;
 
-public class NemoLogInFragment extends Fragment implements NemoLoginContract.View {
+public class NemoLoginFragment extends Fragment implements NemoLoginContract.View {
 
     private NemoLoginContract.Presenter mPresenter;
 
@@ -27,12 +27,12 @@ public class NemoLogInFragment extends Fragment implements NemoLoginContract.Vie
     private EditText mMobilePhoneNumberView;
     private EditText mPasswordView;
 
-    public NemoLogInFragment() {
+    public NemoLoginFragment() {
 
     }
 
-    public static NemoLogInFragment newInstance() {
-        return new NemoLogInFragment();
+    public static NemoLoginFragment newInstance() {
+        return new NemoLoginFragment();
     }
 
     @Override
@@ -115,7 +115,7 @@ public class NemoLogInFragment extends Fragment implements NemoLoginContract.Vie
     }
 
     @Override
-    public void showLogInFailed(BmobException e) {
+    public void showLoginFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_log_in_failed, Toast.LENGTH_LONG).show();
     }
 

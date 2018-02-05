@@ -104,11 +104,11 @@ public class MyFollowerListFragment extends Fragment implements MyFollowerListCo
     }
 
     @Override
-    public void showMyFollowerListGetFailed(BmobException e) {
+    public void showMyFollowerListGetFailed(String message) {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface MyPasswordUpdateContract {
 
     interface View extends NemoView<MyPasswordUpdateContract.Presenter> {
         void showUserPasswordUpdateSuccess();
-        void showUserPasswordUpdateFailed(BmobException e);
+        void showUserPasswordUpdateFailed(String message);
 
         void showPasswordError(int stringId);
 

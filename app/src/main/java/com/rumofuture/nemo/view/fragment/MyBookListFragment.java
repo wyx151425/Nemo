@@ -131,7 +131,7 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
     }
 
     @Override
-    public void showBookListGetFailed(BmobException e) {
+    public void showBookListGetFailed(String message) {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -146,7 +146,7 @@ public class MyBookListFragment extends Fragment implements MyBookListContract.V
     }
 
     @Override
-    public void showBookDeleteFailed(BmobException e) {
+    public void showBookDeleteFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_delete_failed, Toast.LENGTH_LONG).show();
     }
 

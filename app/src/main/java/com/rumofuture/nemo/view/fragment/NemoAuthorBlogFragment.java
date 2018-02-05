@@ -148,8 +148,8 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
     }
 
     @Override
-    public void showAuthorBookListGetFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showAuthorBookListGetFailed(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -162,7 +162,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
     }
 
     @Override
-    public void showUserFollowFailed(BmobException e) {
+    public void showUserFollowFailed(String message) {
         Toast.makeText(getActivity(), "关注失败", Toast.LENGTH_LONG).show();
         mFab.setClickable(true);
     }
@@ -178,7 +178,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
     }
 
     @Override
-    public void showUserUnfollowFailed(BmobException e) {
+    public void showUserUnfollowFailed(String message) {
         Toast.makeText(getActivity(), "取消关注失败", Toast.LENGTH_LONG).show();
         mFab.setClickable(true);
     }
@@ -192,7 +192,7 @@ public class NemoAuthorBlogFragment extends Fragment implements NemoAuthorBlogCo
     }
 
     @Override
-    public void showFollowGetFailed(BmobException e) {
+    public void showFollowGetFailed(String message) {
         mFab.setClickable(true);
     }
 

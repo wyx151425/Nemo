@@ -2,19 +2,18 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoAuthorSearchContract;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
 
 import java.util.List;
 
-import cn.bmob.v3.exception.BmobException;
-
 /**
  * Created by WangZhenqi on 2017/9/19.
  */
 
-public class NemoAuthorSearchPresenter implements NemoAuthorSearchContract.Presenter, UserDataSource.UserListGetCallback {
+public class NemoAuthorSearchPresenter implements NemoAuthorSearchContract.Presenter {
 
     private NemoAuthorSearchContract.View mView;
     private UserDataSource mUserRepository;
@@ -35,22 +34,22 @@ public class NemoAuthorSearchPresenter implements NemoAuthorSearchContract.Prese
     @Override
     public void searchAuthor(String keyword) {
         mView.showProgressBar(true);
-        mUserRepository.searchAuthor(keyword, this);
-    }
+        mUserRepository.searchAuthor(keyword, new NemoCallback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> data) {
+                if (mView.isActive()) {
+                    mView.showAuthorSearchSuccess(data);
+                    mView.showProgressBar(false);
+                }
+            }
 
-    @Override
-    public void onUserListGetSuccess(List<User> userList) {
-        if (mView.isActive()) {
-            mView.showAuthorSearchSuccess(userList);
-            mView.showProgressBar(false);
-        }
-    }
-
-    @Override
-    public void onUserListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showAuthorSearchFailed(e);
-            mView.showProgressBar(false);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showAuthorSearchFailed(message);
+                    mView.showProgressBar(false);
+                }
+            }
+        });
     }
 }

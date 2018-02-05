@@ -16,12 +16,12 @@ public interface MyFavoriteBookListContract {
 
     interface View extends NemoView<MyFavoriteBookListContract.Presenter> {
         void showMyFavoriteBookListGetSuccess(List<Book> bookList);
-        void showMyFavoriteBookListGetFailed(BmobException e);
+        void showMyFavoriteBookListGetFailed(String message);
 
         boolean isActive();
     }
 
     interface Presenter extends NemoPresenter {
-        void getMyFavoriteBookList(int pageCode);
+        void getMyFavoriteBookList(int pageIndex);
     }
 }

@@ -17,7 +17,7 @@ public interface MyEmailBindContract {
         void showEmailError(Integer stringId);
 
         void showEmailBindSuccess(String prompt);
-        void showEmailBindFailed(BmobException e);
+        void showEmailBindFailed(String message);
 
         boolean isActive();
     }

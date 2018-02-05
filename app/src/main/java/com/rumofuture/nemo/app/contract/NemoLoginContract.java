@@ -17,7 +17,7 @@ public interface NemoLoginContract {
         void showPasswordError(Integer stringId);
 
         void showLoginSuccess(User user);
-        void showloginfailed(String message);
+        void showLoginFailed(String message);
 
         boolean isActive();
     }

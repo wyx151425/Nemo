@@ -19,16 +19,16 @@ public interface MyBookReviewListContract {
         void showProgressBar(boolean show);
 
         void showReviewDeleteSuccess(Review review);
-        void showReviewDeleteFailed(BmobException e);
+        void showReviewDeleteFailed(String message);
 
         void showReviewListGetSuccess(List<Review> reviewList);
-        void showReviewListGetFailed(BmobException e);
+        void showReviewListGetFailed(String message);
 
         boolean isActive();
     }
 
     interface Presenter extends NemoPresenter {
         void deleteReview(Review review);
-        void getBookReviewList(Book book, int pageCode);
+        void getBookReviewList(Book book, int pageIndex);
     }
 }

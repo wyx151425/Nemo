@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.MyInfoUpdateContract;
 import com.rumofuture.nemo.app.manager.ImageChooseManager;
 import com.rumofuture.nemo.model.entity.User;
@@ -20,7 +21,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/4/16.
  */
 
-public class MyInfoUpdatePresenter implements MyInfoUpdateContract.Presenter, UserDataSource.UserInfoUpdateCallback, UserDataSource.UserImageUpdateCallback {
+public class MyInfoUpdatePresenter implements MyInfoUpdateContract.Presenter, NemoCallback<BmobFile> {
 
     private static final int NO_REQUEST_CODE = 0;
     private static final int AVATAR_UPDATE_REQUEST_CODE = 1;
@@ -65,23 +66,23 @@ public class MyInfoUpdatePresenter implements MyInfoUpdateContract.Presenter, Us
     @Override
     public void updateUserInfo(User user) {
         mView.showProgressBar(true);
-        mUserRepository.updateUserInfo(user, this);
-    }
+        mUserRepository.updateUserInfo(user, new NemoCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
+                if (mView.isActive()) {
+                    mView.showUserInfoUpdateSuccess();
+                    mView.showProgressBar(false);
+                }
+            }
 
-    @Override
-    public void onUserInfoUpdateSuccess() {
-        if (mView.isActive()) {
-            mView.showUserInfoUpdateSuccess();
-            mView.showProgressBar(false);
-        }
-    }
-
-    @Override
-    public void onUserInfoUpdateFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showUserInfoUpdateFailed(e);
-            mView.showProgressBar(false);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showUserInfoUpdateFailed(message);
+                    mView.showProgressBar(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -134,7 +135,7 @@ public class MyInfoUpdatePresenter implements MyInfoUpdateContract.Presenter, Us
     }
 
     @Override
-    public void onUserImageUpdateSuccess(BmobFile image) {
+    public void onSuccess(BmobFile image) {
         if (AVATAR_UPDATE_REQUEST_CODE == requestCode) {
             mView.showUserAvatarUpdateSuccess(image);
         } else if (PORTRAIT_UPDATE_REQUEST_CODE == requestCode) {
@@ -145,11 +146,11 @@ public class MyInfoUpdatePresenter implements MyInfoUpdateContract.Presenter, Us
     }
 
     @Override
-    public void onUserImageUpdateFailed(BmobException e) {
+    public void onFailed(String message) {
         if (AVATAR_UPDATE_REQUEST_CODE == requestCode) {
-            mView.showUserAvatarUpdateFailed(e);
+            mView.showUserAvatarUpdateFailed(message);
         } else if (PORTRAIT_UPDATE_REQUEST_CODE == requestCode) {
-            mView.showUserPortraitUpdateFailed(e);
+            mView.showUserPortraitUpdateFailed(message);
         }
         mView.showProgressBar(false);
         releaseImageChooseManager();

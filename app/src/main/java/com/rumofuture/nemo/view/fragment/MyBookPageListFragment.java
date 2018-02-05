@@ -133,8 +133,8 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
     }
 
     @Override
-    public void showPageSaveFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showPageSaveFailed(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -145,8 +145,8 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
     }
 
     @Override
-    public void showPageDeleteFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showPageDeleteFailed(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -157,8 +157,8 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
     }
 
     @Override
-    public void showPageUpdateFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showPageUpdateFailed(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -173,11 +173,11 @@ public class MyBookPageListFragment extends Fragment implements MyBookPageListCo
     }
 
     @Override
-    public void showPageListGetFailed(BmobException e) {
+    public void showPageListGetFailed(String message) {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

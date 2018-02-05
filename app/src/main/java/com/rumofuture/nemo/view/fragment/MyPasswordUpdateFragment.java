@@ -61,7 +61,7 @@ public class MyPasswordUpdateFragment extends Fragment implements MyPasswordUpda
     }
 
     @Override
-    public void showUserPasswordUpdateFailed(BmobException e) {
+    public void showUserPasswordUpdateFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_update_failed, Toast.LENGTH_LONG).show();
     }
 

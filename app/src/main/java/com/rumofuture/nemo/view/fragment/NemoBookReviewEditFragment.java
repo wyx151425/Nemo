@@ -100,7 +100,7 @@ public class NemoBookReviewEditFragment extends Fragment implements NemoReviewEd
     }
 
     @Override
-    public void showReviewSaveFailed(BmobException e) {
+    public void showReviewSaveFailed(String message) {
         Toast.makeText(getActivity(), "评论失败", Toast.LENGTH_LONG).show();
     }
 

@@ -114,7 +114,7 @@ public class NemoBookPageListFragment extends Fragment implements NemoPageListCo
     }
 
     @Override
-    public void showPageListGetFailed(BmobException e) {
+    public void showPageListGetFailed(String message) {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

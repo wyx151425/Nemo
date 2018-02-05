@@ -115,7 +115,7 @@ public class NemoAlbumBookListFragment extends Fragment implements NemoAlbumBook
     }
 
     @Override
-    public void showAlbumBooksGetFailed(BmobException e) {
+    public void showAlbumBooksGetFailed(String message) {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

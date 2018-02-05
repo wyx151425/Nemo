@@ -3,6 +3,7 @@ package com.rumofuture.nemo.presenter;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoAuthorBlogContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.entity.Follow;
@@ -26,8 +27,7 @@ import cn.bmob.v3.listener.PushListener;
  * Created by WangZhenqi on 2017/4/18.
  */
 
-public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter, UserDataSource.UserInfoUpdateCallback, BookDataSource.BookListGetCallback,
-        FollowDataSource.FollowSaveCallback, FollowDataSource.FollowDeleteCallback, FollowDataSource.FollowGetCallback {
+public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter {
 
     private NemoAuthorBlogContract.View mView;
     private UserDataSource mUserRepository;
@@ -54,59 +54,47 @@ public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter
     @Override
     public void getAuthorBookList(User author, int pageCode) {
         mView.showProgressBar(true);
-        mBookRepository.getBookListByAuthor(author, pageCode, false, this);
+        mBookRepository.getBookListByAuthor(author, pageCode, false, new NemoCallback<List<Book>>() {
+            @Override
+            public void onSuccess(List<Book> data) {
+                if (mView.isActive()) {
+                    mView.showAuthorBookListGetSuccess(data);
+                    mView.showProgressBar(false);
+                }
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showAuthorBookListGetFailed(message);
+                    mView.showProgressBar(false);
+                }
+            }
+        });
     }
 
     @Override
     public void followUser(Follow follow) {
-        mFollowRepository.saveFollow(follow, this);
-    }
+        mFollowRepository.saveFollow(follow, new NemoCallback<Follow>() {
+            @Override
+            public void onSuccess(Follow data) {
+                if (mView.isActive()) {
+                    mView.showUserFollowSuccess(data);
+                }
 
-    @Override
-    public void unfollowUser(Follow follow) {
-        mFollowRepository.deleteFollow(follow, this);
-    }
+                User follower = data.getFollower();
+                follower.increment(UserSchema.Table.Cols.FOLLOW);
+                mUserRepository.updateUserInfo(follower, new NemoCallback<User>() {
+                    @Override
+                    public void onSuccess(User data) {
 
-    @Override
-    public void getFollowRelation(Follow follow) {
-        mFollowRepository.getFollow(follow, this);
-    }
+                    }
 
-    @Override
-    public void onBookListGetSuccess(List<Book> bookList) {
-        if (mView.isActive()) {
-            mView.showAuthorBookListGetSuccess(bookList);
-            mView.showProgressBar(false);
-        }
-    }
+                    @Override
+                    public void onFailed(String message) {
 
-    @Override
-    public void onBookListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showAuthorBookListGetFailed(e);
-            mView.showProgressBar(false);
-        }
-    }
-
-    @Override
-    public void onUserInfoUpdateSuccess() {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onFollowSaveSuccess(Follow follow) {
-        if (mView.isActive()) {
-            mView.showUserFollowSuccess(follow);
-        }
-
-        User follower = follow.getFollower();
-        follower.increment(UserSchema.Table.Cols.FOLLOW);
-        mUserRepository.updateUserInfo(follower, this);
+                    }
+                });
 
 //        BmobPushManager pushManager = new BmobPushManager();
 //        BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
@@ -118,44 +106,66 @@ public class NemoAuthorBlogPresenter implements NemoAuthorBlogContract.Presenter
 //
 //            }
 //        });
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showUserFollowFailed(message);
+                }
+            }
+        });
     }
 
     @Override
-    public void onFollowSaveFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showUserFollowFailed(e);
-        }
+    public void unfollowUser(Follow follow) {
+        mFollowRepository.deleteFollow(follow, new NemoCallback<Follow>() {
+            @Override
+            public void onSuccess(Follow data) {
+                if (mView.isActive()) {
+                    mView.showUserUnfollowSuccess(data);
+                }
+
+                User follower = BmobUser.getCurrentUser(User.class);
+                follower.increment(UserSchema.Table.Cols.FOLLOW, -1);
+                mUserRepository.updateUserInfo(follower, new NemoCallback<User>() {
+                    @Override
+                    public void onSuccess(User data) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showUserUnfollowFailed(message);
+                }
+            }
+        });
     }
 
     @Override
-    public void onFollowDeleteSuccess(Follow follow) {
-        if (mView.isActive()) {
-            mView.showUserUnfollowSuccess(follow);
-        }
+    public void getFollowRelation(Follow follow) {
+        mFollowRepository.getFollow(follow, new NemoCallback<Follow>() {
+            @Override
+            public void onSuccess(Follow data) {
+                if (mView.isActive()) {
+                    mView.showFollowGetSuccess(data);
+                }
+            }
 
-        User follower = BmobUser.getCurrentUser(User.class);
-        follower.increment(UserSchema.Table.Cols.FOLLOW, -1);
-        mUserRepository.updateUserInfo(follower, this);
-    }
-
-    @Override
-    public void onFollowDeleteFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showUserUnfollowFailed(e);
-        }
-    }
-
-    @Override
-    public void onFollowGetSuccess(Follow follow) {
-        if (mView.isActive()) {
-            mView.showFollowGetSuccess(follow);
-        }
-    }
-
-    @Override
-    public void onFollowGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showFollowGetFailed(e);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showFollowGetFailed(message);
+                }
+            }
+        });
     }
 }

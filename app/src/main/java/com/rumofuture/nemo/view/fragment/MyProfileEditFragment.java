@@ -97,7 +97,7 @@ public class MyProfileEditFragment extends Fragment implements MyInfoUpdateContr
     }
 
     @Override
-    public void showUserAvatarUpdateFailed(BmobException e) {
+    public void showUserAvatarUpdateFailed(String message) {
 
     }
 
@@ -107,7 +107,7 @@ public class MyProfileEditFragment extends Fragment implements MyInfoUpdateContr
     }
 
     @Override
-    public void showUserPortraitUpdateFailed(BmobException e) {
+    public void showUserPortraitUpdateFailed(String message) {
 
     }
 
@@ -120,8 +120,8 @@ public class MyProfileEditFragment extends Fragment implements MyInfoUpdateContr
     }
 
     @Override
-    public void showUserInfoUpdateFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showUserInfoUpdateFailed(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

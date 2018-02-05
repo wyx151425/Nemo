@@ -201,7 +201,7 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
     }
 
     @Override
-    public void showUserAvatarUpdateFailed(BmobException e) {
+    public void showUserAvatarUpdateFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_update_failed, Toast.LENGTH_LONG).show();
     }
 
@@ -211,7 +211,7 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
     }
 
     @Override
-    public void showUserPortraitUpdateFailed(BmobException e) {
+    public void showUserPortraitUpdateFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_update_failed, Toast.LENGTH_LONG).show();
     }
 
@@ -221,7 +221,7 @@ public class MyInfoEditFragment extends Fragment implements MyInfoUpdateContract
     }
 
     @Override
-    public void showUserInfoUpdateFailed(BmobException e) {
+    public void showUserInfoUpdateFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_update_failed, Toast.LENGTH_LONG).show();
     }
 

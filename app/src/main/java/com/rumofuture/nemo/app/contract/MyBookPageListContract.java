@@ -19,16 +19,16 @@ public interface MyBookPageListContract {
         void showProgressBar(boolean show, int stringId);
 
         void showPageSaveSuccess(Page page);
-        void showPageSaveFailed(BmobException e);
+        void showPageSaveFailed(String message);
 
         void showPageDeleteSuccess(Page page);
-        void showPageDeleteFailed(BmobException e);
+        void showPageDeleteFailed(String message);
 
         void showPageUpdateSuccess(Page page);
-        void showPageUpdateFailed(BmobException e);
+        void showPageUpdateFailed(String message);
 
         void showPageListGetSuccess(List<Page> pageList);
-        void showPageListGetFailed(BmobException e);
+        void showPageListGetFailed(String message);
 
         boolean isActive();
     }

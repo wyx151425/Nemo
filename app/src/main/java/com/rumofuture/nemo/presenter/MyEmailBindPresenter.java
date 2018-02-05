@@ -3,6 +3,7 @@ package com.rumofuture.nemo.presenter;
 import android.support.annotation.NonNull;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.MyEmailBindContract;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
@@ -15,7 +16,7 @@ import cn.bmob.v3.listener.UpdateListener;
  * Created by WangZhenqi on 2017/9/11.
  */
 
-public class MyEmailBindPresenter implements MyEmailBindContract.Presenter, UserDataSource.UserInfoUpdateCallback {
+public class MyEmailBindPresenter implements MyEmailBindContract.Presenter {
 
     private MyEmailBindContract.View mView;
     private UserDataSource mUserRepository;
@@ -46,31 +47,31 @@ public class MyEmailBindPresenter implements MyEmailBindContract.Presenter, User
         User user = BmobUser.getCurrentUser(User.class);
         user.setEmail(email);
         mView.showProgressBar(true);
-        mUserRepository.updateUserInfo(user, this);
-    }
-
-    @Override
-    public void onUserInfoUpdateSuccess() {
-        BmobUser.requestEmailVerify(mEmail, new UpdateListener() {
+        mUserRepository.updateUserInfo(user, new NemoCallback<User>() {
             @Override
-            public void done(BmobException e) {
+            public void onSuccess(User data) {
+                BmobUser.requestEmailVerify(mEmail, new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (mView.isActive()) {
+                            mView.showProgressBar(false);
+                            if (null == e) {
+                                mView.showEmailBindSuccess("验证邮件已发送，请到" + mEmail + "邮箱中进行激活。");
+                            } else {
+                                mView.showEmailBindFailed(e.getMessage());
+                            }
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String message) {
                 if (mView.isActive()) {
                     mView.showProgressBar(false);
-                    if (null == e) {
-                        mView.showEmailBindSuccess("验证邮件已发送，请到" + mEmail + "邮箱中进行激活。");
-                    } else {
-                        mView.showEmailBindFailed(e);
-                    }
+                    mView.showEmailBindFailed(message);
                 }
             }
         });
-    }
-
-    @Override
-    public void onUserInfoUpdateFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false);
-            mView.showEmailBindFailed(e);
-        }
     }
 }

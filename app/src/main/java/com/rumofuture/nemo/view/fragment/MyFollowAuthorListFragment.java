@@ -103,7 +103,7 @@ public class MyFollowAuthorListFragment extends Fragment implements MyFollowAuth
     }
 
     @Override
-    public void showFollowUserListGetFailed(BmobException e) {
+    public void showFollowUserListGetFailed(String message) {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

@@ -186,7 +186,7 @@ public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContra
     }
 
     @Override
-    public void showBookFavoriteFailed(BmobException e) {
+    public void showBookFavoriteFailed(String message) {
         isFavorite = false;
         Toast.makeText(getActivity(), "收藏失败", Toast.LENGTH_LONG).show();
         mFab.setClickable(true);
@@ -202,7 +202,7 @@ public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContra
     }
 
     @Override
-    public void showFavoriteRemoveFailed(BmobException e) {
+    public void showFavoriteRemoveFailed(String message) {
         Toast.makeText(getActivity(), "取消收藏失败", Toast.LENGTH_LONG).show();
         mFab.setClickable(true);
     }
@@ -216,7 +216,7 @@ public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContra
     }
 
     @Override
-    public void showFavoriteGetFailed(BmobException e) {
+    public void showFavoriteGetFailed(String message) {
         mFab.setClickable(true);
     }
 
@@ -233,7 +233,7 @@ public class NemoBookInfoFragment extends Fragment implements NemoBookInfoContra
     }
 
     @Override
-    public void showReviewListGetFailed(BmobException e) {
+    public void showReviewListGetFailed(String message) {
 
     }
 

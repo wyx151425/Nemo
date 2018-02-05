@@ -16,12 +16,12 @@ public interface MyFollowerListContract {
 
     interface View extends NemoView<MyFollowerListContract.Presenter> {
         void showMyFollowerListGetSuccess(List<User> followerList);
-        void showMyFollowerListGetFailed(BmobException e);
+        void showMyFollowerListGetFailed(String message);
 
         boolean isActive();
     }
 
     interface Presenter extends NemoPresenter {
-        void getMyFollowerList(int pageCode);
+        void getMyFollowerList(int pageIndex);
     }
 }

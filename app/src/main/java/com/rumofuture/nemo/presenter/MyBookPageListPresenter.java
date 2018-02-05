@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.rumofuture.nemo.R;
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.MyBookPageListContract;
 import com.rumofuture.nemo.app.manager.ImageChooseManager;
 import com.rumofuture.nemo.model.entity.Book;
@@ -24,8 +25,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/4/15.
  */
 
-public class MyBookPageListPresenter implements MyBookPageListContract.Presenter, PageDataSource.PageListGetCallback, PageDataSource.TotalGetCallback,
-        PageDataSource.PageSaveCallback, PageDataSource.PageDeleteCallback, PageDataSource.PageUpdateCallback, BookDataSource.BookUpdateCallback {
+public class MyBookPageListPresenter implements MyBookPageListContract.Presenter {
 
     private static final int NO_REQUEST_CODE = 0;
     private static final int UPLOAD_PAGE_REQUEST_CODE = 1;
@@ -62,6 +62,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
 
     /**
      * 图片选择成功后 最后一个处理方法
+     *
      * @param chosenImage 被图片选择器封装的被选择的图片
      */
     @Override
@@ -78,10 +79,55 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
                     if (UPLOAD_PAGE_REQUEST_CODE == requestCode) {
                         mView.showProgressBar(true, R.string.prompt_uploading);
                         mPage.setImage(newImage);
-                        mPageRepository.savePage(mPage, MyBookPageListPresenter.this);
+                        mPageRepository.savePage(mPage, new NemoCallback<Page>() {
+                            @Override
+                            public void onSuccess(Page data) {
+                                if (mView.isActive()) {
+                                    mView.showProgressBar(false, 0);
+                                    mView.showPageSaveSuccess(data);
+                                }
+
+                                mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL);
+                                mBookRepository.updateBook(mBook, null, new NemoCallback<Book>() {
+                                    @Override
+                                    public void onSuccess(Book data) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailed(String message) {
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFailed(String message) {
+                                if (mView.isActive()) {
+                                    mView.showProgressBar(false, 0);
+                                    mView.showPageSaveFailed(message);
+                                }
+                            }
+                        });
                     } else if (UPDATE_PAGE_REQUEST_CODE == requestCode) {
                         mView.showProgressBar(true, R.string.prompt_updating);
-                        mPageRepository.updatePage(mPage, newImage, MyBookPageListPresenter.this);
+                        mPageRepository.updatePage(mPage, newImage, new NemoCallback<Page>() {
+                            @Override
+                            public void onSuccess(Page data) {
+                                if (mView.isActive()) {
+                                    mView.showProgressBar(false, 0);
+                                    mView.showPageUpdateSuccess(data);
+                                }
+                            }
+
+                            @Override
+                            public void onFailed(String message) {
+                                if (mView.isActive()) {
+                                    mView.showProgressBar(false, 0);
+                                    mView.showPageUpdateFailed(message);
+                                }
+                            }
+                        });
                     }
                 }
             }
@@ -119,7 +165,36 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
     @Override
     public void deletePage(Page page) {
         mView.showProgressBar(true, R.string.prompt_deleting);
-        mPageRepository.deletePage(page, this);
+        mPageRepository.deletePage(page, new NemoCallback<Page>() {
+            @Override
+            public void onSuccess(Page data) {
+                if (mView.isActive()) {
+                    mView.showProgressBar(false, 0);
+                    mView.showPageDeleteSuccess(data);
+                }
+
+                mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL, -1);
+                mBookRepository.updateBook(mBook, null, new NemoCallback<Book>() {
+                    @Override
+                    public void onSuccess(Book data) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showProgressBar(false, 0);
+                    mView.showPageDeleteFailed(message);
+                }
+            }
+        });
     }
 
     @Override
@@ -133,99 +208,55 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
     @Override
     public void getBookPageList(Book book, int pageCode) {
         mBook = book;
-        mPageRepository.getPageListByBook(mBook, pageCode, this);
-        mPageRepository.getPageTotalNumber(mBook, this);
-    }
+        mPageRepository.getPageListByBook(mBook, pageCode, new NemoCallback<List<Page>>() {
+            @Override
+            public void onSuccess(List<Page> data) {
+                if (mView.isActive()) {
+                    mView.showPageListGetSuccess(data);
+                }
 
-    @Override
-    public void onPageSaveSuccess(Page page) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false, 0);
-            mView.showPageSaveSuccess(page);
-        }
+                mBook.setPage(data.size());
+                mBookRepository.updateBook(mBook, null, new NemoCallback<Book>() {
+                    @Override
+                    public void onSuccess(Book data) {
 
-        mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL);
-        mBookRepository.updateBook(mBook, null, this);
-    }
+                    }
 
-    @Override
-    public void onPageSaveFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false, 0);
-            mView.showPageSaveFailed(e);
-        }
-    }
+                    @Override
+                    public void onFailed(String message) {
 
-    @Override
-    public void onPageDeleteSuccess(Page page) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false, 0);
-            mView.showPageDeleteSuccess(page);
-        }
+                    }
+                });
+            }
 
-        mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL, -1);
-        mBookRepository.updateBook(mBook, null, this);
-    }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showPageListGetFailed(message);
+                }
+            }
+        });
+        mPageRepository.getPageTotalNumber(mBook, new NemoCallback<Integer>() {
+            @Override
+            public void onSuccess(Integer data) {
+                mBook.setPage(data);
+                mBookRepository.updateBook(mBook, null, new NemoCallback<Book>() {
+                    @Override
+                    public void onSuccess(Book data) {
 
-    @Override
-    public void onPageDeleteFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false, 0);
-            mView.showPageDeleteFailed(e);
-        }
-    }
+                    }
 
-    @Override
-    public void onPageUpdateSuccess(Page page) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false, 0);
-            mView.showPageUpdateSuccess(page);
-        }
-    }
+                    @Override
+                    public void onFailed(String message) {
 
-    @Override
-    public void onPageUpdateFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false, 0);
-            mView.showPageUpdateFailed(e);
-        }
-    }
+                    }
+                });
+            }
 
-    @Override
-    public void onPageListGetSuccess(List<Page> pageList) {
-        if (mView.isActive()) {
-            mView.showPageListGetSuccess(pageList);
-        }
+            @Override
+            public void onFailed(String message) {
 
-        mBook.setPage(pageList.size());
-        mBookRepository.updateBook(mBook, null, this);
-    }
-
-    @Override
-    public void onPageListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showPageListGetFailed(e);
-        }
-    }
-
-    @Override
-    public void onBookUpdateSuccess(Book book) {
-
-    }
-
-    @Override
-    public void onBookUpdateFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onTotalGetSuccess(Integer total) {
-        mBook.setPage(total);
-        mBookRepository.updateBook(mBook, null, this);
-    }
-
-    @Override
-    public void onTotalGetFailed(BmobException e) {
-
+            }
+        });
     }
 }

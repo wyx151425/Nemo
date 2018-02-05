@@ -2,6 +2,7 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.MyFollowerListContract;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
@@ -16,8 +17,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by Administrator on 2017/9/8.
  */
 
-public class MyFollowerListPresenter implements MyFollowerListContract.Presenter, UserDataSource.UserListGetCallback,
-        UserDataSource.TotalGetCallback, UserDataSource.UserInfoUpdateCallback {
+public class MyFollowerListPresenter implements MyFollowerListContract.Presenter {
 
     private MyFollowerListContract.View mView;
     private UserDataSource mUserRepository;
@@ -38,48 +38,48 @@ public class MyFollowerListPresenter implements MyFollowerListContract.Presenter
     @Override
     public void getMyFollowerList(int pageCode) {
         mUserRepository.getFollowerList(
-                BmobUser.getCurrentUser(User.class), pageCode, this
+                BmobUser.getCurrentUser(User.class), pageCode, new NemoCallback<List<User>>() {
+                    @Override
+                    public void onSuccess(List<User> data) {
+                        if (mView.isActive()) {
+                            mView.showMyFollowerListGetSuccess(data);
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+                        if (mView.isActive()) {
+                            mView.showMyFollowerListGetFailed(message);
+                        }
+                    }
+                }
         );
         mUserRepository.getFollowerTotal(
-                BmobUser.getCurrentUser(User.class), this
+                BmobUser.getCurrentUser(User.class), new NemoCallback<Integer>() {
+                    @Override
+                    public void onSuccess(Integer data) {
+                        User currentUser = BmobUser.getCurrentUser(User.class);
+                        if (!Objects.equals(currentUser.getFollower(), data)) {
+                            currentUser.setFollower(data);
+                            mUserRepository.updateUserInfo(currentUser, new NemoCallback<User>() {
+                                @Override
+                                public void onSuccess(User data) {
+
+                                }
+
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                }
         );
-    }
-
-    @Override
-    public void onUserListGetSuccess(List<User> userList) {
-        if (mView.isActive()) {
-            mView.showMyFollowerListGetSuccess(userList);
-        }
-    }
-
-    @Override
-    public void onUserListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showMyFollowerListGetFailed(e);
-        }
-    }
-
-    @Override
-    public void onTotalGetSuccess(Integer total) {
-        User currentUser = BmobUser.getCurrentUser(User.class);
-        if (!Objects.equals(currentUser.getFollower(), total)) {
-            currentUser.setFollower(total);
-            mUserRepository.updateUserInfo(currentUser, this);
-        }
-    }
-
-    @Override
-    public void onTotalGetFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateSuccess() {
-
-    }
-
-    @Override
-    public void onUserInfoUpdateFailed(BmobException e) {
-
     }
 }

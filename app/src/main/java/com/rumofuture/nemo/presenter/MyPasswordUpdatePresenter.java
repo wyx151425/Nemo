@@ -30,26 +30,30 @@ public class MyPasswordUpdatePresenter implements MyPasswordUpdateContract.Prese
     public void updatePassword(String oldPassword, final String newPassword) {
 
         if (TextUtils.isEmpty(oldPassword)) {
-            if (mView.isActive())
+            if (mView.isActive()) {
                 mView.showPasswordError(R.string.prompt_old_user_password_required);
+            }
             return;
         }
 
         if (!isPasswordValid(oldPassword)) {
-            if (mView.isActive())
+            if (mView.isActive()) {
                 mView.showPasswordError(R.string.prompt_invalid_old_user_password);
+            }
             return;
         }
 
         if (TextUtils.isEmpty(newPassword)) {
-            if (mView.isActive())
+            if (mView.isActive()) {
                 mView.showPasswordError(R.string.prompt_new_user_password_required);
+            }
             return;
         }
 
         if (!isPasswordValid(newPassword)) {
-            if (mView.isActive())
+            if (mView.isActive()) {
                 mView.showPasswordError(R.string.prompt_invalid_new_user_password);
+            }
             return;
         }
 
@@ -62,7 +66,7 @@ public class MyPasswordUpdatePresenter implements MyPasswordUpdateContract.Prese
                     }
                 } else {
                     if (mView.isActive()) {
-                        mView.showUserPasswordUpdateFailed(e);
+                        mView.showUserPasswordUpdateFailed(e.getMessage());
                     }
                 }
             }

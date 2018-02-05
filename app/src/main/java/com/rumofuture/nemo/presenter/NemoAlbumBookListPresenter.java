@@ -2,6 +2,7 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoAlbumBookListContract;
 import com.rumofuture.nemo.model.entity.Album;
 import com.rumofuture.nemo.model.entity.Book;
@@ -41,53 +42,31 @@ public class NemoAlbumBookListPresenter implements NemoAlbumBookListContract.Pre
 
     @Override
     public void getAlbumBookList(String style, int pageCode) {
-        mBookRepository.getBookListByStyle(style, pageCode, this);
-        mAlbumRepository.getAlbumByStyle(style, this);
-    }
+        mBookRepository.getBookListByStyle(style, pageCode, new NemoCallback<List<Book>>() {
+            @Override
+            public void onSuccess(List<Book> data) {
+                if (mView.isActive()) {
+                    mView.showAlbumBooksGetSuccess(data);
+                }
+            }
 
-    @Override
-    public void onBookListGetSuccess(List<Book> bookList) {
-        if (mView.isActive()) {
-            mView.showAlbumBooksGetSuccess(bookList);
-        }
-    }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showAlbumBooksGetFailed(message);
+                }
+            }
+        });
+        mAlbumRepository.getAlbumByStyle(style, new NemoCallback<Album>() {
+            @Override
+            public void onSuccess(Album data) {
+                mAlbum = data;
+            }
 
-    @Override
-    public void onBookListGetFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showAlbumBooksGetFailed(e);
-        }
-    }
+            @Override
+            public void onFailed(String message) {
 
-    @Override
-    public void onAlbumGetSuccess(Album album) {
-        mAlbum = album;
-        mBookRepository.getAlbumBookTotalNumber(album, this);
-    }
-
-    @Override
-    public void onAlbumGetFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onTotalGetSuccess(Integer total) {
-        mAlbum.setBookTotal(total);
-        mAlbumRepository.updateAlbum(mAlbum, this);
-    }
-
-    @Override
-    public void onTotalGetFailed(BmobException e) {
-
-    }
-
-    @Override
-    public void onAlbumUpdateSuccess(Album album) {
-
-    }
-
-    @Override
-    public void onAlbumUpdateFailed(BmobException e) {
-
+            }
+        });
     }
 }

@@ -16,7 +16,7 @@ public interface MyBookUpdateContract {
         void showProgressBar(boolean show);
 
         void showBookUpdateSuccess(Book book);
-        void showBookUpdateFailed(BmobException e);
+        void showBookUpdateFailed(String message);
 
         boolean isActive();
     }

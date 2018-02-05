@@ -75,7 +75,7 @@ public class NemoMainAlbumFragment extends Fragment implements NemoMainAlbumCont
     }
 
     @Override
-    public void showAlbumListGetFailed(BmobException e) {
+    public void showAlbumListGetFailed(String message) {
 
     }
 

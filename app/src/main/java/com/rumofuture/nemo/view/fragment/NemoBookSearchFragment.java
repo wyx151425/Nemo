@@ -85,8 +85,8 @@ public class NemoBookSearchFragment extends Fragment implements NemoBookSearchCo
     }
 
     @Override
-    public void showBookSearchFailed(BmobException e) {
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showBookSearchFailed(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -126,7 +126,7 @@ public class MyBookCreateFragment extends Fragment implements MyBookCreateContra
     }
 
     @Override
-    public void showBookCreateFailed(BmobException e) {
+    public void showBookCreateFailed(String message) {
         Toast.makeText(getActivity(), R.string.prompt_create_failed, Toast.LENGTH_LONG).show();
     }
 

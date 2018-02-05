@@ -2,6 +2,7 @@ package com.rumofuture.nemo.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.MyBookUpdateContract;
 import com.rumofuture.nemo.model.entity.Book;
 import com.rumofuture.nemo.model.source.BookDataSource;
@@ -12,7 +13,7 @@ import cn.bmob.v3.exception.BmobException;
  * Created by WangZhenqi on 2017/11/3.
  */
 
-public class MyBookUpdatePresenter implements MyBookUpdateContract.Presenter, BookDataSource.BookUpdateCallback {
+public class MyBookUpdatePresenter implements MyBookUpdateContract.Presenter {
 
     private MyBookUpdateContract.View mView;
     private BookDataSource mBookRepository;
@@ -33,22 +34,22 @@ public class MyBookUpdatePresenter implements MyBookUpdateContract.Presenter, Bo
     @Override
     public void updateBook(Book book) {
         mView.showProgressBar(true);
-        mBookRepository.updateBook(book, null, this);
-    }
+        mBookRepository.updateBook(book, null, new NemoCallback<Book>() {
+            @Override
+            public void onSuccess(Book data) {
+                if (mView.isActive()) {
+                    mView.showProgressBar(false);
+                    mView.showBookUpdateSuccess(data);
+                }
+            }
 
-    @Override
-    public void onBookUpdateSuccess(Book book) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false);
-            mView.showBookUpdateSuccess(book);
-        }
-    }
-
-    @Override
-    public void onBookUpdateFailed(BmobException e) {
-        if (mView.isActive()) {
-            mView.showProgressBar(false);
-            mView.showBookUpdateFailed(e);
-        }
+            @Override
+            public void onFailed(String message) {
+                if (mView.isActive()) {
+                    mView.showProgressBar(false);
+                    mView.showBookUpdateFailed(message);
+                }
+            }
+        });
     }
 }

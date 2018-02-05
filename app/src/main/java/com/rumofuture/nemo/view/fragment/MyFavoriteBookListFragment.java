@@ -104,7 +104,7 @@ public class MyFavoriteBookListFragment extends Fragment implements MyFavoriteBo
     }
 
     @Override
-    public void showMyFavoriteBookListGetFailed(BmobException e) {
+    public void showMyFavoriteBookListGetFailed(String message) {
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }

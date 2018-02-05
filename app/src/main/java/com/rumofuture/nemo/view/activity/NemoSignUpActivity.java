@@ -10,7 +10,7 @@ import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
 import com.rumofuture.nemo.app.manager.DataSourceManager;
 import com.rumofuture.nemo.presenter.NemoRegisterPresenter;
-import com.rumofuture.nemo.view.fragment.NemoSignUpFragment;
+import com.rumofuture.nemo.view.fragment.NemoRegisterFragment;
 
 public class NemoSignUpActivity extends NemoActivity {
 
@@ -26,11 +26,11 @@ public class NemoSignUpActivity extends NemoActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        NemoSignUpFragment fragment =
-                (NemoSignUpFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        NemoRegisterFragment fragment =
+                (NemoRegisterFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            fragment = NemoSignUpFragment.newInstance();
+            fragment = NemoRegisterFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, fragment).commit();
         }

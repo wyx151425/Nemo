@@ -16,12 +16,12 @@ public interface NemoAlbumBookListContract {
 
     interface View extends NemoView<NemoAlbumBookListContract.Presenter> {
         void showAlbumBooksGetSuccess(List<Book> books);
-        void showAlbumBooksGetFailed(BmobException e);
+        void showAlbumBooksGetFailed(String message);
 
         boolean isActive();
     }
 
     interface Presenter extends NemoPresenter {
-        void getAlbumBookList(String style, int pageCode);
+        void getAlbumBookList(String style, int pageIndex);
     }
 }

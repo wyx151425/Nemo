@@ -106,8 +106,8 @@ public class MyBookInfoFragment extends Fragment implements MyBookReviewListCont
     }
 
     @Override
-    public void showReviewDeleteFailed(BmobException e) {
-        Toast.makeText(getActivity(), "删除评论失败" + e.getMessage(), Toast.LENGTH_LONG).show();
+    public void showReviewDeleteFailed(String message) {
+        Toast.makeText(getActivity(), "删除评论失败" + message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -119,7 +119,7 @@ public class MyBookInfoFragment extends Fragment implements MyBookReviewListCont
     }
 
     @Override
-    public void showReviewListGetFailed(BmobException e) {
+    public void showReviewListGetFailed(String message) {
         Toast.makeText(getActivity(), "获取评论失败", Toast.LENGTH_LONG).show();
     }
 

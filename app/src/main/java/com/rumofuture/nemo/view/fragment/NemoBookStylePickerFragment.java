@@ -43,8 +43,9 @@ public class NemoBookStylePickerFragment extends DialogFragment {
         bookStyleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (mPreviousFocusedView != null)
+                if (mPreviousFocusedView != null) {
                     mPreviousFocusedView.setBackgroundColor(0);
+                }
                 view.setBackgroundColor(getResources().getColor(R.color.colorGainsboro));
                 mStyle = mStyleArray[i];
                 mPreviousFocusedView = view;

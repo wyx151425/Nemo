@@ -17,13 +17,13 @@ public interface MyInfoUpdateContract {
         void showProgressBar(boolean show);
 
         void showUserAvatarUpdateSuccess(BmobFile avatar);
-        void showUserAvatarUpdateFailed(BmobException e);
+        void showUserAvatarUpdateFailed(String message);
 
         void showUserPortraitUpdateSuccess(BmobFile portrait);
-        void showUserPortraitUpdateFailed(BmobException e);
+        void showUserPortraitUpdateFailed(String message);
 
         void showUserInfoUpdateSuccess();
-        void showUserInfoUpdateFailed(BmobException e);
+        void showUserInfoUpdateFailed(String message);
 
         boolean isActive();
     }

@@ -78,7 +78,7 @@ public class NemoLoginPresenter implements NemoLoginContract.Presenter {
                 public void onFailed(String message) {
                     if (mView.isActive()) {
                         mView.showProgressBar(false);
-                        mView.showloginfailed(message);
+                        mView.showLoginFailed(message);
                     }
                 }
             });

@@ -80,7 +80,7 @@ public class NemoPasswordUpdateFragment extends Fragment implements NemoPassword
     }
 
     @Override
-    public void showUserPasswordModifyFailed(BmobException e) {
+    public void showUserPasswordModifyFailed(String message) {
         Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_LONG).show();
     }
 
@@ -110,7 +110,7 @@ public class NemoPasswordUpdateFragment extends Fragment implements NemoPassword
     }
 
     @Override
-    public void showRequestSMSCodeFailed(BmobException e) {
+    public void showRequestSMSCodeFailed(String message) {
         Toast.makeText(getActivity(), "验证码发送失败", Toast.LENGTH_LONG).show();
     }
 
