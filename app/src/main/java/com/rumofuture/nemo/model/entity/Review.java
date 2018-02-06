@@ -6,12 +6,25 @@ import cn.bmob.v3.BmobObject;
  * Created by WangZhenqi on 2017/4/18.
  */
 
+/**
+ * @author 王振琦
+ */
 public class Review extends BmobObject {
-
+    /**
+     * 目标漫画册
+     */
     private Book book;
+    /**
+     * 评论者
+     */
     private User reviewer;
+    /**
+     * 评论内容
+     */
     private String content;
-
+    /**
+     * 状态(0已删除/1评论成功)
+     */
     private Integer status;
 
     public Review() {

@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.rumofuture.nemo.R;
-import com.rumofuture.nemo.view.activity.NemoLogInActivity;
-import com.rumofuture.nemo.view.activity.NemoSignUpActivity;
+import com.rumofuture.nemo.view.activity.NemoLoginActivity;
+import com.rumofuture.nemo.view.activity.NemoRegisterActivity;
 
 public class NemoMainWelcomeFragment extends Fragment {
 
@@ -30,7 +30,7 @@ public class NemoMainWelcomeFragment extends Fragment {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NemoLogInActivity.actionStart(getActivity());
+                NemoLoginActivity.actionStart(getActivity());
             }
         });
 
@@ -38,7 +38,7 @@ public class NemoMainWelcomeFragment extends Fragment {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NemoSignUpActivity.actionStart(getActivity());
+                NemoRegisterActivity.actionStart(getActivity());
             }
         });
 

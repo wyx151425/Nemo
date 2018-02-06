@@ -131,8 +131,8 @@ public class BookRemoteDataSource implements BookDataSource {
     @Override
     public void getBookListWithAuthor(int pageIndex, final NemoCallback<List<Book>> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
-        query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
-        query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+        query.addWhereEqualTo(BookSchema.Table.Cols.STATUS, 3);
+        query.addWhereEqualTo(BookSchema.Table.Cols.PUBLISH, true);
         query.include(BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageIndex * PAGE_LIMIT);
@@ -153,8 +153,8 @@ public class BookRemoteDataSource implements BookDataSource {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.AUTHOR, author);
         if (!own) {
-            query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
-            query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+            query.addWhereEqualTo(BookSchema.Table.Cols.STATUS, 3);
+            query.addWhereEqualTo(BookSchema.Table.Cols.PUBLISH, true);
         }
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageIndex * PAGE_LIMIT);
@@ -174,8 +174,8 @@ public class BookRemoteDataSource implements BookDataSource {
     public void getBookListByStyle(String style, int pageIndex, final NemoCallback<List<Book>> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.STYLE, style);
-        query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
-        query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+        query.addWhereEqualTo(BookSchema.Table.Cols.STATUS, 3);
+        query.addWhereEqualTo(BookSchema.Table.Cols.PUBLISH, true);
         query.include(BookSchema.Table.Cols.AUTHOR);
         query.setLimit(PAGE_LIMIT);
         query.setSkip(pageIndex * PAGE_LIMIT);
@@ -220,8 +220,8 @@ public class BookRemoteDataSource implements BookDataSource {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.AUTHOR, author);
         if (!own) {
-            query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
-            query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+            query.addWhereEqualTo(BookSchema.Table.Cols.STATUS, 3);
+            query.addWhereEqualTo(BookSchema.Table.Cols.PUBLISH, true);
         }
         query.count(Book.class, new CountListener() {
             @Override
@@ -239,8 +239,8 @@ public class BookRemoteDataSource implements BookDataSource {
     public void getAlbumBookTotalNumber(Album album, final NemoCallback<Integer> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.STYLE, album.getStyle());
-        query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
-        query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+        query.addWhereEqualTo(BookSchema.Table.Cols.STATUS, 3);
+        query.addWhereEqualTo(BookSchema.Table.Cols.PUBLISH, true);
         query.count(Book.class, new CountListener() {
             @Override
             public void done(Integer total, BmobException e) {
@@ -273,8 +273,8 @@ public class BookRemoteDataSource implements BookDataSource {
     public void searchBook(String keyword, final NemoCallback<List<Book>> callback) {
         BmobQuery<Book> query = new BmobQuery<>();
         query.addWhereEqualTo(BookSchema.Table.Cols.NAME, keyword);
-        query.addWhereEqualTo(BookSchema.Table.Cols.APPROVE, true);
-        query.addWhereEqualTo(BookSchema.Table.Cols.SHOW, true);
+        query.addWhereEqualTo(BookSchema.Table.Cols.STATUS, 3);
+        query.addWhereEqualTo(BookSchema.Table.Cols.PUBLISH, true);
         query.include(BookSchema.Table.Cols.AUTHOR);
         query.findObjects(new FindListener<Book>() {
             @Override

@@ -74,7 +74,7 @@ public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter {
                 });
 
                 Book book = data.getBook();
-                book.increment(BookSchema.Table.Cols.FAVOR_TOTAL);
+                book.increment(BookSchema.Table.Cols.FAVOR);
                 mBookRepository.updateBook(book, null, new NemoCallback<Book>() {
                     @Override
                     public void onSuccess(Book data) {
@@ -121,7 +121,7 @@ public class NemoBookInfoPresenter implements NemoBookInfoContract.Presenter {
                 });
 
                 Book book = data.getBook();
-                book.increment(BookSchema.Table.Cols.FAVOR_TOTAL, -1);
+                book.increment(BookSchema.Table.Cols.FAVOR, -1);
                 mBookRepository.updateBook(book, null, new NemoCallback<Book>() {
                     @Override
                     public void onSuccess(Book data) {

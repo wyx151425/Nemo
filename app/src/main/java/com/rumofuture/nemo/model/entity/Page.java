@@ -7,11 +7,22 @@ import cn.bmob.v3.datatype.BmobFile;
  * Created by WangZhenqi on 2017/1/29.
  */
 
+/**
+ * @author 王振琦
+ */
 public class Page extends BmobObject {
-
-    private Book book;  // 所属漫画册
-    private BmobFile image;  // 图像
-    private Integer status;  // 状态
+    /**
+     * 所属漫画册
+     */
+    private Book book;
+    /**
+     * 图像
+     */
+    private BmobFile image;
+    /**
+     * 状态(0已删除/1正常显示)
+     */
+    private Integer status;
 
     public Book getBook() {
         return book;

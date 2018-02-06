@@ -9,10 +9,10 @@ import android.view.MenuItem;
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoActivity;
 import com.rumofuture.nemo.app.manager.DataSourceManager;
-import com.rumofuture.nemo.presenter.NemoRegisterPresenter;
-import com.rumofuture.nemo.view.fragment.NemoRegisterFragment;
+import com.rumofuture.nemo.presenter.NemoLoginPresenter;
+import com.rumofuture.nemo.view.fragment.NemoLoginFragment;
 
-public class NemoSignUpActivity extends NemoActivity {
+public class NemoLoginActivity extends NemoActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +26,17 @@ public class NemoSignUpActivity extends NemoActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        NemoRegisterFragment fragment =
-                (NemoRegisterFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        NemoLoginFragment fragment =
+                (NemoLoginFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            fragment = NemoRegisterFragment.newInstance();
+            fragment = NemoLoginFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, fragment).commit();
         }
 
-        NemoRegisterPresenter presenter = new NemoRegisterPresenter(
-                fragment,
-                DataSourceManager.provideUserRepository(NemoSignUpActivity.this)
-        );
+        NemoLoginPresenter presenter = new NemoLoginPresenter(fragment,
+                DataSourceManager.provideUserRepository(NemoLoginActivity.this));
 
         fragment.setPresenter(presenter);
     }
@@ -54,7 +52,7 @@ public class NemoSignUpActivity extends NemoActivity {
 
     public static void actionStart(Context context) {
         Intent intent = new Intent();
-        intent.setClass(context, NemoSignUpActivity.class);
+        intent.setClass(context, NemoLoginActivity.class);
         context.startActivity(intent);
     }
 }

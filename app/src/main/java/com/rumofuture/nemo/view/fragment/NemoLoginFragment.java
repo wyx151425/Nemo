@@ -14,9 +14,7 @@ import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.contract.NemoLoginContract;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.view.activity.NemoPasswordUpdateActivity;
-import com.rumofuture.nemo.view.activity.NemoSignUpActivity;
-
-import cn.bmob.v3.exception.BmobException;
+import com.rumofuture.nemo.view.activity.NemoRegisterActivity;
 
 public class NemoLoginFragment extends Fragment implements NemoLoginContract.View {
 
@@ -67,7 +65,7 @@ public class NemoLoginFragment extends Fragment implements NemoLoginContract.Vie
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NemoSignUpActivity.actionStart(getActivity());
+                NemoRegisterActivity.actionStart(getActivity());
             }
         });
 

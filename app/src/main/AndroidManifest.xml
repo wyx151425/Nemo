@@ -67,7 +67,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".view.activity.NemoLogInActivity"
+            android:name=".view.activity.NemoLoginActivity"
             android:label="@string/title_activity_nemo_log_in"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -133,7 +133,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".view.activity.NemoSignUpActivity"
+            android:name=".view.activity.NemoRegisterActivity"
             android:label="@string/title_activity_nemo_sign_up"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

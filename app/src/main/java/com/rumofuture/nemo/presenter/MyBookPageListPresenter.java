@@ -88,7 +88,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
                                     mView.showPageSaveSuccess(data);
                                 }
 
-                                mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL);
+                                mBook.increment(BookSchema.Table.Cols.PAGE);
                                 mBookRepository.updateBook(mBook, null, new NemoCallback<Book>() {
                                     @Override
                                     public void onSuccess(Book data) {
@@ -174,7 +174,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
                     mView.showPageDeleteSuccess(data);
                 }
 
-                mBook.increment(BookSchema.Table.Cols.PAGE_TOTAL, -1);
+                mBook.increment(BookSchema.Table.Cols.PAGE, -1);
                 mBookRepository.updateBook(mBook, null, new NemoCallback<Book>() {
                     @Override
                     public void onSuccess(Book data) {

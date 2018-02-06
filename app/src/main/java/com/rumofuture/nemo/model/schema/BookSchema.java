@@ -20,13 +20,15 @@ public class BookSchema {
             public static final String STYLE = "style";
             public static final String INTRODUCTION = "introduction";
 
-            public static final String PAGE_TOTAL = "pageTotal";
-            public static final String FAVOR_TOTAL = "favorTotal";
+            public static final String PAGE = "page";
+            public static final String FAVOR = "favor";
 
             public static final String COVER = "cover";
 
-            public static final String APPROVE = "approve";
-            public static final String SHOW = "show";
+            public static final String STATUS = "status";
+            public static final String TYPE = "type";
+            public static final String PUBLISH = "publish";
+            public static final String COPYRIGHT = "copyright";
         }
     }
 }
