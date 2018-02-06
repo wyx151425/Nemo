@@ -57,7 +57,7 @@ public class MyBookCreatePresenter implements MyBookCreateContract.Presenter {
     public void chooseImage() {
         start();
         // 获取选择到的图片
-        mImageChooseManager.chooseImage();
+        mImageChooseManager.chooseImage(((MyBookCreateFragment) mView).getActivity());
     }
 
     @Override

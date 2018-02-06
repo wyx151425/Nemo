@@ -5,16 +5,8 @@ import android.text.TextUtils;
 import com.rumofuture.nemo.R;
 import com.rumofuture.nemo.app.NemoCallback;
 import com.rumofuture.nemo.app.contract.NemoLoginContract;
-import com.rumofuture.nemo.model.entity.Device;
 import com.rumofuture.nemo.model.entity.User;
 import com.rumofuture.nemo.model.source.UserDataSource;
-
-import java.util.List;
-
-import cn.bmob.v3.BmobInstallationManager;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by WangZhenqi on 2017/4/16.
@@ -86,21 +78,6 @@ public class NemoLoginPresenter implements NemoLoginContract.Presenter {
     }
 
     private void updateDeviceUser(final User user) {
-        BmobQuery<Device> query = new BmobQuery<>();
-        final String id = BmobInstallationManager.getInstallationId();
-        query.addWhereEqualTo("installationId", id);
-        query.findObjects(new FindListener<Device>() {
-            @Override
-            public void done(List<Device> deviceList, BmobException e) {
-                if (null == e) {
-                    if (deviceList.size() > 0) {
-                        Device device = deviceList.get(0);
-                        device.setUser(user);
-                        device.update();
-                    }
-                }
-            }
-        });
     }
 
     private boolean isMobilePhoneNumberValid(String mobilePhoneNumber) {

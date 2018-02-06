@@ -13,6 +13,7 @@ import com.rumofuture.nemo.model.entity.Page;
 import com.rumofuture.nemo.model.schema.BookSchema;
 import com.rumofuture.nemo.model.source.BookDataSource;
 import com.rumofuture.nemo.model.source.PageDataSource;
+import com.rumofuture.nemo.view.fragment.MyBookPageListFragment;
 import com.smile.filechoose.api.ChosenImage;
 
 import java.io.File;
@@ -145,7 +146,7 @@ public class MyBookPageListPresenter implements MyBookPageListContract.Presenter
     @Override
     public void chooseImage() {
         // 获取选择到的图片
-        mImageChooseManager.chooseImage();
+        mImageChooseManager.chooseImage(((MyBookPageListFragment) mView).getActivity());
     }
 
     @Override

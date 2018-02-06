@@ -1,6 +1,11 @@
 package com.rumofuture.nemo.app.manager;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
 import com.rumofuture.nemo.presenter.NemoImageUploadPresenter;
@@ -38,11 +43,26 @@ public class ImageChooseManager implements ImageChooserListener {
     }
 
     // 第一步 选择图片
-    public void chooseImage() {
+    public void chooseImage(Activity activity) {
         if (mChosenImage == null) {
             mChooserManager = new ImageChooserManager(mFragment, 291);
             mChooserManager.setImageChooserListener(this);
             try {
+                int REQUEST_EXTERNAL_STORAGE = 1;
+                String[] PERMISSIONS_STORAGE = {
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                };
+                int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    // We don't have permission so prompt the user
+                    ActivityCompat.requestPermissions(
+                            activity,
+                            PERMISSIONS_STORAGE,
+                            REQUEST_EXTERNAL_STORAGE
+                    );
+                }
                 mChooserManager.choose();  // 执行图片选择操作
             } catch (Exception e) {
                 e.printStackTrace();

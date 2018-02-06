@@ -87,7 +87,7 @@ public class MyInfoUpdatePresenter implements MyInfoUpdateContract.Presenter, Ne
 
     @Override
     public void chooseImage() {
-        mImageChooseManager.chooseImage();
+        mImageChooseManager.chooseImage(((MyInfoEditFragment) mView).getActivity());
     }
 
     @Override
